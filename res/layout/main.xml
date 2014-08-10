@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="@android:color/white"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+    <RelativeLayout
+            android:background="@drawable/main_bk"
+            android:id="@+id/main_header_body"
+            android:layout_width="fill_parent"
+            android:layout_height="400dp">
+
+        <com.tiyuzazhi.component.RoundedImageView
+                android:id="@+id/header"
+                android:layout_marginTop="70dp"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/header_bk"
+                android:layout_width="120dp"
+                android:layout_height="120dp"/>
+
+
+        <LinearLayout
+                android:id="@+id/search_bar"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/search_bar_bk"
+                android:orientation="horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp">
+
+            <ImageView
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/search_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <EditText
+                    android:textColorHint="@android:color/white"
+                    android:hint="请输入稿号，文章名等进行搜索"
+                    android:textColor="@android:color/white"
+                    android:background="@android:color/transparent"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/search_editor"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="fill_parent"
+                    android:textSize="20sp"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/user_name"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:layout_marginTop="25dp"
+                android:layout_below="@id/header"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
+    <ImageButton
+            android:scaleType="centerInside"
+            android:background="@android:color/transparent"
+            android:id="@+id/slide_menu_button"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/menu_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"/>
+
+
+    <LinearLayout
+            android:background="@drawable/bottom_bk"
+            android:paddingTop="10dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/bottom_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:weightSum="4">
+
+        <LinearLayout
+                android:id="@+id/author_center_btn"
+                android:orientation="vertical"
+                android:background="@android:color/background_light"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                >
+
+            <TextView
+                    android:id="@+id/author_center_no"
+                    android:gravity="center_horizontal|bottom"
+                    android:text="2"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    android:textColor="#ff8a00"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"/>
+
+            <TextView
+                    android:gravity="center_horizontal|top"
+                    android:text="作者中心"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#2d3538"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/refereeing_btn"
+                android:orientation="vertical"
+                android:background="@android:color/background_light"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/refereeing_no"
+                    android:gravity="center_horizontal|bottom"
+                    android:text="0"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    android:textColor="#b8b8b8"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"/>
+
+            <TextView
+                    android:gravity="center_horizontal|top"
+                    android:text="审稿专家"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#2d3538"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/editor_center_btn"
+                android:orientation="vertical"
+                android:background="@android:color/background_light"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/editor_center_no"
+                    android:gravity="center_horizontal|bottom"
+                    android:text="2"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    android:textColor="#ff8a00"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"/>
+
+            <TextView
+                    android:gravity="center_horizontal|top"
+                    android:text="编辑办公"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#2d3538"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/chief_editor_btn"
+                android:orientation="vertical"
+                android:background="@android:color/background_light"
+                android:clickable="true"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/chief_editor_no"
+                    android:gravity="center_horizontal|bottom"
+                    android:text="0"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    android:textColor="#b8b8b8"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"/>
+
+            <TextView
+                    android:gravity="center_horizontal|top"
+                    android:text="主编办公"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="#2d3538"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+            android:divider="@drawable/divide"
+            android:layout_marginLeft="5dp"
+            android:id="@+id/magazine_list"
+            android:background="@android:color/white"
+            android:layout_below="@id/main_header_body"
+            android:layout_above="@id/bottom_bar"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    </ListView>
+</RelativeLayout>
+
