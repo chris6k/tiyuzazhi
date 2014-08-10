@@ -42,6 +42,7 @@
                     android:textColorHint="@android:color/white"
                     android:hint="请输入稿号，文章名等进行搜索"
                     android:textColor="@android:color/white"
+                    android:imeOptions="actionSearch"
                     android:background="@android:color/transparent"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/search_editor"

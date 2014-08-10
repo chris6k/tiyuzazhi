@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#f5f5f5"
+        >
+
+    <RelativeLayout
+            android:orientation="horizontal"
+            android:background="@drawable/navbar_bk"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+        <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/back_arr"
+                android:layout_marginLeft="10dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+        <TextView
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:text="个人中心"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+            android:layout_marginTop="20dp"
+            android:background="@drawable/item_shadow_bk"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp">
+
+        <com.tiyuzazhi.component.RoundedImageView
+                android:id="@+id/header"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/header_bk"
+                android:layout_width="80dp"
+                android:layout_height="80dp"/>
+
+        <ImageView
+                android:id="@+id/header_right_to_arr"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/to_arr"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+
+        <LinearLayout
+                android:paddingLeft="10dp"
+                android:layout_toLeftOf="@id/header_right_to_arr"
+                android:layout_toRightOf="@id/header"
+                android:layout_centerVertical="true"
+                android:layout_width="fill_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:textSize="25sp"
+                    android:textColor="@android:color/black"
+                    android:text="鲁良兵"
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:textSize="13sp"
+                    android:textColor="#747474"
+                    android:text="南京师范大学"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:textSize="13sp"
+                    android:textColor="#747474"
+                    android:text="上海市普陀区光复西路110号"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ListView
+            android:id="@+id/my_favorite"
+            android:divider="@drawable/divide"
+            android:background="@drawable/item_shadow_bk"
+            android:layout_marginTop="20dp"
+            android:layout_width="fill_parent"
+            android:layout_height="100dp">
+    </ListView>
+
+    <ListView
+            android:id="@+id/my_panel"
+            android:divider="@drawable/divide"
+            android:background="@drawable/item_shadow_bk"
+            android:layout_marginTop="20dp"
+            android:layout_width="fill_parent"
+            android:layout_height="150dp">
+    </ListView>
+
+    <LinearLayout
+            android:background="@drawable/item_shadow_bk"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp">
+
+        <TextView
+                android:text="设置"
+                android:layout_marginLeft="10dp"
+                android:textSize="25sp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+        <ImageView
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/to_arr"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+    </LinearLayout>
+</LinearLayout>
