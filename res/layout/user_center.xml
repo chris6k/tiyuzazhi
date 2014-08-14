@@ -67,7 +67,8 @@
                 android:layout_height="wrap_content">
 
             <TextView
-                    android:textSize="25sp"
+                    android:id="@+id/name"
+                    android:textSize="23sp"
                     android:textColor="@android:color/black"
                     android:text="鲁良兵"
                     android:layout_marginBottom="10dp"
@@ -76,6 +77,7 @@
                     android:layout_height="wrap_content"/>
 
             <TextView
+                    android:id="@+id/company"
                     android:textSize="13sp"
                     android:textColor="#747474"
                     android:text="南京师范大学"
@@ -83,6 +85,7 @@
                     android:layout_height="wrap_content"/>
 
             <TextView
+                    android:id="@+id/adress"
                     android:textSize="13sp"
                     android:textColor="#747474"
                     android:text="上海市普陀区光复西路110号"
@@ -91,35 +94,150 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <ListView
-            android:id="@+id/my_favorite"
-            android:divider="@drawable/divide"
+    <LinearLayout
+            android:id="@+id/"
             android:background="@drawable/item_shadow_bk"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="0dp"
             android:layout_width="fill_parent"
-            android:layout_height="100dp">
-    </ListView>
+            android:layout_height="45dp">
 
-    <ListView
-            android:id="@+id/my_panel"
-            android:divider="@drawable/divide"
+        <TextView
+                android:text="项目1"
+                android:layout_marginLeft="10dp"
+                android:textSize="23sp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+        <ImageView
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/to_arr"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+    </LinearLayout>
+
+
+    <LinearLayout
             android:background="@drawable/item_shadow_bk"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
             android:layout_width="fill_parent"
-            android:layout_height="150dp">
-    </ListView>
+            android:layout_height="45dp">
+
+        <TextView
+                android:text="项目1"
+                android:layout_marginLeft="10dp"
+                android:textSize="23sp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+        <ImageView
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/to_arr"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+    </LinearLayout>
 
     <LinearLayout
             android:background="@drawable/item_shadow_bk"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="0dp"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp">
+
+        <TextView
+                android:text="项目1"
+                android:layout_marginLeft="10dp"
+                android:textSize="23sp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+        <ImageView
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/to_arr"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:background="@drawable/item_shadow_bk"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp">
+
+        <TextView
+                android:text="项目1"
+                android:layout_marginLeft="10dp"
+                android:textSize="23sp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+        <ImageView
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/to_arr"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:background="@drawable/item_shadow_bk"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_width="fill_parent"
+            android:layout_height="45dp">
+
+        <TextView
+                android:text="项目1"
+                android:layout_marginLeft="10dp"
+                android:textSize="23sp"
+                android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+        <ImageView
+                android:layout_gravity="center_vertical|right"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/to_arr"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+            android:id="@+id/settings"
+            android:background="@drawable/item_shadow_bk"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
             android:layout_width="fill_parent"
-            android:layout_height="60dp">
+            android:layout_height="45dp">
 
         <TextView
                 android:text="设置"
                 android:layout_marginLeft="10dp"
-                android:textSize="25sp"
+                android:textSize="23sp"
                 android:textColor="@android:color/black"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
