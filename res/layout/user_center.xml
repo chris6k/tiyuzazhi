@@ -100,10 +100,10 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="0dp"
             android:layout_width="fill_parent"
-            android:layout_height="45dp">
+            android:layout_height="50dp">
 
         <TextView
-                android:text="项目1"
+                android:text="我的收藏"
                 android:layout_marginLeft="10dp"
                 android:textSize="23sp"
                 android:textColor="@android:color/black"
@@ -127,10 +127,10 @@
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"
             android:layout_width="fill_parent"
-            android:layout_height="45dp">
+            android:layout_height="50dp">
 
         <TextView
-                android:text="项目1"
+                android:text="我的收藏"
                 android:layout_marginLeft="10dp"
                 android:textSize="23sp"
                 android:textColor="@android:color/black"
@@ -153,10 +153,10 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="0dp"
             android:layout_width="fill_parent"
-            android:layout_height="45dp">
+            android:layout_height="50dp">
 
         <TextView
-                android:text="项目1"
+                android:text="通知公告"
                 android:layout_marginLeft="10dp"
                 android:textSize="23sp"
                 android:textColor="@android:color/black"
@@ -179,10 +179,10 @@
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"
             android:layout_width="fill_parent"
-            android:layout_height="45dp">
+            android:layout_height="50dp">
 
         <TextView
-                android:text="项目1"
+                android:text="投稿须知"
                 android:layout_marginLeft="10dp"
                 android:textSize="23sp"
                 android:textColor="@android:color/black"
@@ -205,10 +205,10 @@
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"
             android:layout_width="fill_parent"
-            android:layout_height="45dp">
+            android:layout_height="50dp">
 
         <TextView
-                android:text="项目1"
+                android:text="联系本刊"
                 android:layout_marginLeft="10dp"
                 android:textSize="23sp"
                 android:textColor="@android:color/black"
@@ -232,7 +232,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
             android:layout_width="fill_parent"
-            android:layout_height="45dp">
+            android:layout_height="50dp">
 
         <TextView
                 android:text="设置"
