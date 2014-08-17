@@ -95,6 +95,48 @@
     </RelativeLayout>
 
     <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/unlogin_panel"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/item_shadow_bk"
+            android:layout_width="fill_parent"
+            android:orientation="horizontal"
+            android:layout_height="100dp">
+
+        <com.tiyuzazhi.component.RoundedImageView
+                android:id="@+id/icon"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/header_bk"
+                android:layout_width="80dp"
+                android:layout_height="80dp"/>
+
+        <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="登录"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        <ImageView
+                android:layout_gravity="center"
+                android:src="@android:color/darker_gray"
+                android:layout_width="1dp"
+                android:layout_height="30sp"/>
+
+        <TextView
+                android:gravity="center"
+                android:layout_weight="1"
+                android:text="注册"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+    </LinearLayout>
+
+    <LinearLayout
             android:id="@+id/"
             android:background="@drawable/item_shadow_bk"
             android:layout_marginTop="20dp"
