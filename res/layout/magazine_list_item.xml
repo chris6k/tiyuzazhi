@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="99dp"
+              android:paddingLeft="15dp"
+              android:paddingRight="15dp"
+              android:paddingTop="10dp"
+              android:paddingBottom="10dp"
+        android:background="#ffffffff">
+    <TextView
+            android:text="中国青少年体育健康的促进的理论溯源与框架结构"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textSize="18sp"
+            android:textColor="#2d3538"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+    <TextView
+            android:layout_marginTop="10dp"
+            android:text="作者：刘家，高新"
+            android:textSize="15sp"
+            android:textColor="#969a9b"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

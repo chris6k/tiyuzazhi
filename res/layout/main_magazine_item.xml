@@ -4,12 +4,12 @@
               android:background="@android:color/white"
               android:orientation="horizontal"
               android:layout_width="match_parent"
-              android:paddingTop="10dp"
-              android:paddingBottom="10dp"
-              android:layout_height="80dp">
+              android:paddingTop="20dp"
+              android:paddingBottom="20dp"
+              android:layout_height="98dp">
 
     <ImageView
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:id="@+id/mag_item_side_color"
             android:src="@android:color/holo_blue_bright"
             android:layout_width="5dp"
@@ -26,7 +26,7 @@
                 android:id="@+id/mag_item_title"
                 android:text="中国体育杂志"
                 android:textStyle="bold"
-                android:textSize="32sp"
+                android:textSize="30dp"
                 android:textColor="#2d3538"
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
@@ -36,6 +36,7 @@
                 android:id="@+id/mag_item_sub_title"
                 android:text="CHINA SPORT SECIENCE"
                 android:textColor="#969a9b"
+                android:textSize="10sp"
                 android:layout_weight="2"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"/>
@@ -45,8 +46,8 @@
             android:id="@+id/mag_no_bk"
             android:orientation="horizontal"
             android:background="#113d7d"
-            android:layout_width="90dp"
-            android:layout_height="60dp">
+            android:layout_width="70dp"
+            android:layout_height="fill_parent">
 
         <LinearLayout
                 android:layout_gravity="center"
@@ -59,7 +60,7 @@
                     android:id="@+id/mag_no"
                     android:layout_marginTop="5dp"
                     android:layout_weight="1"
-                    android:textSize="20sp"
+                    android:textSize="16dp"
                     android:textColor="@android:color/white"
                     android:text="第2期"
                     android:gravity="center"
@@ -70,7 +71,7 @@
             <TextView
                     android:id="@+id/mag_date"
                     android:layout_weight="1"
-                    android:textSize="10sp"
+                    android:textSize="9sp"
                     android:gravity="center"
                     android:textColor="@android:color/white"
                     android:text="2014/06/03"

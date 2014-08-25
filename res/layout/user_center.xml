@@ -11,12 +11,12 @@
             android:orientation="horizontal"
             android:background="@drawable/navbar_bk"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="50dp">
 
         <ImageButton
                 android:background="@android:color/transparent"
                 android:src="@drawable/back_arr"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentLeft="true"
                 android:layout_width="40dp"
@@ -25,8 +25,7 @@
         <TextView
                 android:layout_centerInParent="true"
                 android:gravity="center"
-                android:textSize="28sp"
-                android:textStyle="bold"
+                android:textSize="18sp"
                 android:textColor="@android:color/white"
                 android:text="个人中心"
                 android:layout_width="fill_parent"
@@ -35,15 +34,15 @@
 
 
     <RelativeLayout
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/item_shadow_bk"
             android:layout_width="fill_parent"
-            android:layout_height="100dp">
+            android:layout_height="93dp">
 
         <com.tiyuzazhi.component.RoundedImageView
                 android:id="@+id/header"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:background="@drawable/header_bk"
                 android:layout_width="80dp"
                 android:layout_height="80dp"/>
@@ -52,7 +51,7 @@
                 android:id="@+id/header_right_to_arr"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 android:src="@drawable/to_arr"
                 android:layout_width="20dp"
                 android:layout_height="20dp"/>
@@ -68,8 +67,8 @@
 
             <TextView
                     android:id="@+id/name"
-                    android:textSize="23sp"
-                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textColor="#2d3538"
                     android:text="鲁良兵"
                     android:layout_marginBottom="10dp"
                     android:textStyle="bold"
@@ -78,16 +77,16 @@
 
             <TextView
                     android:id="@+id/company"
-                    android:textSize="13sp"
-                    android:textColor="#747474"
+                    android:textSize="12sp"
+                    android:textColor="#464646"
                     android:text="南京师范大学"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"/>
 
             <TextView
                     android:id="@+id/adress"
-                    android:textSize="13sp"
-                    android:textColor="#747474"
+                    android:textSize="12sp"
+                    android:textColor="#464646"
                     android:text="上海市普陀区光复西路110号"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"/>
@@ -137,18 +136,19 @@
     </LinearLayout>
 
     <LinearLayout
-            android:id="@+id/"
+            android:id="@+id/my_fav"
             android:background="@drawable/item_shadow_bk"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="0dp"
             android:layout_width="fill_parent"
             android:layout_height="50dp">
 
         <TextView
                 android:text="我的收藏"
-                android:layout_marginLeft="10dp"
-                android:textSize="23sp"
-                android:textColor="@android:color/black"
+                android:layout_marginLeft="15dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2d3538"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
@@ -157,7 +157,7 @@
 
         <ImageView
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 android:src="@drawable/to_arr"
                 android:layout_width="20dp"
                 android:layout_height="20dp"/>
@@ -173,9 +173,10 @@
 
         <TextView
                 android:text="我的收藏"
-                android:layout_marginLeft="10dp"
-                android:textSize="23sp"
-                android:textColor="@android:color/black"
+                android:layout_marginLeft="15dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2d3538"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
@@ -184,7 +185,7 @@
 
         <ImageView
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 android:src="@drawable/to_arr"
                 android:layout_width="20dp"
                 android:layout_height="20dp"/>
@@ -199,9 +200,10 @@
 
         <TextView
                 android:text="通知公告"
-                android:layout_marginLeft="10dp"
-                android:textSize="23sp"
-                android:textColor="@android:color/black"
+                android:layout_marginLeft="15dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2d3538"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
@@ -210,7 +212,7 @@
 
         <ImageView
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 android:src="@drawable/to_arr"
                 android:layout_width="20dp"
                 android:layout_height="20dp"/>
@@ -225,9 +227,10 @@
 
         <TextView
                 android:text="投稿须知"
-                android:layout_marginLeft="10dp"
-                android:textSize="23sp"
-                android:textColor="@android:color/black"
+                android:layout_marginLeft="15dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2d3538"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
@@ -236,7 +239,7 @@
 
         <ImageView
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 android:src="@drawable/to_arr"
                 android:layout_width="20dp"
                 android:layout_height="20dp"/>
@@ -251,9 +254,10 @@
 
         <TextView
                 android:text="联系本刊"
-                android:layout_marginLeft="10dp"
-                android:textSize="23sp"
-                android:textColor="@android:color/black"
+                android:layout_marginLeft="15dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2d3538"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
@@ -262,7 +266,7 @@
 
         <ImageView
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 android:src="@drawable/to_arr"
                 android:layout_width="20dp"
                 android:layout_height="20dp"/>
@@ -278,9 +282,10 @@
 
         <TextView
                 android:text="设置"
-                android:layout_marginLeft="10dp"
-                android:textSize="23sp"
-                android:textColor="@android:color/black"
+                android:layout_marginLeft="15dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#2d3538"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
                 android:layout_weight="1"
@@ -289,7 +294,7 @@
 
         <ImageView
                 android:layout_gravity="center_vertical|right"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="15dp"
                 android:src="@drawable/to_arr"
                 android:layout_width="20dp"
                 android:layout_height="20dp"/>

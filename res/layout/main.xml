@@ -8,15 +8,15 @@
             android:background="@drawable/main_bk"
             android:id="@+id/main_header_body"
             android:layout_width="fill_parent"
-            android:layout_height="400dp">
+            android:layout_height="365dp">
 
         <com.tiyuzazhi.component.RoundedImageView
                 android:id="@+id/header"
                 android:layout_marginTop="70dp"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/header_bk"
-                android:layout_width="120dp"
-                android:layout_height="120dp"/>
+                android:layout_width="102dp"
+                android:layout_height="102dp"/>
 
 
         <LinearLayout
@@ -46,21 +46,22 @@
                     android:background="@android:color/transparent"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/search_editor"
-                    android:layout_marginLeft="2dp"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_width="fill_parent"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:layout_height="wrap_content"/>
         </LinearLayout>
 
         <TextView
                 android:id="@+id/user_name"
                 android:textColor="@android:color/white"
-                android:textSize="24sp"
+                android:textSize="28sp"
                 android:layout_marginTop="25dp"
                 android:layout_below="@id/header"
                 android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
+                android:text="hello world"
                 android:textStyle="bold"
                 android:layout_height="wrap_content"/>
     </RelativeLayout>
@@ -72,8 +73,8 @@
             android:id="@+id/slide_menu_button"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
             android:src="@drawable/menu_icon"
             android:layout_width="40dp"
             android:layout_height="40dp"/>
@@ -85,7 +86,7 @@
             android:layout_alignParentBottom="true"
             android:id="@+id/bottom_bar"
             android:layout_width="fill_parent"
-            android:layout_height="80dp"
+            android:layout_height="82dp"
             android:weightSum="4">
 
         <LinearLayout
@@ -112,7 +113,7 @@
             <TextView
                     android:gravity="center_horizontal|top"
                     android:text="作者中心"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#2d3538"
                     android:layout_gravity="center_horizontal"
@@ -144,7 +145,7 @@
             <TextView
                     android:gravity="center_horizontal|top"
                     android:text="审稿专家"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#2d3538"
                     android:layout_gravity="center_horizontal"
@@ -176,7 +177,7 @@
             <TextView
                     android:gravity="center_horizontal|top"
                     android:text="编辑办公"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#2d3538"
                     android:layout_gravity="center_horizontal"
@@ -207,7 +208,7 @@
             <TextView
                     android:gravity="center_horizontal|top"
                     android:text="主编办公"
-                    android:textSize="15sp"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#2d3538"
                     android:layout_gravity="center_horizontal"

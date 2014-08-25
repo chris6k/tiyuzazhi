@@ -107,7 +107,7 @@ public class HomeActivity extends Activity {
             public View getView(int i, View view, ViewGroup viewGroup) {
                 MagItem magItem;
                 if (view == null) {
-                    view = LayoutInflater.from(getBaseContext()).inflate(R.layout.magazine_item_layout, null);
+                    view = LayoutInflater.from(getBaseContext()).inflate(R.layout.main_magazine_item, null);
                     magItem = new MagItem();
                     magItem.sideColor = (ImageView) view.findViewById(R.id.mag_item_side_color);
                     magItem.title = (TextView) view.findViewById(R.id.mag_item_title);
