@@ -30,6 +30,28 @@
                 android:text="中国体育科技"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"/>
+
+        <ImageButton
+                android:id="@+id/collect"
+                android:src="@drawable/collect_xhdpi"
+                android:background="@android:color/transparent"
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <ImageButton
+                android:id="@+id/share"
+                android:background="@android:color/transparent"
+                android:src="@drawable/share_xhdpi"
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/collect"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+
     </RelativeLayout>
 
     <ListView
@@ -50,7 +72,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:src="@android:color/background_dark"
+                android:src="@drawable/pre_list_xhdpi"
                 android:layout_width="40dp"
                 android:layout_height="40dp"/>
 
@@ -70,7 +92,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@android:color/background_dark"
+                android:src="@drawable/next_list_xhdpi"
                 android:layout_width="40dp"
                 android:layout_height="40dp"/>
 
@@ -92,7 +114,7 @@
 
             <ImageView
                     android:layout_gravity="center_horizontal"
-                    android:src="@android:color/black"
+                    android:src="@drawable/close_xhdpi"
                     android:layout_width="40dp"
                     android:layout_height="20dp"/>
 
