@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:id="@+id/title_bar"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal"
+            android:background="@drawable/navbar_bk"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+
+        <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/back_arr"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+        <TextView
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:text="全部审稿人"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+
+        <ImageButton
+                android:id="@+id/refresh"
+                android:src="@drawable/recheck_xhdpi"
+                android:background="@android:color/transparent"
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:id="@+id/cateSelector"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/title_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp">
+
+        <TextView
+                android:clickable="true"
+                android:layout_gravity="center"
+                android:textColor="#2d3538"
+                android:id="@+id/examiner_category"
+                android:textSize="18sp"
+                android:layout_marginRight="5dp"
+                android:text="全部"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <ImageView
+                android:layout_gravity="center"
+                android:src="@drawable/open_xhdpi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+    <ListView
+            android:layout_below="@id/cateSelector"
+            android:id="@+id/examSelector"
+            android:layout_width="fill_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:layout_height="fill_parent"/>
+
+    <RelativeLayout
+            android:background="@drawable/bottom_bk"
+            android:layout_alignParentBottom="true"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+
+        <LinearLayout
+                android:layout_centerInParent="true"
+                android:orientation="horizontal"
+                android:background="@android:color/transparent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <ImageView
+                    android:layout_gravity="center"
+                    android:src="@drawable/ok_xhdpi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:textColor="#2d3538"
+                    android:textSize="20sp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_gravity="center"
+                    android:text="选择"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

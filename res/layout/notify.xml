@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:background="#318e15"
+              android:layout_width="match_parent"
+              android:paddingLeft="15dp"
+              android:paddingRight="15dp"
+              android:layout_height="40dp">
+
+    <TextView
+            android:gravity="center_vertical"
+            android:text="你有一条新消息"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:layout_weight="1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+
+    <TextView
+            android:layout_gravity="right"
+            android:gravity="center_vertical"
+            android:text="点击查看"
+            android:layout_marginRight="5dp"
+            android:textSize="18sp"
+            android:textColor="#ffffff"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"/>
+
+    <ImageView
+            android:scaleType="centerInside"
+            android:layout_gravity="center"
+            android:src="@drawable/to_module_white_xhdpi"
+            android:layout_width="30dp"
+            android:layout_height="30dp"/>
+</LinearLayout>

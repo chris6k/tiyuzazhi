@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="@drawable/module_bg"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/summaryNo"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:text="1"
+            android:textSize="50sp"
+            android:textColor="#fdc68f"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="70dp"/>
+
+    <RelativeLayout
+            android:id="@+id/panel_top"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/summaryNo"
+            android:layout_marginRight="70dp"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp">
+
+        <TextView
+                android:layout_marginLeft="10dp"
+                android:paddingBottom="2dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                android:text="终审"
+                android:id="@+id/examineStep"
+                android:textColor="#2d3538"
+                android:textSize="18sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <ImageView
+                android:layout_toRightOf="@id/examineStep"
+                android:layout_marginLeft="10dp"
+                android:paddingBottom="2dp"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/complete_xhdpi"
+                android:id="@+id/examineResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="国家体育总局"
+                android:id="@+id/examineOrg"
+                android:textColor="#2d3538"
+                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/panel_bottom"
+            android:layout_below="@id/panel_top"
+            android:layout_toRightOf="@id/summaryNo"
+            android:layout_marginRight="70dp"
+            android:layout_width="fill_parent"
+            android:layout_height="35dp">
+
+        <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/dateDayStart"
+                android:layout_marginLeft="10dp"
+                android:text="2014-07-01"
+                android:textSize="12sp"
+                android:textColor="#6b6f70"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/dateDayStart"
+                android:id="@+id/dateDayTo"
+                android:layout_marginLeft="10dp"
+                android:text="截止日期"
+                android:textSize="12sp"
+                android:textColor="#6b6f70"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/dateDayTo"
+                android:id="@+id/dateDayEnd"
+                android:layout_marginLeft="10dp"
+                android:text="2014-07-01"
+                android:textSize="12sp"
+                android:textColor="#6b6f70"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_centerVertical="true"
+                android:id="@+id/examiner"
+                android:layout_marginLeft="10dp"
+                android:text="鲁良兵"
+                android:layout_alignParentRight="true"
+                android:textSize="12sp"
+                android:textColor="#2d3538"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <ImageView
+            android:scaleType="centerInside"
+            android:src="@drawable/open_module_gray_xhdpi"
+            android:layout_alignParentRight="true"
+            android:layout_width="70dp"
+            android:layout_height="70dp"/>
+
+    <LinearLayout
+            android:layout_below="@id/panel_bottom"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+        <ImageView
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:src="#6b6f70"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"/>
+
+        <TextView
+                android:padding="10dp"
+                android:text="呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵,呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵,呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵"
+                android:textSize="16sp"
+                android:textColor="#2d3538"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
+</RelativeLayout>

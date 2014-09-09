@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="40dp"
+              android:paddingLeft="15dp"
+              android:background="#ffffffff">
+
+    <TextView
+            android:id="@+id/cateName"
+            android:gravity="bottom"
+            android:paddingBottom="5dp"
+            android:text="快速推荐"
+            android:textSize="20sp"
+            android:textColor="#00367e"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+</LinearLayout>

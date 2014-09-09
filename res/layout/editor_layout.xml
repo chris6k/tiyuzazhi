@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="#999"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:id="@+id/title_bar"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal"
+            android:background="@drawable/navbar_bk"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+
+        <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/back_arr"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+        <TextView
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:text="编辑办公"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp">
+
+        <ImageView
+                android:src="@drawable/line"
+                android:id="@+id/line"
+                android:layout_centerInParent="true"
+                android:layout_width="3dp"
+                android:layout_height="fill_parent"/>
+
+        <RelativeLayout
+                android:layout_centerHorizontal="true"
+                android:layout_toLeftOf="@id/line"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            <LinearLayout
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent">
+
+                <TextView
+                        android:layout_gravity="center"
+                        android:text="送审日最近"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#2d3538"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <ImageView
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/open_xhdpi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+                android:layout_toRightOf="@id/line"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            <LinearLayout
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent">
+
+                <TextView
+                        android:layout_gravity="center"
+                        android:text="全部流程"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="#2d3538"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <ImageView
+                        android:layout_marginLeft="5dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/open_xhdpi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ListView
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/articleList"
+            android:layout_width="353dp"
+            android:layout_height="fill_parent"/>
+</LinearLayout>
