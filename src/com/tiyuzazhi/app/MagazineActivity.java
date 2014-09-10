@@ -1,6 +1,7 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -105,6 +106,9 @@ public class MagazineActivity extends Activity {
             AdaptorHelper helper;
             if (view == null || view.getTag() == null) {
                 view = LayoutInflater.from(getBaseContext()).inflate(R.layout.magazine_list_item, null, false);
+                if ((i + 1) % 2 == 0) {
+                    view.setBackgroundColor(Color.parseColor("#f5f5f5"));
+                }
                 helper = new AdaptorHelper();
                 helper.title = (TextView) view.findViewById(R.id.title);
                 helper.author = (TextView) view.findViewById(R.id.summary);
