@@ -11,6 +11,10 @@ import com.tiyuzazhi.component.RoundedImageView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author chris.xue
+ *         首页
+ */
 public class HomeActivity extends Activity {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 

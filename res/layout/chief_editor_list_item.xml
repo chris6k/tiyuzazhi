@@ -19,6 +19,7 @@
             android:layout_height="wrap_content">
 
         <TextView
+                android:id="@+id/title"
                 android:textColor="#2d3538"
                 android:text="中国青少年体育健康促进的理论溯源与框架结构"
                 android:textSize="18sp"
@@ -29,6 +30,7 @@
                 android:layout_height="wrap_content"/>
 
         <TextView
+                android:id="@+id/opName"
                 android:layout_marginTop="15dp"
                 android:textColor="#2d3538"
                 android:text="处理人:鲁良兵"
@@ -41,6 +43,7 @@
                 android:layout_height="wrap_content">
 
             <TextView
+                    android:id="@+id/draftNo"
                     android:layout_alignParentLeft="true"
                     android:textSize="12sp"
                     android:textColor="#9f9f9f"
@@ -94,7 +97,7 @@
                     android:text="终审:"
                     android:textSize="16sp"
                     android:textColor="#4a5153"
-                    android:id="@+id/status"
+                    android:id="@+id/step"
                     android:ellipsize="end"
                     android:maxLines="3"
                     android:layout_width="wrap_content"
@@ -105,7 +108,7 @@
                     android:text="审稿得分:10"
                     android:textSize="16sp"
                     android:textColor="#4a5153"
-                    android:id="@+id/summary"
+                    android:id="@+id/score"
                     android:ellipsize="end"
                     android:maxLines="3"
                     android:layout_width="wrap_content"
@@ -114,6 +117,7 @@
 
 
         <TextView
+                android:id="@+id/opName2"
                 android:text="鲁良兵"
                 android:textSize="16sp"
                 android:textColor="#4a5153"
@@ -147,6 +151,7 @@
                     android:layout_height="fill_parent"/>
 
             <TextView
+                    android:id="@+id/conclusion"
                     android:text="录用"
                     android:textStyle="bold"
                     android:textSize="16sp"
@@ -158,6 +163,7 @@
         </LinearLayout>
 
         <EditText
+                android:id="@+id/commentEditText"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
                 android:textSize="18sp"
@@ -177,6 +183,7 @@
             android:layout_height="52dp">
 
         <Button
+                android:id="@+id/buttonOk"
                 android:text="通过"
                 android:textColor="#2d3538"
                 android:textSize="18sp"
@@ -191,6 +198,7 @@
                 android:layout_height="fill_parent"/>
 
         <Button
+                android:id="@id/buttonReject"
                 android:text="不通过"
                 android:textColor="#2d3538"
                 android:textSize="18sp"
@@ -205,6 +213,7 @@
                 android:layout_height="fill_parent"/>
 
         <Button
+                android:id="@+id/buttonForward"
                 android:text="指定审稿人"
                 android:textColor="#2d3538"
                 android:textSize="18sp"

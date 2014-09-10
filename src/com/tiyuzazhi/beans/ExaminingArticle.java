@@ -5,21 +5,18 @@ import java.util.Date;
 /**
  * @author chris.xue
  */
-public class ExaminingArticle extends Article {
+public class ExaminingArticle extends ArticleMenu {
     private int id;
     private int state;
     private String summary;
     private String draftNo;
     private Date examineStart;
-    private int editorId;
-    private Date editorExamDate;
-    private Date masterExamDate;
-    private Date chiefExamDate;
-    private int masterId;
-    private int chiefId;
-    private String editorComment;
-    private String masterComment;
-    private String chiefComment;
+    private int opId;
+    private String opName;
+    private String comment;
+    private int conclusion;
+    private int score;
+
 
     public ExaminingArticle() {
     }
@@ -64,76 +61,44 @@ public class ExaminingArticle extends Article {
         this.examineStart = examineStart;
     }
 
-    public int getEditorId() {
-        return editorId;
+    public int getOpId() {
+        return opId;
     }
 
-    public void setEditorId(int editorId) {
-        this.editorId = editorId;
+    public void setOpId(int opId) {
+        this.opId = opId;
     }
 
-    public Date getEditorExamDate() {
-        return editorExamDate;
+    public String getOpName() {
+        return opName;
     }
 
-    public void setEditorExamDate(Date editorExamDate) {
-        this.editorExamDate = editorExamDate;
+    public void setOpName(String opName) {
+        this.opName = opName;
     }
 
-    public Date getMasterExamDate() {
-        return masterExamDate;
+    public String getComment() {
+        return comment;
     }
 
-    public void setMasterExamDate(Date masterExamDate) {
-        this.masterExamDate = masterExamDate;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
-    public Date getChiefExamDate() {
-        return chiefExamDate;
+    public int getScore() {
+        return score;
     }
 
-    public void setChiefExamDate(Date chiefExamDate) {
-        this.chiefExamDate = chiefExamDate;
+    public void setScore(int score) {
+        this.score = score;
     }
 
-    public int getMasterId() {
-        return masterId;
+    public int getConclusion() {
+        return conclusion;
     }
 
-    public void setMasterId(int masterId) {
-        this.masterId = masterId;
-    }
-
-    public int getChiefId() {
-        return chiefId;
-    }
-
-    public void setChiefId(int chiefId) {
-        this.chiefId = chiefId;
-    }
-
-    public String getEditorComment() {
-        return editorComment;
-    }
-
-    public void setEditorComment(String editorComment) {
-        this.editorComment = editorComment;
-    }
-
-    public String getMasterComment() {
-        return masterComment;
-    }
-
-    public void setMasterComment(String masterComment) {
-        this.masterComment = masterComment;
-    }
-
-    public String getChiefComment() {
-        return chiefComment;
-    }
-
-    public void setChiefComment(String chiefComment) {
-        this.chiefComment = chiefComment;
+    public void setConclusion(int conclusion) {
+        this.conclusion = conclusion;
     }
 
     @Override
@@ -144,15 +109,11 @@ public class ExaminingArticle extends Article {
                 ", summary='" + summary + '\'' +
                 ", draftNo='" + draftNo + '\'' +
                 ", examineStart=" + examineStart +
-                ", editorId=" + editorId +
-                ", editorExamDate=" + editorExamDate +
-                ", masterExamDate=" + masterExamDate +
-                ", chiefExamDate=" + chiefExamDate +
-                ", masterId=" + masterId +
-                ", chiefId=" + chiefId +
-                ", editorComment='" + editorComment + '\'' +
-                ", masterComment='" + masterComment + '\'' +
-                ", chiefComment='" + chiefComment + '\'' +
-                '}';
+                ", opId=" + opId +
+                ", opName='" + opName + '\'' +
+                ", comment='" + comment + '\'' +
+                ", conclusion=" + conclusion +
+                ", score=" + score +
+                "} " + super.toString();
     }
 }

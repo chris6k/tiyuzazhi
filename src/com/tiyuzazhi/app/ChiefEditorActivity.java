@@ -1,16 +1,14 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.utils.DatetimeUtils;
@@ -23,16 +21,16 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author chris.xue
- *         专家审稿
+ *         主编办公
  */
-public class MasterActivity extends Activity {
+public class ChiefEditorActivity extends Activity {
     private ListView titleBar;
     private AtomicBoolean opLock;
     private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.master_list_layout);
+        setContentView(R.layout.chief_editor_list_layout);
         super.onCreate(savedInstanceState);
         View back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
@@ -99,17 +97,22 @@ public class MasterActivity extends Activity {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            AdaptorHelper helper;
+            final AdaptorHelper helper;
             if (view == null || view.getTag() == null) {
-                view = LayoutInflater.from(getBaseContext()).inflate(R.layout.master_list_item, null, false);
+                view = LayoutInflater.from(getBaseContext()).inflate(R.layout.chief_editor_list_item, null, false);
                 helper = new AdaptorHelper();
                 helper.title = (TextView) view.findViewById(R.id.title);
                 helper.draftNo = (TextView) view.findViewById(R.id.draftNo);
                 helper.dateDay = (TextView) view.findViewById(R.id.dateDay);
                 helper.leftDay = (TextView) view.findViewById(R.id.leftDay);
-                helper.summary = (TextView) view.findViewById(R.id.summary);
+                helper.opName = (TextView) view.findViewById(R.id.opName);
+                helper.opName2 = (TextView) view.findViewById(R.id.opName2);
+                helper.conclusion = (TextView) view.findViewById(R.id.conclusion);
+                helper.score = (TextView) view.findViewById(R.id.score);
+                helper.comment = (EditText) view.findViewById(R.id.commentEditText);
                 helper.ok = (Button) view.findViewById(R.id.buttonOk);
                 helper.reject = (Button) view.findViewById(R.id.buttonReject);
+                helper.forward = (Button) view.findViewById(R.id.buttonForward);
                 view.setTag(helper);
             } else {
                 helper = (AdaptorHelper) view.getTag();
@@ -119,10 +122,14 @@ public class MasterActivity extends Activity {
             helper.draftNo.setText(article.getDraftNo());
             helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
             helper.leftDay.setText(DatetimeUtils.getDuringDay(article.getExamineStart(), new Date()));
-            helper.summary.setText(article.getSummary());
+            helper.opName.setText(article.getOpName());
+            helper.opName2.setText(article.getOpName());
+            helper.score.setText(article.getScore());
+            helper.conclusion.setText(article.getConclusion() == 1 ? "通过" : "拒绝");
             helper.ok.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    article.setComment(helper.comment.getText().toString());
                     if (opLock.compareAndSet(false, true)) {
                         SingleThreadPool.post(new Runnable() {
                             @Override
@@ -142,6 +149,7 @@ public class MasterActivity extends Activity {
             helper.reject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    article.setComment(helper.comment.getText().toString());
                     SingleThreadPool.post(new Runnable() {
                         @Override
                         public void run() {
@@ -163,8 +171,19 @@ public class MasterActivity extends Activity {
                     });
                 }
             });
+            helper.forward.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO 调出界面
+                }
+            });
             return view;
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //TODO 处理返回情况
     }
 
     private class AdaptorHelper {
@@ -172,9 +191,13 @@ public class MasterActivity extends Activity {
         private TextView draftNo;
         private TextView dateDay;
         private TextView leftDay;
-        private TextView summary;
+        private TextView opName;
+        private TextView opName2;
+        private TextView score;
+        private TextView conclusion;
+        private EditText comment;
         private Button ok;
         private Button reject;
+        private Button forward;
     }
-
 }

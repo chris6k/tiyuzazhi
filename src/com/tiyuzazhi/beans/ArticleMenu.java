@@ -5,12 +5,12 @@ import java.io.Serializable;
 /**
  * @author chris.xue
  */
-public class Article implements Serializable {
+public class ArticleMenu implements Serializable {
     private int id;
     private String title;
     private String author;
 
-    public Article() {
+    public ArticleMenu() {
     }
 
     public String getTitle() {

@@ -34,6 +34,8 @@
 
 
     <RelativeLayout
+            android:clickable="true"
+            android:id="@+id/userInfoPanel"
             android:layout_marginTop="15dp"
             android:background="@drawable/item_shadow_bk"
             android:layout_width="fill_parent"
@@ -84,7 +86,7 @@
                     android:layout_height="wrap_content"/>
 
             <TextView
-                    android:id="@+id/adress"
+                    android:id="@+id/address"
                     android:textSize="12sp"
                     android:textColor="#464646"
                     android:text="上海市普陀区光复西路110号"
@@ -110,7 +112,10 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"/>
 
-        <TextView
+        <Button
+                android:background="@android:color/transparent"
+                android:id="@+id/buttonLogin"
+                android:clickable="true"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="登录"
@@ -125,7 +130,9 @@
                 android:layout_width="1dp"
                 android:layout_height="30sp"/>
 
-        <TextView
+        <Button
+                android:background="@android:color/transparent"
+                android:id="@+id/buttonReg"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:text="注册"
@@ -144,6 +151,7 @@
             android:layout_height="50dp">
 
         <TextView
+                android:id="@+id/myFavText"
                 android:text="我的收藏"
                 android:layout_marginLeft="15dp"
                 android:textSize="18sp"
@@ -165,6 +173,7 @@
 
 
     <LinearLayout
+            android:id="@+id/my_msg"
             android:background="@drawable/item_shadow_bk"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"
@@ -172,7 +181,8 @@
             android:layout_height="50dp">
 
         <TextView
-                android:text="我的收藏"
+                android:id="@+id/myMsgText"
+                android:text="我的消息"
                 android:layout_marginLeft="15dp"
                 android:textSize="18sp"
                 android:textStyle="bold"
@@ -192,6 +202,8 @@
     </LinearLayout>
 
     <LinearLayout
+            android:clickable="true"
+            android:id="@+id/notifyBoard"
             android:background="@drawable/item_shadow_bk"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="0dp"
@@ -219,6 +231,8 @@
     </LinearLayout>
 
     <LinearLayout
+            android:id="@+id/shoudKnown"
+            android:clickable="true"
             android:background="@drawable/item_shadow_bk"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"
@@ -246,6 +260,8 @@
     </LinearLayout>
 
     <LinearLayout
+            android:id="@+id/contactUs"
+            android:clickable="true"
             android:background="@drawable/item_shadow_bk"
             android:layout_marginTop="0dp"
             android:layout_marginBottom="0dp"
