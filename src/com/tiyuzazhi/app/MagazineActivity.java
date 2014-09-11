@@ -15,18 +15,27 @@ import android.widget.TextView;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ArticleMenu;
 import com.tiyuzazhi.beans.ExaminingArticle;
+import com.tiyuzazhi.beans.Magazine;
+import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author chris.xue
  *         杂志
  */
 public class MagazineActivity extends Activity {
-    private ListView titleBar;
+    private ListView menuListView;
     private Handler handler;
+    private View nextButton;
+    private View previousButton;
+    private TextView magazineNo;
+    private TextView magazinePubTime;
+    private AtomicBoolean opLock;
+    private volatile Magazine magazine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +48,85 @@ public class MagazineActivity extends Activity {
                 finish();
             }
         });
-        titleBar = (ListView) findViewById(R.id.article_item_list);
+        menuListView = (ListView) findViewById(R.id.article_item_list);
         handler = new Handler(Looper.getMainLooper());
+        nextButton = findViewById(R.id.next_mag);
+        previousButton = findViewById(R.id.previous_mag);
+        magazineNo = (TextView) findViewById(R.id.mag_no);
+        magazinePubTime = (TextView) findViewById(R.id.mag_date);
+        opLock = new AtomicBoolean(false);
+        magazine = (Magazine) this.getIntent().getSerializableExtra("magazine");
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (opLock.compareAndSet(false, true)) {
+                    ToastUtils.show("内容载入中，请稍候");
+                    TPool.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Magazine newMag = ArticleApi.loadNextMagazine(magazine.getId());
+                                if (newMag != null) {
+                                    magazine = newMag;
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            init();
+                                        }
+                                    });
+                                }
+                            } finally {
+                                opLock.set(false);
+                            }
+                        }
+                    });
+                } else {
+                    ToastUtils.show("前一个操作未完成，请稍候再试");
+                }
+            }
+        });
+
+        previousButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (opLock.compareAndSet(false, true)) {
+                    ToastUtils.show("内容载入中，请稍候");
+                    TPool.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Magazine newMag = ArticleApi.loadPrevMagazine(magazine.getId());
+                                if (newMag != null) {
+                                    magazine = newMag;
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            init();
+                                        }
+                                    });
+                                }
+                            } finally {
+                                opLock.set(false);
+                            }
+                        }
+                    });
+                } else {
+                    ToastUtils.show("前一个操作未完成，请稍候再试");
+                }
+            }
+        });
         init();
     }
 
     private void init() {
-        final int magazineId = this.getIntent().getIntExtra("magazineId", 0);
+        magazineNo.setText("第" + magazine.getPublishNo() + "期");
+        magazinePubTime.setText(DatetimeUtils.format2(magazine.getPublishTime()));
         TPool.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    final List<ArticleMenu> articleMenus = ArticleApi.loadArticleMenu(magazineId);
+                    final List<ArticleMenu> articleMenus = ArticleApi.loadArticleMenu(magazine.getId());
                     if (articleMenus.isEmpty()) {
                         ToastUtils.show("该期杂志目录为空");
                         return;
@@ -58,8 +134,8 @@ public class MagazineActivity extends Activity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            titleBar.setAdapter(new ArticleAdaptor(articleMenus));
-                            titleBar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            menuListView.setAdapter(new ArticleAdaptor(articleMenus));
+                            menuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     //TODO 跳转到文章正文

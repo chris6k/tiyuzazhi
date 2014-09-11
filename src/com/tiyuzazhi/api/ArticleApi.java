@@ -68,6 +68,28 @@ public class ArticleApi {
         return new ArrayList<ArticleMenu>(0);
     }
 
+    /**
+     * load next magazine
+     *
+     * @param magazineId 杂志ID
+     * @return
+     */
+    public static Magazine loadNextMagazine(int magazineId) {
+        //TODO
+        return null;
+    }
+
+    /**
+     * load previous magazine
+     *
+     * @param magazineId 杂志ID
+     * @return
+     */
+    public static Magazine loadPrevMagazine(int magazineId) {
+        //TODO
+        return null;
+    }
+
 
     /**
      * 转交给新的评审评审
