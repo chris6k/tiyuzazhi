@@ -11,15 +11,34 @@ public class ExaminingArticle extends ArticleMenu {
     private String summary;
     private String draftNo;
     private Date examineStart;
+    private Date examineFinish;
     private int opId;
     private String opName;
     private String comment;
     private int conclusion;
     private int score;
     private int category;
+    private String orgName;
+    private int step;
 
 
     public ExaminingArticle() {
+    }
+
+    public int getStep() {
+        return step;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
+    }
+
+    public String getOrgName() {
+        return orgName;
+    }
+
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
     }
 
     public int getId() {
@@ -110,6 +129,14 @@ public class ExaminingArticle extends ArticleMenu {
         this.category = category;
     }
 
+    public Date getExamineFinish() {
+        return examineFinish;
+    }
+
+    public void setExamineFinish(Date examineFinish) {
+        this.examineFinish = examineFinish;
+    }
+
     @Override
     public String toString() {
         return "ExaminingArticle{" +
@@ -118,12 +145,15 @@ public class ExaminingArticle extends ArticleMenu {
                 ", summary='" + summary + '\'' +
                 ", draftNo='" + draftNo + '\'' +
                 ", examineStart=" + examineStart +
+                ", examineFinish=" + examineFinish +
                 ", opId=" + opId +
                 ", opName='" + opName + '\'' +
                 ", comment='" + comment + '\'' +
                 ", conclusion=" + conclusion +
                 ", score=" + score +
                 ", category=" + category +
+                ", orgName='" + orgName + '\'' +
+                ", step=" + step +
                 "} " + super.toString();
     }
 }

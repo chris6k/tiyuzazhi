@@ -124,6 +124,12 @@ public class UserProfileActivity extends Activity {
         init();
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void init() {
         if (UserApi.loginRole() == 0) {
             unloginPanel.setVisibility(View.VISIBLE);

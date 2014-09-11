@@ -30,24 +30,24 @@
             android:layout_height="35dp">
 
         <TextView
+                android:id="@+id/step"
                 android:layout_marginLeft="10dp"
                 android:paddingBottom="2dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentBottom="true"
                 android:text="终审"
-                android:id="@+id/examineStep"
                 android:textColor="#2d3538"
                 android:textSize="18sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <ImageView
-                android:layout_toRightOf="@id/examineStep"
+                android:layout_toRightOf="@id/step"
                 android:layout_marginLeft="10dp"
                 android:paddingBottom="2dp"
                 android:layout_alignParentBottom="true"
                 android:src="@drawable/complete_xhdpi"
-                android:id="@+id/examineResult"
+                android:id="@+id/result"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -56,7 +56,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:text="国家体育总局"
-                android:id="@+id/examineOrg"
+                android:id="@+id/company"
                 android:textColor="#2d3538"
                 android:textSize="12sp"
                 android:layout_width="wrap_content"
@@ -116,6 +116,7 @@
     </RelativeLayout>
 
     <ImageView
+            android:id="@+id/upDownArrow"
             android:scaleType="centerInside"
             android:src="@drawable/open_module_gray_xhdpi"
             android:layout_alignParentRight="true"
@@ -137,6 +138,7 @@
                 android:layout_height="1dp"/>
 
         <TextView
+                android:id="@+id/summary"
                 android:padding="10dp"
                 android:text="呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵,呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵,呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵"
                 android:textSize="16sp"

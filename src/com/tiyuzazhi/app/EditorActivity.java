@@ -34,8 +34,8 @@ public class EditorActivity extends Activity {
     private ImageView filterOrder;
     private boolean orderByDateDesc = true;
     private volatile List<ExaminingArticle> articles;
-    private int state;
-    private String stateName;
+    private int step;
+    private String stepName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +77,9 @@ public class EditorActivity extends Activity {
                 //TODO 显示可选项
                 if (opLock.compareAndSet(false, true)) {
                     try {
-                        List<ExaminingArticle> filtered = filterByStatus(state);
+                        List<ExaminingArticle> filtered = filterByStatus(step);
                         articleListView.setAdapter(new ArticleAdaptor(filtered));
-                        ((TextView) filter).setText(stateName);
+                        ((TextView) filter).setText(stepName);
                     } finally {
                         opLock.set(false);
                     }
@@ -133,16 +133,16 @@ public class EditorActivity extends Activity {
     /**
      * 根据条件过滤
      *
-     * @param state
+     * @param step
      * @return
      */
-    private List<ExaminingArticle> filterByStatus(int state) {
-        if (state == 0) {
+    private List<ExaminingArticle> filterByStatus(int step) {
+        if (step == 0) {
             return articles;
         }
         List<ExaminingArticle> filtered = new ArrayList<ExaminingArticle>(articles.size());
         for (ExaminingArticle article : articles) {
-            if (article.getState() == state) {
+            if (article.getStep() == step) {
                 filtered.add(article);
             }
         }

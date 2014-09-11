@@ -87,6 +87,12 @@ public class ExaminerActivity extends Activity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private class ExaminerAdaptor extends BaseAdapter {
         private List<Examiner> examiners;
 
