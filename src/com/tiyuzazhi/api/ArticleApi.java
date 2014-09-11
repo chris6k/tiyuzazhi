@@ -102,4 +102,13 @@ public class ArticleApi {
         //TODO
         return false;
     }
+
+    /**
+     * @param articleId
+     * @return
+     */
+    public static List<ExaminingArticle> loadExamineFlow(int articleId) {
+        //TODO
+        return new ArrayList<ExaminingArticle>(0);
+    }
 }

@@ -11,8 +11,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.utils.DatetimeUtils;
+import com.tiyuzazhi.utils.TPool;
 
 import java.util.List;
 
@@ -24,12 +26,14 @@ public class ExamSummaryActivity extends Activity {
 
     private Handler handler;
     private ListView flowListView;
+    private int articleId;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.examine_center);
         super.onCreate(savedInstanceState);
+        articleId = getIntent().getIntExtra("articleId", 0);
         View back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +47,18 @@ public class ExamSummaryActivity extends Activity {
     }
 
     private void init() {
-        //TODO
+        TPool.post(new Runnable() {
+            @Override
+            public void run() {
+                final List<ExaminingArticle> examiningArticles = ArticleApi.loadExamineFlow(articleId);
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        flowListView.setAdapter(new SummaryAdaptor(examiningArticles));
+                    }
+                });
+            }
+        });
     }
 
     @Override
@@ -85,9 +100,10 @@ public class ExamSummaryActivity extends Activity {
                 helper.examiner = (TextView) view.findViewById(R.id.examiner);
                 helper.dateDayStart = (TextView) view.findViewById(R.id.dateDayStart);
                 helper.dateDayEnd = (TextView) view.findViewById(R.id.dateDayEnd);
-                helper.summary = (TextView) view.findViewById(R.id.summary);
+                helper.comment = (TextView) view.findViewById(R.id.summary);
                 helper.upDownArrow = (ImageView) view.findViewById(R.id.upDownArrow);
                 helper.result = (ImageView) view.findViewById(R.id.result);
+                helper.bottomPanel = view.findViewById(R.id.panel_bottom);
                 view.setTag(helper);
             } else {
                 helper = (AdaptorHelper) view.getTag();
@@ -99,23 +115,32 @@ public class ExamSummaryActivity extends Activity {
             helper.examiner.setText(article.getOpName());
             helper.dateDayStart.setText(DatetimeUtils.format(article.getExamineStart()));
             helper.dateDayEnd.setText(DatetimeUtils.format(article.getExamineFinish()));
-            helper.summary.setText(article.getSummary());
+            helper.comment.setText(article.getComment());
             if (article.getState() == 1) {
                 helper.result.setImageResource(R.drawable.complete_xhdpi);
             } else {
                 helper.result.setImageResource(R.drawable.uncomplete_xhdpi);
             }
+            helper.bottomPanel.setVisibility(View.GONE);
             helper.upDownArrow.setClickable(true);
             helper.upDownArrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (helper.summary.getVisibility() != View.VISIBLE) {
-                        helper.summary.setVisibility(View.VISIBLE);
+                    if (helper.bottomPanel.getVisibility() != View.VISIBLE) {
+                        helper.bottomPanel.setVisibility(View.VISIBLE);
                         helper.upDownArrow.setImageResource(R.drawable.close_module_gray_xhdpi);
                     } else {
-                        helper.summary.setVisibility(View.GONE);
+                        helper.bottomPanel.setVisibility(View.GONE);
                         helper.upDownArrow.setImageResource(R.drawable.open_module_gray_xhdpi);
                     }
+                }
+            });
+            view.setClickable(true);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //TODO
+
                 }
             });
             return view;
@@ -130,8 +155,9 @@ public class ExamSummaryActivity extends Activity {
         private TextView examiner;
         private TextView dateDayStart;
         private TextView dateDayEnd;
-        private TextView summary;
+        private TextView comment;
         private ImageView upDownArrow;
+        private View bottomPanel;
     }
 
 }

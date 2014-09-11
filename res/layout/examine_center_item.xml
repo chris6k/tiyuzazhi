@@ -138,7 +138,7 @@
                 android:layout_height="1dp"/>
 
         <TextView
-                android:id="@+id/summary"
+                android:id="@+id/comment"
                 android:padding="10dp"
                 android:text="呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵,呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵,呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵"
                 android:textSize="16sp"
