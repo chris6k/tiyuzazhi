@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.utils.DatetimeUtils;
-import com.tiyuzazhi.utils.SingleThreadPool;
+import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
 import java.util.Date;
@@ -26,7 +26,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *         专家审稿
  */
 public class MasterActivity extends Activity {
-    private ListView titleBar;
+    private ListView articleListView;
     private AtomicBoolean opLock;
     private Handler handler;
 
@@ -41,14 +41,14 @@ public class MasterActivity extends Activity {
                 finish();
             }
         });
-        titleBar = (ListView) findViewById(R.id.article_item_list);
+        articleListView = (ListView) findViewById(R.id.article_item_list);
         opLock = new AtomicBoolean(false);
         handler = new Handler(Looper.getMainLooper());
         init();
     }
 
     private void init() {
-        SingleThreadPool.post(new Runnable() {
+        TPool.post(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -60,7 +60,7 @@ public class MasterActivity extends Activity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            titleBar.setAdapter(new ArticleAdaptor(examiningArticles));
+                            articleListView.setAdapter(new ArticleAdaptor(examiningArticles));
                         }
                     });
                 } catch (Exception e) {
@@ -124,7 +124,7 @@ public class MasterActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     if (opLock.compareAndSet(false, true)) {
-                        SingleThreadPool.post(new Runnable() {
+                        TPool.post(new Runnable() {
                             @Override
                             public void run() {
                                 if (ArticleApi.passExamine(article)) {
@@ -142,11 +142,11 @@ public class MasterActivity extends Activity {
             helper.reject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    SingleThreadPool.post(new Runnable() {
+                    TPool.post(new Runnable() {
                         @Override
                         public void run() {
                             if (opLock.compareAndSet(false, true)) {
-                                SingleThreadPool.post(new Runnable() {
+                                TPool.post(new Runnable() {
                                     @Override
                                     public void run() {
                                         if (ArticleApi.rejectExamine(article)) {

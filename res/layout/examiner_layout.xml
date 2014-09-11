@@ -84,6 +84,8 @@
             android:layout_height="50dp">
 
         <LinearLayout
+                android:id="@+id/done"
+                android:clickable="true"
                 android:layout_centerInParent="true"
                 android:orientation="horizontal"
                 android:background="@android:color/transparent"

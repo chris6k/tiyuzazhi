@@ -16,6 +16,7 @@ public class ExaminingArticle extends ArticleMenu {
     private String comment;
     private int conclusion;
     private int score;
+    private int category;
 
 
     public ExaminingArticle() {
@@ -101,6 +102,14 @@ public class ExaminingArticle extends ArticleMenu {
         this.conclusion = conclusion;
     }
 
+    public int getCategory() {
+        return category;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
     @Override
     public String toString() {
         return "ExaminingArticle{" +
@@ -114,6 +123,7 @@ public class ExaminingArticle extends ArticleMenu {
                 ", comment='" + comment + '\'' +
                 ", conclusion=" + conclusion +
                 ", score=" + score +
+                ", category=" + category +
                 "} " + super.toString();
     }
 }

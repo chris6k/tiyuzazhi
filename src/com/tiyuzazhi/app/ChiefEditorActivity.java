@@ -12,9 +12,10 @@ import android.widget.*;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.utils.DatetimeUtils;
-import com.tiyuzazhi.utils.SingleThreadPool;
+import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -27,6 +28,7 @@ public class ChiefEditorActivity extends Activity {
     private ListView titleBar;
     private AtomicBoolean opLock;
     private Handler handler;
+    private volatile List<ExaminingArticle> examiningArticles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +48,11 @@ public class ChiefEditorActivity extends Activity {
     }
 
     private void init() {
-        SingleThreadPool.post(new Runnable() {
+        TPool.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    final List<ExaminingArticle> examiningArticles = ArticleApi.loadExamineArticle(0, 10);
+                    examiningArticles = ArticleApi.loadExamineArticle(0, 10);
                     if (examiningArticles.isEmpty()) {
                         ToastUtils.show("没有更多文章");
                         return;
@@ -96,7 +98,7 @@ public class ChiefEditorActivity extends Activity {
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
+        public View getView(final int i, View view, ViewGroup viewGroup) {
             final AdaptorHelper helper;
             if (view == null || view.getTag() == null) {
                 view = LayoutInflater.from(getBaseContext()).inflate(R.layout.chief_editor_list_item, null, false);
@@ -131,18 +133,22 @@ public class ChiefEditorActivity extends Activity {
                 public void onClick(View v) {
                     article.setComment(helper.comment.getText().toString());
                     if (opLock.compareAndSet(false, true)) {
-                        SingleThreadPool.post(new Runnable() {
+                        TPool.post(new Runnable() {
                             @Override
                             public void run() {
-                                if (ArticleApi.passExamine(article)) {
-                                    ToastUtils.show("操作成功");
-                                } else {
-                                    ToastUtils.show("操作失败");
+                                try {
+                                    if (ArticleApi.passExamine(article)) {
+                                        ToastUtils.show("操作成功");
+                                    } else {
+                                        ToastUtils.show("操作失败");
+                                    }
+                                } finally {
+                                    opLock.set(false);
                                 }
                             }
                         });
                     } else {
-                        ToastUtils.show("前一个操作正在进行，请稍后");
+                        ToastUtils.show("前一个操作正在进行，请稍后再试");
                     }
                 }
             });
@@ -150,31 +156,31 @@ public class ChiefEditorActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     article.setComment(helper.comment.getText().toString());
-                    SingleThreadPool.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (opLock.compareAndSet(false, true)) {
-                                SingleThreadPool.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (ArticleApi.rejectExamine(article)) {
-                                            ToastUtils.show("操作成功");
-                                        } else {
-                                            ToastUtils.show("操作失败");
-                                        }
+                    if (opLock.compareAndSet(false, true)) {
+                        TPool.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    if (ArticleApi.rejectExamine(article)) {
+                                        ToastUtils.show("操作成功");
+                                    } else {
+                                        ToastUtils.show("操作失败");
                                     }
-                                });
-                            } else {
-                                ToastUtils.show("前一个操作正在进行，请稍后");
+                                } finally {
+                                    opLock.set(false);
+                                }
                             }
-                        }
-                    });
+                        });
+                    } else {
+                        ToastUtils.show("前一个操作正在进行，请稍后再试");
+                    }
                 }
             });
             helper.forward.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO 调出界面
+                    Intent intent = new Intent(ChiefEditorActivity.this, ExaminerActivity.class);
+                    startActivityForResult(intent, i);
                 }
             });
             return view;
@@ -183,7 +189,27 @@ public class ChiefEditorActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //TODO 处理返回情况
+        if (resultCode == RESULT_OK) {
+            final ArrayList<Integer> examinerIds = data.getIntegerArrayListExtra("examiners");
+            if (examinerIds != null) {
+                final ExaminingArticle examiningArticle = examiningArticles.get(requestCode);
+                if (opLock.compareAndSet(false, true)) {
+                    TPool.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            boolean success = ArticleApi.forward(examiningArticle, examinerIds);
+                            if (success) {
+                                ToastUtils.show("操作成功");
+                            } else {
+                                ToastUtils.show("操作失败");
+                            }
+                        }
+                    });
+                } else {
+                    ToastUtils.show("前一个操作正在进行，请稍后再试");
+                }
+            }
+        }
     }
 
     private class AdaptorHelper {

@@ -9,7 +9,7 @@ import java.util.Date;
 public class Magazine implements Serializable {
     private int id;
     private String title;
-    private String publisher;
+    private String subTitle;
     private Date publishTime;
     private int publishNo;
 
@@ -22,14 +22,6 @@ public class Magazine implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
     }
 
     public Date getPublishTime() {
@@ -56,12 +48,20 @@ public class Magazine implements Serializable {
         this.id = id;
     }
 
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
+    }
+
     @Override
     public String toString() {
         return "Magazine{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", publisher='" + publisher + '\'' +
+                ", subTitle='" + subTitle + '\'' +
                 ", publishTime=" + publishTime +
                 ", publishNo=" + publishNo +
                 '}';

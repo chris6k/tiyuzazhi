@@ -15,7 +15,7 @@ import android.widget.TextView;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ArticleMenu;
 import com.tiyuzazhi.beans.ExaminingArticle;
-import com.tiyuzazhi.utils.SingleThreadPool;
+import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
 import java.util.List;
@@ -46,7 +46,7 @@ public class MagazineActivity extends Activity {
 
     private void init() {
         final int magazineId = this.getIntent().getIntExtra("magazineId", 0);
-        SingleThreadPool.post(new Runnable() {
+        TPool.post(new Runnable() {
             @Override
             public void run() {
                 try {

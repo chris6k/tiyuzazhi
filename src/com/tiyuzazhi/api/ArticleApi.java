@@ -2,6 +2,7 @@ package com.tiyuzazhi.api;
 
 import com.tiyuzazhi.beans.ArticleMenu;
 import com.tiyuzazhi.beans.ExaminingArticle;
+import com.tiyuzazhi.beans.Magazine;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +48,16 @@ public class ArticleApi {
     }
 
     /**
+     * 获取最新的杂志信息
+     *
+     * @return
+     */
+    public static List<Magazine> loadNewestMagazine() {
+        //TODO
+        return new ArrayList<Magazine>(0);
+    }
+
+    /**
      * load杂志的文章目录内容
      *
      * @param magazineId 杂志ID
@@ -55,5 +66,18 @@ public class ArticleApi {
     public static List<ArticleMenu> loadArticleMenu(int magazineId) {
         //TODO
         return new ArrayList<ArticleMenu>(0);
+    }
+
+
+    /**
+     * 转交给新的评审评审
+     *
+     * @param examiningArticle
+     * @param examinerIds
+     * @return
+     */
+    public static boolean forward(ExaminingArticle examiningArticle, ArrayList<Integer> examinerIds) {
+        //TODO
+        return false;
     }
 }

@@ -21,5 +21,7 @@
         </activity>
         <activity android:name=".MasterActivity"/>
         <activity android:name=".MagazineActivity"/>
+        <activity android:name=".UserProfileActivity"/>
+        <activity android:name=".EditorActivity"/>
     </application>
 </manifest>

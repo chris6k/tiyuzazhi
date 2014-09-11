@@ -8,7 +8,7 @@ import java.util.concurrent.Future;
 /**
  * @author chris.xue
  */
-public class SingleThreadPool {
+public class TPool {
     private static final ExecutorService exec = Executors.newScheduledThreadPool(1);
 
     public static void post(Runnable runnable) {

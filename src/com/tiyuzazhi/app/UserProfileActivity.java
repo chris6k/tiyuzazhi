@@ -12,7 +12,7 @@ import com.tiyuzazhi.api.UserApi;
 import com.tiyuzazhi.beans.User;
 import com.tiyuzazhi.component.RoundedImageView;
 import com.tiyuzazhi.utils.ImageLoader;
-import com.tiyuzazhi.utils.SingleThreadPool;
+import com.tiyuzazhi.utils.TPool;
 
 /**
  * @author chris.xue
@@ -144,7 +144,7 @@ public class UserProfileActivity extends Activity {
             unloginPanel.setVisibility(View.GONE);
             userInfoPanel.setVisibility(View.VISIBLE);
             //已登录用户则查询信息
-            SingleThreadPool.post(new Runnable() {
+            TPool.post(new Runnable() {
                 @Override
                 public void run() {
                     final User user = UserApi.getUserInfo();
