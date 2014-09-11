@@ -14,6 +14,9 @@ import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -31,6 +34,8 @@ public class EditorActivity extends Activity {
     private ImageView filterOrder;
     private boolean orderByDateDesc = true;
     private volatile List<ExaminingArticle> articles;
+    private int state;
+    private String stateName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +74,12 @@ public class EditorActivity extends Activity {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO 显示可选项
                 if (opLock.compareAndSet(false, true)) {
                     try {
-                        //TODO
+                        List<ExaminingArticle> filtered = filterByStatus(state);
+                        articleListView.setAdapter(new ArticleAdaptor(filtered));
+                        ((TextView) filter).setText(stateName);
                     } finally {
                         opLock.set(false);
                     }
@@ -106,8 +114,39 @@ public class EditorActivity extends Activity {
         });
     }
 
-    private void reorderByDateDay(boolean asc) {
-        //TODO
+    /**
+     * 根据日期升序/降序排列
+     *
+     * @param asc
+     */
+    private void reorderByDateDay(final boolean asc) {
+        ExaminingArticle[] data = articles.toArray(new ExaminingArticle[articles.size()]);
+        Arrays.sort(data, new Comparator<ExaminingArticle>() {
+            @Override
+            public int compare(ExaminingArticle lhs, ExaminingArticle rhs) {
+                return lhs.getExamineStart().compareTo(rhs.getExamineStart()) * (asc ? 1 : -1);
+            }
+        });
+        articles = new ArrayList<ExaminingArticle>(Arrays.asList(data));
+    }
+
+    /**
+     * 根据条件过滤
+     *
+     * @param state
+     * @return
+     */
+    private List<ExaminingArticle> filterByStatus(int state) {
+        if (state == 0) {
+            return articles;
+        }
+        List<ExaminingArticle> filtered = new ArrayList<ExaminingArticle>(articles.size());
+        for (ExaminingArticle article : articles) {
+            if (article.getState() == state) {
+                filtered.add(article);
+            }
+        }
+        return filtered;
     }
 
     @Override

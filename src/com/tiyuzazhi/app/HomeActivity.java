@@ -29,13 +29,7 @@ import java.util.List;
 public class HomeActivity extends Activity {
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
     private Handler handler;
-    private View slideMenuButton;
     private ListView magazineList;
-    private View authorCenterBtn;
-    private View refereeingBtn;
-    private View editorBtn;
-    private View chiefEditorBtn;
-    private EditText searchBar;
     private ImageView header;
     private TextView authorCenterNo;
     private TextView refereeingNo;
@@ -51,18 +45,18 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         handler = new Handler(Looper.getMainLooper());
-        slideMenuButton = findViewById(R.id.slide_menu_button);
+        View slideMenuButton = findViewById(R.id.slide_menu_button);
         magazineList = (ListView) findViewById(R.id.magazine_list);
-        authorCenterBtn = findViewById(R.id.author_center_btn);
-        refereeingBtn = findViewById(R.id.refereeing_btn);
-        editorBtn = findViewById(R.id.editor_center_btn);
-        chiefEditorBtn = findViewById(R.id.chief_editor_btn);
+        View authorCenterBtn = findViewById(R.id.author_center_btn);
+        View refereeingBtn = findViewById(R.id.refereeing_btn);
+        View editorBtn = findViewById(R.id.editor_center_btn);
+        View chiefEditorBtn = findViewById(R.id.chief_editor_btn);
         header = (RoundedImageView) findViewById(R.id.header);
         authorCenterNo = (TextView) findViewById(R.id.author_center_no);
         refereeingNo = (TextView) findViewById(R.id.refereeing_no);
         editorCenterNo = (TextView) findViewById(R.id.editor_center_no);
         chiefEditorNo = (TextView) findViewById(R.id.chief_editor_no);
-        searchBar = (EditText) findViewById(R.id.search_editor);
+        EditText searchBar = (EditText) findViewById(R.id.search_editor);
         userName = (TextView) findViewById(R.id.user_name);
 
         slideMenuButton.setOnClickListener(new View.OnClickListener() {
