@@ -1,6 +1,7 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -89,7 +90,7 @@ public class ExamSummaryActivity extends Activity {
         }
 
         @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
+        public View getView(final int i, View view, ViewGroup viewGroup) {
             final AdaptorHelper helper;
             if (view == null || view.getTag() == null) {
                 view = LayoutInflater.from(getBaseContext()).inflate(R.layout.examine_center_item, null, false);
@@ -139,12 +140,19 @@ public class ExamSummaryActivity extends Activity {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //TODO
-
+                    Intent intent = new Intent(ExamSummaryActivity.this, ArticleSummaryActivity.class);
+                    intent.putExtra("articleId", article.getId());
+                    startActivity(intent);
                 }
             });
             return view;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        init();
     }
 
     private class AdaptorHelper {

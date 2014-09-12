@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+        >
+
+
+    <RelativeLayout
+            android:id="@+id/title_bar"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal"
+            android:background="@drawable/navbar_bk"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+
+        <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/back_arr"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+        <TextView
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:text="评审意见"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
+    <LinearLayout
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_below="@+id/title_bar"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_marginTop="30dp"
+                android:text="审稿专家1:"
+                android:id="@+id/opName"
+                android:textSize="15sp"
+                android:textColor="#5a7c8c"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+
+        <TextView
+                android:layout_marginTop="25dp"
+                android:text="1,2,3,4,5"
+                android:id="@+id/comment"
+                android:textSize="18sp"
+                android:textColor="#2d3538"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

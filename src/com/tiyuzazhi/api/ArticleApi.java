@@ -23,6 +23,17 @@ public class ArticleApi {
         return true;
     }
 
+    /**
+     * 通过审核
+     *
+     * @param articleId 待审核的文章id
+     * @return
+     */
+    public static boolean passExamine(int articleId) {
+        //TODO
+        return true;
+    }
+
 
     /**
      * 审核失败
@@ -31,6 +42,17 @@ public class ArticleApi {
      * @return
      */
     public static boolean rejectExamine(ExaminingArticle article) {
+        //TODO
+        return true;
+    }
+
+    /**
+     * 审核失败
+     *
+     * @param articleId 待审核的文章id
+     * @return
+     */
+    public static boolean rejectExamine(int articleId) {
         //TODO
         return true;
     }
@@ -104,11 +126,24 @@ public class ArticleApi {
     }
 
     /**
+     * 获取评审流程
+     *
      * @param articleId
      * @return
      */
     public static List<ExaminingArticle> loadExamineFlow(int articleId) {
         //TODO
         return new ArrayList<ExaminingArticle>(0);
+    }
+
+    /**
+     * 获取谋篇文章
+     *
+     * @param articleId
+     * @return
+     */
+    public static ExaminingArticle loadArticle(int articleId) {
+        //TODO
+        return null;
     }
 }

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#ffffff"
+        >
+
+    <RelativeLayout
+            android:id="@+id/title_bar"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal"
+            android:background="@drawable/navbar_bk"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+
+        <ImageButton
+                android:background="@android:color/transparent"
+                android:src="@drawable/back_arr"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+        <TextView
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:text="作者中心"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <TextView
+            android:id="@+id/title"
+            android:layout_below="@id/title_bar"
+            android:text="标题标题标题标题标题标题标题标题标题标题标题标题标题"
+            android:padding="15dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#2d3538"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+            android:id="@+id/secondLine"
+            android:layout_below="@id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:layout_alignParentLeft="true"
+                android:id="@+id/draftNoText"
+                android:layout_marginLeft="12dp"
+                android:text="稿号:"
+                android:textSize="15sp"
+                android:textColor="#969a9b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/draftNo"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@id/draftNoText"
+                android:text="12121212"
+                android:textSize="15sp"
+                android:textColor="#969a9b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        <TextView
+                android:id="@+id/dateDay"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp"
+                android:text="2014-01-01"
+                android:textSize="15sp"
+                android:textColor="#969a9b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:layout_toLeftOf="@id/dateDay"
+                android:layout_marginRight="12dp"
+                android:text="投稿时间:"
+                android:textSize="15sp"
+                android:textColor="#969a9b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+    <ImageView
+            android:id="@+id/line"
+            android:layout_below="@id/secondLine"
+            android:layout_margin="15dp"
+            android:src="#f5f5f5"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"/>
+
+    <LinearLayout
+            android:background="@drawable/suggestion_bg"
+            android:orientation="vertical"
+            android:layout_below="@id/line"
+            android:padding="20dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:text="审稿专家1:"
+                android:id="@+id/opName"
+                android:textSize="15sp"
+                android:textColor="#5a7c8c"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+
+        <FrameLayout
+                android:layout_marginTop="20dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+            <TextView
+                    android:text="1,2,3,4,5"
+                    android:id="@+id/comment"
+                    android:textSize="18sp"
+                    android:textColor="#2d3538"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"/>
+
+            <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/attached"
+                    android:clickable="true"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+
+                <ImageView
+                        android:src="@drawable/attached_xhdpi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:layout_marginLeft="10dp"
+                        android:text="评审意见"
+                        android:textSize="18sp"
+                        android:textColor="#ff8a00"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+            android:background="@drawable/center_feet_bg"
+            android:layout_alignParentBottom="true"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp">
+
+        <ImageView
+                android:src="@drawable/center_feet_arrow_bg"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/stateText"
+                android:text="审核状态:"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                android:textSize="18sp"
+                android:textColor="#2d3538"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/state"
+                android:textStyle="bold"
+                android:text="等待作者修改"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/stateText"
+                android:textSize="18sp"
+                android:textColor="#f01045"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+</RelativeLayout>

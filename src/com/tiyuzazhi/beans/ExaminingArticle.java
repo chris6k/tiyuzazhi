@@ -20,6 +20,7 @@ public class ExaminingArticle extends ArticleMenu {
     private int category;
     private String orgName;
     private int step;
+    private String attachment;
 
 
     public ExaminingArticle() {
@@ -137,6 +138,14 @@ public class ExaminingArticle extends ArticleMenu {
         this.examineFinish = examineFinish;
     }
 
+    public String getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
+
     @Override
     public String toString() {
         return "ExaminingArticle{" +
@@ -154,6 +163,7 @@ public class ExaminingArticle extends ArticleMenu {
                 ", category=" + category +
                 ", orgName='" + orgName + '\'' +
                 ", step=" + step +
+                ", attachment='" + attachment + '\'' +
                 "} " + super.toString();
     }
 }
