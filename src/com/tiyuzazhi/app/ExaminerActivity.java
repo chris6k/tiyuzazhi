@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -148,11 +149,15 @@ public class ExaminerActivity extends Activity {
             TPool.post(new Runnable() {
                 @Override
                 public void run() {
-                    final Bitmap bitmap = ImageLoader.loadPic(examiner.getIconPath());
-                    handler.post(new Runnable() {
+                    ImageLoader.loadPic(examiner.getIconPath(), new ImageLoader.ImageLoaderCallback() {
                         @Override
-                        public void run() {
-                            helper.header.setImageBitmap(bitmap);
+                        public void finish(Bitmap image) {
+                            helper.header.setImageBitmap(image);
+                        }
+
+                        @Override
+                        public void error(Exception e) {
+                            Log.e("ExaminerActivity", "Load header failed", e);
                         }
                     });
                 }

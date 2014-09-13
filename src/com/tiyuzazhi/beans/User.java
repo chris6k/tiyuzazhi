@@ -11,10 +11,28 @@ public class User implements Serializable {
     private String iconPath;
     private String company;
     private String address;
+    private String email;
+    private String mobile;
     private int favCount;
     private int msgCount;
 
     public User() {
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getId() {
@@ -81,6 +99,8 @@ public class User implements Serializable {
                 ", iconPath='" + iconPath + '\'' +
                 ", company='" + company + '\'' +
                 ", address='" + address + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
                 ", favCount=" + favCount +
                 ", msgCount=" + msgCount +
                 '}';

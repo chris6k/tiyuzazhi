@@ -56,4 +56,13 @@ public class UserApi {
     }
 
 
+    /**
+     * 登出
+     *
+     * @return
+     */
+    public static boolean logout() {
+        //TODO
+        return true;
+    }
 }

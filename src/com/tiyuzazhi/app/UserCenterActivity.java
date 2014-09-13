@@ -5,8 +5,8 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.View;
-import android.widget.ListView;
 import android.widget.TextView;
 import com.tiyuzazhi.api.UserApi;
 import com.tiyuzazhi.beans.User;
@@ -18,8 +18,7 @@ import com.tiyuzazhi.utils.TPool;
  * @author chris.xue
  *         用户界面
  */
-public class UserProfileActivity extends Activity {
-    private ListView titleBar;
+public class UserCenterActivity extends Activity {
     private Handler handler;
 
     private View userInfoPanel;
@@ -56,7 +55,6 @@ public class UserProfileActivity extends Activity {
                 finish();
             }
         });
-        titleBar = (ListView) findViewById(R.id.article_item_list);
         handler = new Handler(Looper.getMainLooper());
 
         userInfoPanel = findViewById(R.id.userInfoPanel);
@@ -134,6 +132,8 @@ public class UserProfileActivity extends Activity {
         if (UserApi.loginRole() == 0) {
             unloginPanel.setVisibility(View.VISIBLE);
             userInfoPanel.setVisibility(View.GONE);
+            myFav.setVisibility(View.GONE);
+            myMsg.setVisibility(View.GONE);
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -149,23 +149,33 @@ public class UserProfileActivity extends Activity {
         } else {
             unloginPanel.setVisibility(View.GONE);
             userInfoPanel.setVisibility(View.VISIBLE);
+            myFav.setVisibility(View.VISIBLE);
+            myMsg.setVisibility(View.VISIBLE);
             //已登录用户则查询信息
             TPool.post(new Runnable() {
                 @Override
                 public void run() {
                     final User user = UserApi.getUserInfo();
-                    final Bitmap imgHeader = ImageLoader.loadPic(user.getIconPath());
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            if (imgHeader != null) {
-                                header.setImageBitmap(imgHeader);
-                            }
+
                             name.setText(user.getName());
                             company.setText(user.getCompany());
                             address.setText(user.getAddress());
                             myFavText.setText("我的收藏(" + user.getFavCount() + ")");
                             myMsgText.setText("我的消息(" + user.getMsgCount() + ")");
+                        }
+                    });
+                    ImageLoader.loadPic(user.getIconPath(), new ImageLoader.ImageLoaderCallback() {
+                        @Override
+                        public void finish(Bitmap image) {
+                            header.setImageBitmap(image);
+                        }
+
+                        @Override
+                        public void error(Exception e) {
+                            Log.e("UserCenterActivity", "Load header failed", e);
                         }
                     });
                 }

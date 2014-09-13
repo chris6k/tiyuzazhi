@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@drawable/module_bg"
+              android:layout_marginLeft="15dp"
+              android:layout_marginRight="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="237dp">
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="62dp">
+
+        <TextView
+                android:id="@+id/examinTitleText"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="审核通过"
+                android:textSize="18sp"
+                android:textColor="#2d3538"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"/>
+
+        <ImageView
+                android:layout_marginRight="5dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/pass_xhdpi"
+                android:layout_toLeftOf="@id/examinTitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <EditText
+            android:id="@+id/comment"
+            android:background="@drawable/input"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="请输入审核意见"
+            android:padding="15dp"
+            android:textSize="16sp"
+            android:textColor="#a6a7a7"
+            android:layout_width="fill_parent"
+            android:layout_height="90dp"/>
+
+    <ImageView
+            android:src="#a0a0a0"
+            android:layout_marginTop="25dp"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"/>
+
+    <TextView
+            android:id="@+id/buttonOk"
+            android:gravity="center"
+            android:clickable="true"
+            android:text="通过"
+            android:textColor="@color/pass_text_selector"
+            android:textSize="18sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="60dp"/>
+</LinearLayout>

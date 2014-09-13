@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +70,7 @@ public class HomeActivity extends Activity {
         authorCenterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
+                Intent intent = new Intent(getApplicationContext(), UserCenterActivity.class);
                 startActivity(intent);
             }
         });
@@ -187,11 +188,15 @@ public class HomeActivity extends Activity {
                         TPool.post(new Runnable() {
                             @Override
                             public void run() {
-                                final Bitmap bitmap = ImageLoader.loadPic(user.getIconPath());
-                                handler.post(new Runnable() {
+                                ImageLoader.loadPic(user.getIconPath(), new ImageLoader.ImageLoaderCallback() {
                                     @Override
-                                    public void run() {
-                                        header.setImageBitmap(bitmap);
+                                    public void finish(Bitmap image) {
+                                        header.setImageBitmap(image);
+                                    }
+
+                                    @Override
+                                    public void error(Exception e) {
+                                        Log.e("HomeActivity", "Load header failed", e);
                                     }
                                 });
                             }

@@ -8,8 +8,14 @@ import android.graphics.Bitmap;
  */
 public class ImageLoader {
 
-    public static Bitmap loadPic(String url) {
+    public static Bitmap loadPic(String url, ImageLoaderCallback callback) {
         //TODO
         return null;
+    }
+
+    public interface ImageLoaderCallback {
+        void finish(Bitmap image);
+
+        void error(Exception e);
     }
 }
