@@ -107,6 +107,7 @@ public class HomeActivity extends Activity {
 
     @Override
     protected void onResume() {
+        super.onResume();
         init();
     }
 
@@ -127,10 +128,10 @@ public class HomeActivity extends Activity {
                     @Override
                     public void run() {
                         //初始化代办事项总数
-                        authorCenterNo.setText(statsDashboard.getUserCenterTaskNo());
-                        refereeingNo.setText(statsDashboard.getMasterCenterTaskNo());
-                        editorCenterNo.setText(statsDashboard.getEditorTaskNo());
-                        chiefEditorNo.setText(statsDashboard.getChiefEditorTaskNo());
+                        authorCenterNo.setText(String.valueOf(statsDashboard.getUserCenterTaskNo()));
+                        refereeingNo.setText(String.valueOf(statsDashboard.getMasterCenterTaskNo()));
+                        editorCenterNo.setText(String.valueOf(statsDashboard.getEditorTaskNo()));
+                        chiefEditorNo.setText(String.valueOf(statsDashboard.getChiefEditorTaskNo()));
 
 
                         magazineList.setAdapter(new BaseAdapter() {
@@ -169,7 +170,7 @@ public class HomeActivity extends Activity {
                                 magItem.magData.setText(dateFormat.format(magazine.getPublishTime()));
                                 magItem.title.setText(magazine.getTitle());
                                 magItem.subTitle.setText(magazine.getSubTitle());
-                                magItem.magNo.setText(magazine.getPublishNo());
+                                magItem.magNo.setText(String.valueOf(magazine.getPublishNo()));
                                 return view;
                             }
 

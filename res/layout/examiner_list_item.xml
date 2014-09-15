@@ -45,7 +45,6 @@
 
     <LinearLayout
             android:paddingLeft="10dp"
-            android:layout_toLeftOf="@id/header_right_to_arr"
             android:layout_toRightOf="@id/headerLayout"
             android:layout_centerVertical="true"
             android:layout_width="fill_parent"
