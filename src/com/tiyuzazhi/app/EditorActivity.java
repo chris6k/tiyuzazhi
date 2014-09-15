@@ -271,26 +271,39 @@ public class EditorActivity extends Activity {
             helper.reject.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (opLock.compareAndSet(false, true)) {
-                        TPool.post(new Runnable() {
-                                       @Override
-                                       public void run() {
-                                           try {
-                                               if (ArticleApi.rejectExamine(article)) {
-                                                   ToastUtils.show("操作成功");
-                                                   init();
-                                               } else {
-                                                   ToastUtils.show("操作失败");
+                    final PassDialog passDialog = new PassDialog(EditorActivity.this, R.style.my_dialog) {
+                        @Override
+                        public void onButtonClick(final String comment) {
+                            if (opLock.compareAndSet(false, true)) {
+                                TPool.post(new Runnable() {
+                                               @Override
+                                               public void run() {
+                                                   try {
+                                                       article.setComment(comment);
+                                                       if (ArticleApi.rejectExamine(article)) {
+                                                           ToastUtils.show("操作成功");
+                                                           dismiss();
+                                                           init();
+                                                       } else {
+                                                           ToastUtils.show("操作失败");
+                                                       }
+                                                   } finally {
+                                                       opLock.set(false);
+                                                   }
                                                }
-                                           } finally {
-                                               opLock.set(false);
                                            }
-                                       }
-                                   }
-                        );
-                    } else {
-                        ToastUtils.show("前一个操作正在进行，请稍后");
-                    }
+                                );
+                            } else {
+                                ToastUtils.show("前一个操作正在进行，请稍后再试");
+                            }
+                        }
+                    };
+                    passDialog.show();
+                    WindowManager windowManager = getWindowManager();
+                    Display display = windowManager.getDefaultDisplay();
+                    WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
+                    lp.width = (int)(display.getWidth()); //设置宽度
+                    passDialog.getWindow().setAttributes(lp);
                 }
             });
             return view;

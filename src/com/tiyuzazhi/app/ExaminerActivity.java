@@ -175,10 +175,10 @@ public class ExaminerActivity extends Activity {
                 public void onClick(View v) {
                     if (helper.mask.getVisibility() != View.VISIBLE) {
                         helper.mask.setVisibility(View.VISIBLE);
-                        selectedList.add(examiner.getId());
+                        selectedList.add(Integer.valueOf(examiner.getId()));
                     } else {
                         helper.mask.setVisibility(View.GONE);
-                        selectedList.remove(examiner.getId());
+                        selectedList.remove(Integer.valueOf(examiner.getId()));
                     }
                 }
             });
