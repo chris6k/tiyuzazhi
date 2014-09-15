@@ -33,7 +33,7 @@ public class UserInfoActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.user_center);
+        setContentView(R.layout.user_profile);
         super.onCreate(savedInstanceState);
         View back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
