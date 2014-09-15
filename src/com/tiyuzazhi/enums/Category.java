@@ -8,7 +8,7 @@ public enum Category {
     private final int code;
     private final String name;
 
-    Category(int code, String name) {
+    private Category(int code, String name) {
         this.code = code;
         this.name = name;
     }

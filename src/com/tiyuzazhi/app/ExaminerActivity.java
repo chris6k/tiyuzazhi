@@ -14,12 +14,15 @@ import android.widget.*;
 import com.tiyuzazhi.api.UserApi;
 import com.tiyuzazhi.beans.Examiner;
 import com.tiyuzazhi.component.RoundedImageView;
+import com.tiyuzazhi.enums.ExaminerType;
 import com.tiyuzazhi.utils.ImageLoader;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author chris.xue
@@ -31,8 +34,8 @@ public class ExaminerActivity extends Activity {
     private ArrayList<Integer> selectedList;
     private ListView examinerList;
     private Spinner spinner;
-    private String[] typeNames = {"全部", "推荐", "体育", "科技"};
-    private int[] typeCodes = {-1, 1, 2, 3};
+    private String[] typeNames = {"全部", ExaminerType.RECOMM.getName(), ExaminerType.PSY.getName(), ExaminerType.EDU.getName()};
+    private int[] typeCodes = {-1, ExaminerType.RECOMM.getCode(), ExaminerType.PSY.getCode(), ExaminerType.EDU.getCode()};
     private View filter;
 
     @Override
@@ -54,7 +57,7 @@ public class ExaminerActivity extends Activity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 List<Examiner> filtered = filterByType(typeCodes[position]);
-                examinerList.setAdapter(new ExaminerAdaptor(filtered));
+                examinerList.setAdapter(buildAdaptor(filtered));
                 ((TextView) filter).setText(typeNames[position]);
             }
 
@@ -115,7 +118,7 @@ public class ExaminerActivity extends Activity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            examinerList.setAdapter(new ExaminerAdaptor(examiners));
+                            examinerList.setAdapter(buildAdaptor(examiners));
                         }
                     });
                 } else {
@@ -125,6 +128,22 @@ public class ExaminerActivity extends Activity {
         });
     }
 
+    private ExaminerAdaptor buildAdaptor(List<Examiner> examinerList) {
+        Map<String, List<Examiner>> examinerMap =
+                new HashMap<String, List<Examiner>>(examinerList.size());
+        List<Examiner> itemList;
+        for (Examiner examiner : examiners) {
+            String key = ExaminerType.findByCode(examiner.getType()).getName();
+            itemList = examinerMap.get(key);
+            if (itemList == null) {
+                itemList = new ArrayList<Examiner>(20);
+                examinerMap.put(key, itemList);
+            }
+            itemList.add(examiner);
+        }
+        return new ExaminerAdaptor(examinerMap);
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -132,25 +151,31 @@ public class ExaminerActivity extends Activity {
     }
 
     private class ExaminerAdaptor extends BaseAdapter {
-        private List<Examiner> examiners;
+        private Map<String, List<Examiner>> examinerMap;
+        private List<Object> items;
 
-        private ExaminerAdaptor(List<Examiner> examiners) {
-            this.examiners = examiners;
+        private ExaminerAdaptor(Map<String, List<Examiner>> examiners) {
+            examinerMap = examiners;
+            items = new ArrayList<Object>(20);
+            for (Map.Entry<String, List<Examiner>> entry : examinerMap.entrySet()) {
+                items.add(entry.getKey());
+                items.addAll(entry.getValue());
+            }
         }
 
         @Override
         public int getCount() {
-            return examiners.size();
+            return items.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return examiners.get(position);
+            return items.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return examiners.get(position).getId();
+            return 0;
         }
 
         @Override
@@ -168,40 +193,57 @@ public class ExaminerActivity extends Activity {
             } else {
                 helper = (AdaptorHelper) view.getTag();
             }
-            final Examiner examiner = (Examiner) getItem(position);
-            view.setClickable(true);
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (helper.mask.getVisibility() != View.VISIBLE) {
-                        helper.mask.setVisibility(View.VISIBLE);
-                        selectedList.add(Integer.valueOf(examiner.getId()));
-                    } else {
-                        helper.mask.setVisibility(View.GONE);
-                        selectedList.remove(Integer.valueOf(examiner.getId()));
+            final Object item = getItem(position);
+            if (item instanceof Examiner) {
+                final Examiner examiner = (Examiner) item;
+                view.setClickable(true);
+                view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (helper.mask.getVisibility() != View.VISIBLE) {
+                            helper.mask.setVisibility(View.VISIBLE);
+                            selectedList.add(Integer.valueOf(examiner.getId()));
+                        } else {
+                            helper.mask.setVisibility(View.GONE);
+                            selectedList.remove(Integer.valueOf(examiner.getId()));
+                        }
                     }
-                }
-            });
-            helper.name.setText(examiner.getName());
-            TPool.post(new Runnable() {
-                @Override
-                public void run() {
-                    ImageLoader.loadPic(examiner.getIconPath(), new ImageLoader.ImageLoaderCallback() {
-                        @Override
-                        public void finish(Bitmap image) {
-                            helper.header.setImageBitmap(image);
-                        }
+                });
+                helper.name.setText(examiner.getName());
+                TPool.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ImageLoader.loadPic(examiner.getIconPath(), new ImageLoader.ImageLoaderCallback() {
+                            @Override
+                            public void finish(Bitmap image) {
+                                helper.header.setImageBitmap(image);
+                            }
 
-                        @Override
-                        public void error(Exception e) {
-                            Log.e("ExaminerActivity", "Load header failed", e);
-                        }
-                    });
-                }
-            });
-            helper.company.setText(examiner.getCompany());
-            helper.address.setText(examiner.getAddress());
+                            @Override
+                            public void error(Exception e) {
+                                Log.e("ExaminerActivity", "Load header failed", e);
+                            }
+                        });
+                    }
+                });
+                helper.company.setText(examiner.getCompany());
+                helper.address.setText(examiner.getAddress());
+            } else if (item instanceof String) {
+                view = LayoutInflater.from(ExaminerActivity.this).inflate(R.layout.examiner_cate_item, null, false);
+                TextView typeText = (TextView) view.findViewById(R.id.cateName);
+                typeText.setText((String) item);
+            }
             return view;
+        }
+
+        @Override
+        public boolean areAllItemsEnabled() {
+            return false;
+        }
+
+        @Override
+        public boolean isEnabled(int position) {
+            return !(items.get(position) instanceof String);
         }
     }
 
