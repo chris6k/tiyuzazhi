@@ -1,6 +1,7 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
@@ -161,6 +162,14 @@ public class UserCenterActivity extends Activity {
                         public void run() {
 
                             name.setText(user.getName());
+                            name.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Intent intent = new Intent(UserCenterActivity.this, UserInfoActivity.class);
+                                    intent.putExtra("userId", user.getId());
+                                    startActivity(intent);
+                                }
+                            });
                             company.setText(user.getCompany());
                             address.setText(user.getAddress());
                             myFavText.setText("我的收藏(" + user.getFavCount() + ")");

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.*;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
+import com.tiyuzazhi.enums.Category;
 import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
@@ -32,10 +33,13 @@ public class EditorActivity extends Activity {
     private ImageView dateDayOrder;
     private View filter;
     private ImageView filterOrder;
+    private Spinner spinner;
     private boolean orderByDateDesc = true;
     private volatile List<ExaminingArticle> articles;
     private int step;
     private String stepName;
+    private String[] stepNames = {Category.SHOUGAO.getName(), Category.TUIXIU.getName(), Category.WAISHEN.getName(), Category.ZHONGSHEN.getName()};
+    private int[] stepCodes = {Category.SHOUGAO.getCode(), Category.TUIXIU.getCode(), Category.WAISHEN.getCode(), Category.ZHONGSHEN.getCode()};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +52,35 @@ public class EditorActivity extends Activity {
                 finish();
             }
         });
-        articleListView = (ListView) findViewById(R.id.article_item_list);
+        articleListView = (ListView) findViewById(R.id.articleList);
         reorderByDateDay = findViewById(R.id.reorderByDateDay);
         dateDayOrder = (ImageView) findViewById(R.id.dateDayOrder);
         filter = findViewById(R.id.filter);
+        spinner = (Spinner) findViewById(R.id.cateSpinner);
+        SpinnerAdapter adapter = new ArrayAdapter<String>(EditorActivity.this,
+                android.R.layout.simple_spinner_item, stepNames);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (opLock.compareAndSet(false, true)) {
+                    try {
+                        List<ExaminingArticle> filtered = filterByStatus(stepCodes[position]);
+                        articleListView.setAdapter(new ArticleAdaptor(filtered));
+                        ((TextView) filter).setText(stepNames[position]);
+                    } finally {
+                        opLock.set(false);
+                    }
+                } else {
+                    ToastUtils.show("前一个操作正在进行，请稍后");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        spinner.setAdapter(adapter);
         filterOrder = (ImageView) findViewById(R.id.filterOrder);
         opLock = new AtomicBoolean(false);
         handler = new Handler(Looper.getMainLooper());
@@ -63,6 +92,11 @@ public class EditorActivity extends Activity {
                         reorderByDateDay(orderByDateDesc);
                         articleListView.setAdapter(new ArticleAdaptor(articles));
                         orderByDateDesc = !orderByDateDesc;
+                        if (!orderByDateDesc) {
+                            dateDayOrder.setImageResource(R.drawable.close_xhdpi);
+                        } else {
+                            dateDayOrder.setImageResource(R.drawable.open_xhdpi);
+                        }
                     } finally {
                         opLock.set(false);
                     }
@@ -74,18 +108,9 @@ public class EditorActivity extends Activity {
         filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO 显示可选项
-                if (opLock.compareAndSet(false, true)) {
-                    try {
-                        List<ExaminingArticle> filtered = filterByStatus(step);
-                        articleListView.setAdapter(new ArticleAdaptor(filtered));
-                        ((TextView) filter).setText(stepName);
-                    } finally {
-                        opLock.set(false);
-                    }
-                } else {
-                    ToastUtils.show("前一个操作正在进行，请稍后");
-                }
+
+                spinner.performClick();
+
             }
         });
         init();
@@ -207,6 +232,7 @@ public class EditorActivity extends Activity {
                                            try {
                                                if (ArticleApi.passExamine(article)) {
                                                    ToastUtils.show("操作成功");
+                                                   init();
                                                } else {
                                                    ToastUtils.show("操作失败");
                                                }
@@ -231,6 +257,7 @@ public class EditorActivity extends Activity {
                                            try {
                                                if (ArticleApi.rejectExamine(article)) {
                                                    ToastUtils.show("操作成功");
+                                                   init();
                                                } else {
                                                    ToastUtils.show("操作失败");
                                                }

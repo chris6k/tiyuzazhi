@@ -123,10 +123,10 @@ public class ChiefEditorActivity extends Activity {
             helper.title.setText(article.getTitle());
             helper.draftNo.setText(article.getDraftNo());
             helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
-            helper.leftDay.setText(DatetimeUtils.getDuringDay(article.getExamineStart(), new Date()));
+            helper.leftDay.setText(DatetimeUtils.getDuringDay(article.getExamineStart(), new Date()) + "天");
             helper.opName.setText(article.getOpName());
             helper.opName2.setText(article.getOpName());
-            helper.score.setText(article.getScore());
+            helper.score.setText(String.valueOf(article.getScore()));
             helper.conclusion.setText(article.getConclusion() == 1 ? "通过" : "拒绝");
             helper.ok.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -139,6 +139,7 @@ public class ChiefEditorActivity extends Activity {
                                 try {
                                     if (ArticleApi.passExamine(article)) {
                                         ToastUtils.show("操作成功");
+                                        init();
                                     } else {
                                         ToastUtils.show("操作失败");
                                     }
@@ -163,6 +164,7 @@ public class ChiefEditorActivity extends Activity {
                                 try {
                                     if (ArticleApi.rejectExamine(article)) {
                                         ToastUtils.show("操作成功");
+                                        init();
                                     } else {
                                         ToastUtils.show("操作失败");
                                     }
@@ -200,6 +202,7 @@ public class ChiefEditorActivity extends Activity {
                             boolean success = ArticleApi.forward(examiningArticle, examinerIds);
                             if (success) {
                                 ToastUtils.show("操作成功");
+                                init();
                             } else {
                                 ToastUtils.show("操作失败");
                             }

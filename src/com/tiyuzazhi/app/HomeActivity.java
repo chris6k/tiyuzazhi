@@ -170,7 +170,7 @@ public class HomeActivity extends Activity {
                                 magItem.magData.setText(dateFormat.format(magazine.getPublishTime()));
                                 magItem.title.setText(magazine.getTitle());
                                 magItem.subTitle.setText(magazine.getSubTitle());
-                                magItem.magNo.setText(String.valueOf(magazine.getPublishNo()));
+                                magItem.magNo.setText("第" + magazine.getPublishNo() + "期");
                                 return view;
                             }
 
@@ -181,6 +181,15 @@ public class HomeActivity extends Activity {
                                 TextView magNo;
                                 View magNoBk;
                                 TextView magData;
+                            }
+                        });
+
+                        magazineList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                Intent intent = new Intent(HomeActivity.this, MagazineActivity.class);
+                                intent.putExtra("magazine", magazines.get(position));
+                                startActivity(intent);
                             }
                         });
 

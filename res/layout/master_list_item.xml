@@ -2,15 +2,15 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:layout_marginBottom="15dp">
 
     <LinearLayout
+            android:id="@+id/panel_top"
             android:layout_alignParentTop="true"
             android:background="@drawable/abstract_up_bg"
             android:layout_centerHorizontal="true"
-            android:paddingTop="15dp"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
             android:layout_width="353dp"
@@ -18,10 +18,11 @@
             android:layout_height="198dp">
 
         <TextView
+                android:layout_marginTop="15dp"
                 android:id="@+id/title"
                 android:textColor="#2d3538"
                 android:text="中国青少年体育健康促进的理论溯源与框架结构"
-                android:textSize="18sp"
+                android:textSize="18dp"
                 android:textStyle="bold"
                 android:ellipsize="end"
                 android:maxLines="2"
@@ -87,12 +88,13 @@
                 android:textColor="#4a5153"
                 android:ellipsize="end"
                 android:maxLines="3"
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"/>
+                android:layout_height="0dp"/>
     </LinearLayout>
 
     <LinearLayout
-            android:layout_alignParentBottom="true"
+            android:layout_below="@id/panel_top"
             android:layout_centerHorizontal="true"
             android:background="@drawable/abstract_down_bg"
             android:orientation="horizontal"

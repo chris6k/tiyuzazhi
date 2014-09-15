@@ -10,10 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import com.tiyuzazhi.api.UserApi;
 import com.tiyuzazhi.beans.Examiner;
 import com.tiyuzazhi.component.RoundedImageView;
@@ -33,7 +30,10 @@ public class ExaminerActivity extends Activity {
     private volatile List<Examiner> examiners;
     private ArrayList<Integer> selectedList;
     private ListView examinerList;
-
+    private Spinner spinner;
+    private String[] typeNames = {"推荐", "体育", "科技"};
+    private int[] typeCodes = {1, 2, 3};
+    private View filter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,24 @@ public class ExaminerActivity extends Activity {
         handler = new Handler(Looper.getMainLooper());
         selectedList = new ArrayList<Integer>(10);
         examinerList = (ListView) findViewById(R.id.examSelector);
+        spinner = (Spinner) findViewById(R.id.examinerTypeSpinner);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                List<Examiner> filtered = filterByType(typeCodes[position]);
+                examinerList.setAdapter(new ExaminerAdaptor(filtered));
+                ((TextView) filter).setText(typeNames[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        filter = findViewById(R.id.examiner_category);
+        SpinnerAdapter adapter = new ArrayAdapter<String>(ExaminerActivity.this,
+                android.R.layout.simple_spinner_item, typeNames);
+        spinner.setAdapter(adapter);
         View doneButton = findViewById(R.id.done);
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +84,26 @@ public class ExaminerActivity extends Activity {
                 init();
             }
         });
+        filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinner.performClick();
+            }
+        });
         init();
+    }
+
+    private List<Examiner> filterByType(int typeCode) {
+        if (typeCode == 0) {
+            return examiners;
+        }
+        List<Examiner> filtered = new ArrayList<Examiner>(examiners.size());
+        for (Examiner article : examiners) {
+            if (article.getType() == typeCode) {
+                filtered.add(article);
+            }
+        }
+        return filtered;
     }
 
     private void init() {

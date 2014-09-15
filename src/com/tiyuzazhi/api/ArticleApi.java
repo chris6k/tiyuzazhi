@@ -1,9 +1,9 @@
 package com.tiyuzazhi.api;
 
-import com.tiyuzazhi.Category;
 import com.tiyuzazhi.beans.ArticleMenu;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.beans.Magazine;
+import com.tiyuzazhi.enums.Category;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -74,7 +74,7 @@ public class ArticleApi {
         examiningArticle.setComment("稿子很好");
         examiningArticle.setConclusion(1);
         examiningArticle.setDraftNo("No:10010");
-        examiningArticle.setExamineFinish(new Date());
+        examiningArticle.setExamineStart(new Date());
         examiningArticle.setExamineFinish(new Date());
         examiningArticle.setAuthor("王小二");
         examiningArticle.setId(1);
@@ -83,6 +83,9 @@ public class ArticleApi {
         examiningArticle.setScore(5);
         examiningArticle.setState(1);
         examiningArticle.setStep(1);
+        examiningArticle.setTitle("文章审核");
+        examiningArticle.setAuthor("鲁连海");
+        examiningArticle.setSummary("这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要");
         List<ExaminingArticle> examiningArticles = new ArrayList<ExaminingArticle>(5);
         examiningArticles.add(examiningArticle);
         examiningArticles.add(examiningArticle);

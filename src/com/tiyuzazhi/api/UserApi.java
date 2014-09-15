@@ -54,7 +54,8 @@ public class UserApi {
      * @return
      */
     public static int loginRole() {
-        return LocalUtils.get("role", 0);
+//        return LocalUtils.get("role", 0);
+        return 1;
     }
 
     /**

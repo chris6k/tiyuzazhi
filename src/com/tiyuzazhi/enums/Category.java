@@ -1,4 +1,4 @@
-package com.tiyuzazhi;
+package com.tiyuzazhi.enums;
 
 /**
  * @author chris.xue

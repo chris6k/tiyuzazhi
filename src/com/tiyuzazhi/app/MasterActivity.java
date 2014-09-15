@@ -118,22 +118,28 @@ public class MasterActivity extends Activity {
             helper.title.setText(article.getTitle());
             helper.draftNo.setText(article.getDraftNo());
             helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
-            helper.leftDay.setText(DatetimeUtils.getDuringDay(article.getExamineStart(), new Date()));
+            helper.leftDay.setText(String.valueOf(DatetimeUtils.getDuringDay(article.getExamineStart(), new Date())) + "天");
             helper.summary.setText(article.getSummary());
             helper.ok.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (opLock.compareAndSet(false, true)) {
                         TPool.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (ArticleApi.passExamine(article)) {
-                                    ToastUtils.show("操作成功");
-                                } else {
-                                    ToastUtils.show("操作失败");
-                                }
-                            }
-                        });
+                                       @Override
+                                       public void run() {
+                                           try {
+                                               if (ArticleApi.passExamine(article)) {
+                                                   ToastUtils.show("操作成功");
+                                               } else {
+                                                   ToastUtils.show("操作失败");
+                                               }
+                                           } finally {
+                                               opLock.set(false);
+                                           }
+                                       }
+                                   }
+
+                        );
                     } else {
                         ToastUtils.show("前一个操作正在进行，请稍后");
                     }
@@ -147,15 +153,21 @@ public class MasterActivity extends Activity {
                         public void run() {
                             if (opLock.compareAndSet(false, true)) {
                                 TPool.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        if (ArticleApi.rejectExamine(article)) {
-                                            ToastUtils.show("操作成功");
-                                        } else {
-                                            ToastUtils.show("操作失败");
-                                        }
-                                    }
-                                });
+                                               @Override
+                                               public void run() {
+                                                   try {
+                                                       if (ArticleApi.rejectExamine(article)) {
+                                                           ToastUtils.show("操作成功");
+                                                       } else {
+                                                           ToastUtils.show("操作失败");
+                                                       }
+                                                   } finally {
+                                                       opLock.set(false);
+                                                   }
+                                               }
+                                           }
+
+                                );
                             } else {
                                 ToastUtils.show("前一个操作正在进行，请稍后");
                             }

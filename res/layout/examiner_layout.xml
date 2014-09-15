@@ -51,6 +51,11 @@
             android:layout_below="@id/title_bar"
             android:layout_width="wrap_content"
             android:layout_height="50dp">
+        
+        <Spinner
+                android:id="@+id/examinerTypeSpinner"
+                android:layout_width="0dp"
+                android:layout_height="0dp"/>
 
         <TextView
                 android:clickable="true"
@@ -74,6 +79,7 @@
     <ListView
             android:layout_below="@id/cateSelector"
             android:id="@+id/examSelector"
+            android:divider="@android:color/transparent"
             android:layout_width="fill_parent"
             android:cacheColorHint="@android:color/transparent"
             android:layout_height="fill_parent"/>

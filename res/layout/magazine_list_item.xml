@@ -10,6 +10,7 @@
               android:paddingBottom="10dp"
         android:background="#ffffffff">
     <TextView
+            android:id="@+id/title"
             android:text="中国青少年体育健康的促进的理论溯源与框架结构"
             android:ellipsize="end"
             android:maxLines="2"
@@ -18,6 +19,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
     <TextView
+            android:id="@+id/author"
             android:layout_marginTop="10dp"
             android:text="作者：刘家，高新"
             android:textSize="15sp"

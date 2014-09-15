@@ -14,7 +14,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ArticleMenu;
-import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.beans.Magazine;
 import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
@@ -187,14 +186,14 @@ public class MagazineActivity extends Activity {
                 }
                 helper = new AdaptorHelper();
                 helper.title = (TextView) view.findViewById(R.id.title);
-                helper.author = (TextView) view.findViewById(R.id.summary);
+                helper.author = (TextView) view.findViewById(R.id.author);
                 view.setTag(helper);
             } else {
                 helper = (AdaptorHelper) view.getTag();
             }
-            final ArticleMenu articleMenu = (ExaminingArticle) getItem(i);
+            final ArticleMenu articleMenu = (ArticleMenu) getItem(i);
             helper.title.setText(articleMenu.getTitle());
-            helper.author.setText(articleMenu.getAuthor());
+            helper.author.setText("作者:" + articleMenu.getAuthor());
             return view;
         }
     }

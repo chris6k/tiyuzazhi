@@ -2,11 +2,12 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
+                android:layout_height="wrap_content"
                 android:padding="5dp"
                 android:layout_marginBottom="15dp">
 
     <LinearLayout
+            android:id="@+id/panel_top"
             android:layout_alignParentTop="true"
             android:background="@drawable/abstract_up_bg"
             android:layout_centerHorizontal="true"
@@ -15,7 +16,7 @@
             android:paddingLeft="10dp"
             android:layout_width="353dp"
             android:orientation="vertical"
-            android:layout_height="198dp">
+            android:layout_height="118dp">
 
         <TextView
                 android:id="@+id/title"
@@ -98,7 +99,7 @@
     </LinearLayout>
 
     <LinearLayout
-            android:layout_alignParentBottom="true"
+            android:layout_below="@id/panel_top"
             android:layout_centerHorizontal="true"
             android:background="@drawable/abstract_down_bg"
             android:orientation="horizontal"
