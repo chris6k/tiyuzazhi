@@ -128,11 +128,11 @@ public class ArticleApi {
         ArticleMenu magazine = new ArticleMenu();
         magazine.setId(1);
         magazine.setAuthor("鲁连海");
-        magazine.setTitle("体育杂志主标题");
+        magazine.setTitle("体育杂志主标题" + magazineId);
         ArticleMenu magazine2 = new ArticleMenu();
         magazine2.setId(2);
         magazine2.setAuthor("鲁连海");
-        magazine2.setTitle("体育杂志主标题2");
+        magazine2.setTitle("体育杂志主标题2" + magazineId);
         return Arrays.asList(magazine, magazine2);
     }
 
