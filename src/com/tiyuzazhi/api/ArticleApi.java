@@ -196,7 +196,7 @@ public class ArticleApi {
         examiningArticle.setComment("稿子很好");
         examiningArticle.setConclusion(1);
         examiningArticle.setDraftNo("No:10010");
-        examiningArticle.setExamineFinish(new Date());
+        examiningArticle.setExamineStart(new Date());
         examiningArticle.setExamineFinish(new Date());
         examiningArticle.setAuthor("王小二");
         examiningArticle.setId(1);
@@ -215,7 +215,7 @@ public class ArticleApi {
     }
 
     /**
-     * 获取谋篇文章
+     * 获取某篇文章
      *
      * @param articleId
      * @return
@@ -226,6 +226,7 @@ public class ArticleApi {
         examiningArticle.setCategory(Category.SHOUGAO.getCode());
         examiningArticle.setComment("稿子很好");
         examiningArticle.setConclusion(1);
+        examiningArticle.setSummary("这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要");
         examiningArticle.setDraftNo("No:10010");
         examiningArticle.setExamineFinish(new Date());
         examiningArticle.setExamineFinish(new Date());
@@ -236,6 +237,7 @@ public class ArticleApi {
         examiningArticle.setScore(5);
         examiningArticle.setState(1);
         examiningArticle.setStep(1);
+        examiningArticle.setTitle("文章标题");
         return examiningArticle;
     }
 }

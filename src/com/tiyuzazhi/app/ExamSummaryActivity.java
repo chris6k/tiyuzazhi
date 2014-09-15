@@ -14,8 +14,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
+import com.tiyuzazhi.enums.Category;
 import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
+import com.tiyuzazhi.utils.ToastUtils;
 
 import java.util.List;
 
@@ -28,6 +30,10 @@ public class ExamSummaryActivity extends Activity {
     private Handler handler;
     private ListView flowListView;
     private int articleId;
+    private View operate;
+    private View buttonOk;
+    private View buttonReject;
+    private View buttonExaminer;
 
 
     @Override
@@ -44,7 +50,47 @@ public class ExamSummaryActivity extends Activity {
         });
         handler = new Handler(Looper.getMainLooper());
         flowListView = (ListView) findViewById(R.id.summaryList);
+        final View opPanel = findViewById(R.id.opPanel);
+        opPanel.setVisibility(View.GONE);
+        operate = findViewById(R.id.operate);
+        operate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (opPanel.getVisibility() != View.VISIBLE) {
+                    opPanel.setVisibility(View.VISIBLE);
+                } else {
+                    opPanel.setVisibility(View.GONE);
+                }
+            }
+        });
+        buttonOk = findViewById(R.id.buttonOk);
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.show("操作成功");
+            }
+        });
+        buttonReject = findViewById(R.id.buttonReject);
+        buttonReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.show("操作成功");
+            }
+        });
+        buttonExaminer = findViewById(R.id.examiner);
+        buttonExaminer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ExamSummaryActivity.this, ExaminerActivity.class);
+                startActivityForResult(intent, 1);
+            }
+        });
         init();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void init() {
@@ -98,10 +144,10 @@ public class ExamSummaryActivity extends Activity {
                 helper.summaryNo = (TextView) view.findViewById(R.id.summaryNo);
                 helper.step = (TextView) view.findViewById(R.id.step);
                 helper.company = (TextView) view.findViewById(R.id.company);
-                helper.examiner = (TextView) view.findViewById(R.id.examiner);
+                helper.examiner = (TextView) view.findViewById(R.id.examinerText);
                 helper.dateDayStart = (TextView) view.findViewById(R.id.dateDayStart);
                 helper.dateDayEnd = (TextView) view.findViewById(R.id.dateDayEnd);
-                helper.comment = (TextView) view.findViewById(R.id.summary);
+                helper.comment = (TextView) view.findViewById(R.id.comment);
                 helper.upDownArrow = (ImageView) view.findViewById(R.id.upDownArrow);
                 helper.result = (ImageView) view.findViewById(R.id.result);
                 helper.bottomPanel = view.findViewById(R.id.panel_bottom);
@@ -111,7 +157,7 @@ public class ExamSummaryActivity extends Activity {
             }
             final ExaminingArticle article = (ExaminingArticle) getItem(i);
             helper.summaryNo.setText(String.valueOf(i));
-            helper.step.setText(String.valueOf(article.getStep()));
+            helper.step.setText(Category.findByCode(article.getStep()).getName());
             helper.company.setText(article.getOrgName());
             helper.examiner.setText(article.getOpName());
             helper.dateDayStart.setText(DatetimeUtils.format(article.getExamineStart()));

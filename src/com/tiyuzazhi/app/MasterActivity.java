@@ -1,6 +1,7 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -29,6 +30,7 @@ public class MasterActivity extends Activity {
     private ListView articleListView;
     private AtomicBoolean opLock;
     private Handler handler;
+    private volatile List<ExaminingArticle> examiningArticles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,7 @@ public class MasterActivity extends Activity {
             @Override
             public void run() {
                 try {
-                    final List<ExaminingArticle> examiningArticles = ArticleApi.loadExamineArticle(0, 10);
+                    examiningArticles = ArticleApi.loadExamineArticle(0, 10);
                     if (examiningArticles.isEmpty()) {
                         ToastUtils.show("没有更多文章");
                         return;
@@ -108,14 +110,23 @@ public class MasterActivity extends Activity {
                 helper.dateDay = (TextView) view.findViewById(R.id.dateDay);
                 helper.leftDay = (TextView) view.findViewById(R.id.leftDay);
                 helper.summary = (TextView) view.findViewById(R.id.summary);
-                helper.ok = (Button) view.findViewById(R.id.buttonOk);
-                helper.reject = (Button) view.findViewById(R.id.buttonReject);
+                helper.ok = (Button) view.findViewById(R.id.buttonOkText);
+                helper.reject = (Button) view.findViewById(R.id.buttonRejectText);
                 view.setTag(helper);
             } else {
                 helper = (AdaptorHelper) view.getTag();
             }
             final ExaminingArticle article = (ExaminingArticle) getItem(i);
             helper.title.setText(article.getTitle());
+            helper.title.setClickable(true);
+            helper.title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MasterActivity.this, ArticleSummaryActivity.class);
+                    intent.putExtra("articleId", article.getId());
+                    startActivity(intent);
+                }
+            });
             helper.draftNo.setText(article.getDraftNo());
             helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
             helper.leftDay.setText(String.valueOf(DatetimeUtils.getDuringDay(article.getExamineStart(), new Date())) + "天");

@@ -36,6 +36,7 @@
     </RelativeLayout>
 
     <ListView
+            android:divider="@android:color/transparent"
             android:layout_below="@id/title_bar"
             android:id="@+id/article_item_list"
             android:layout_width="fill_parent"

@@ -19,7 +19,9 @@ import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -34,7 +36,10 @@ public class MagazineActivity extends Activity {
     private TextView magazineNo;
     private TextView magazinePubTime;
     private AtomicBoolean opLock;
+    private Map<Integer, Boolean> selectIds;
     private volatile Magazine magazine;
+    private View fav;
+    private View share;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,8 @@ public class MagazineActivity extends Activity {
             }
         });
         menuListView = (ListView) findViewById(R.id.article_item_list);
+        menuListView.setItemsCanFocus(true);
+
         handler = new Handler(Looper.getMainLooper());
         nextButton = findViewById(R.id.next_mag);
         previousButton = findViewById(R.id.previous_mag);
@@ -55,7 +62,15 @@ public class MagazineActivity extends Activity {
         magazinePubTime = (TextView) findViewById(R.id.mag_date);
         opLock = new AtomicBoolean(false);
         magazine = (Magazine) this.getIntent().getSerializableExtra("magazine");
-
+        selectIds = new HashMap<Integer, Boolean>(30, 0.5f);
+        fav = findViewById(R.id.collect);
+        fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO
+                ToastUtils.show("收藏成功");
+            }
+        });
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,7 +152,16 @@ public class MagazineActivity extends Activity {
                             menuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    //TODO 跳转到文章正文
+                                    Boolean checked = selectIds.get(position);
+                                    if (checked == null || !checked) {
+                                        checked = Boolean.TRUE;
+                                        selectIds.put(position, checked);
+                                        menuListView.setItemChecked(position, checked);
+                                    } else {
+                                        checked = Boolean.FALSE;
+                                        selectIds.put(position, checked);
+                                        menuListView.setItemChecked(position, checked);
+                                    }
                                 }
                             });
                         }

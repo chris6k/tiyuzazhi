@@ -31,8 +31,8 @@ public class ExaminerActivity extends Activity {
     private ArrayList<Integer> selectedList;
     private ListView examinerList;
     private Spinner spinner;
-    private String[] typeNames = {"推荐", "体育", "科技"};
-    private int[] typeCodes = {1, 2, 3};
+    private String[] typeNames = {"全部", "推荐", "体育", "科技"};
+    private int[] typeCodes = {-1, 1, 2, 3};
     private View filter;
 
     @Override
@@ -94,7 +94,7 @@ public class ExaminerActivity extends Activity {
     }
 
     private List<Examiner> filterByType(int typeCode) {
-        if (typeCode == 0) {
+        if (typeCode == -1) {
             return examiners;
         }
         List<Examiner> filtered = new ArrayList<Examiner>(examiners.size());

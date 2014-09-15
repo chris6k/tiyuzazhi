@@ -44,8 +44,8 @@ public class ArticleSummaryActivity extends Activity {
         title = (TextView) findViewById(R.id.title);
         author = (TextView) findViewById(R.id.author);
         summary = (TextView) findViewById(R.id.summary);
-        View buttonOk = findViewById(R.id.buttonOk);
-        View buttonReject = findViewById(R.id.buttonReject);
+        View buttonOk = findViewById(R.id.buttonOkText);
+        View buttonReject = findViewById(R.id.buttonRejectText);
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

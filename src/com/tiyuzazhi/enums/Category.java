@@ -20,4 +20,13 @@ public enum Category {
     public String getName() {
         return name;
     }
+
+    public static Category findByCode(int step) {
+        for (Category category : values()) {
+            if (category.getCode() == step) {
+                return category;
+            }
+        }
+        return Category.SHOUGAO;
+    }
 }

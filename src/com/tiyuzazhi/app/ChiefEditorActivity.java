@@ -112,8 +112,8 @@ public class ChiefEditorActivity extends Activity {
                 helper.conclusion = (TextView) view.findViewById(R.id.conclusion);
                 helper.score = (TextView) view.findViewById(R.id.score);
                 helper.comment = (EditText) view.findViewById(R.id.commentEditText);
-                helper.ok = (Button) view.findViewById(R.id.buttonOk);
-                helper.reject = (Button) view.findViewById(R.id.buttonReject);
+                helper.ok = (Button) view.findViewById(R.id.buttonOkText);
+                helper.reject = (Button) view.findViewById(R.id.buttonRejectText);
                 helper.forward = (Button) view.findViewById(R.id.buttonForward);
                 view.setTag(helper);
             } else {

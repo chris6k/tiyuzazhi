@@ -1,6 +1,7 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -38,8 +39,8 @@ public class EditorActivity extends Activity {
     private volatile List<ExaminingArticle> articles;
     private int step;
     private String stepName;
-    private String[] stepNames = {Category.SHOUGAO.getName(), Category.TUIXIU.getName(), Category.WAISHEN.getName(), Category.ZHONGSHEN.getName()};
-    private int[] stepCodes = {Category.SHOUGAO.getCode(), Category.TUIXIU.getCode(), Category.WAISHEN.getCode(), Category.ZHONGSHEN.getCode()};
+    private String[] stepNames = {"全部流程", Category.SHOUGAO.getName(), Category.TUIXIU.getName(), Category.WAISHEN.getName(), Category.ZHONGSHEN.getName()};
+    private int[] stepCodes = {-1, Category.SHOUGAO.getCode(), Category.TUIXIU.getCode(), Category.WAISHEN.getCode(), Category.ZHONGSHEN.getCode()};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +163,7 @@ public class EditorActivity extends Activity {
      * @return
      */
     private List<ExaminingArticle> filterByStatus(int step) {
-        if (step == 0) {
+        if (step == -1) {
             return articles;
         }
         List<ExaminingArticle> filtered = new ArrayList<ExaminingArticle>(articles.size());
@@ -211,14 +212,22 @@ public class EditorActivity extends Activity {
                 helper.draftNo = (TextView) view.findViewById(R.id.draftNo);
                 helper.dateDay = (TextView) view.findViewById(R.id.dateDay);
                 helper.opName = (TextView) view.findViewById(R.id.opName);
-                helper.ok = (Button) view.findViewById(R.id.buttonOk);
-                helper.reject = (Button) view.findViewById(R.id.buttonReject);
+                helper.ok = (Button) view.findViewById(R.id.buttonOkText);
+                helper.reject = (Button) view.findViewById(R.id.buttonRejectText);
                 view.setTag(helper);
             } else {
                 helper = (AdaptorHelper) view.getTag();
             }
             final ExaminingArticle article = (ExaminingArticle) getItem(i);
             helper.title.setText(article.getTitle());
+            helper.title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(EditorActivity.this, ExamSummaryActivity.class);
+                    intent.putExtra("articleId", article.getId());
+                    startActivity(intent);
+                }
+            });
             helper.draftNo.setText(article.getDraftNo());
             helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
             helper.opName.setText(article.getOpName());

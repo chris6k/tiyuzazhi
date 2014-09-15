@@ -51,7 +51,7 @@
             android:layout_height="1dp"/>
 
     <TextView
-            android:id="@+id/buttonOk"
+            android:id="@+id/buttonOkText"
             android:gravity="center"
             android:clickable="true"
             android:text="通过"

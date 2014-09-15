@@ -64,7 +64,7 @@
     </RelativeLayout>
 
     <RelativeLayout
-            android:id="@+id/panel_bottom"
+            android:id="@+id/panel_time"
             android:layout_below="@id/panel_top"
             android:layout_toRightOf="@id/summaryNo"
             android:layout_marginRight="70dp"
@@ -105,7 +105,7 @@
 
         <TextView
                 android:layout_centerVertical="true"
-                android:id="@+id/examiner"
+                android:id="@+id/examinerText"
                 android:layout_marginLeft="10dp"
                 android:text="鲁良兵"
                 android:layout_alignParentRight="true"
@@ -124,7 +124,8 @@
             android:layout_height="70dp"/>
 
     <LinearLayout
-            android:layout_below="@id/panel_bottom"
+            android:id="@+id/panel_bottom"
+            android:layout_below="@id/panel_time"
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

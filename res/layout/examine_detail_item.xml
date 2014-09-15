@@ -83,6 +83,7 @@
                     android:layout_height="1dp"/>
 
             <TextView
+                    android:id="@+id/systemNotify"
                     android:padding="10dp"
                     android:text="专家正在审稿，请耐心等待，感谢你的支持"
                     android:textSize="16sp"
@@ -108,6 +109,7 @@
                     android:layout_height="wrap_content"/>
 
             <TextView
+                    android:id="@+id/attachmentText"
                     android:layout_marginLeft="10dp"
                     android:text="评审意见-2313"
                     android:textSize="18sp"

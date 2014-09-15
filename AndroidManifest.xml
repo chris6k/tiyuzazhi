@@ -40,5 +40,6 @@
         <activity android:name=".EditorActivity"/>
         <activity android:name=".ExaminerActivity"/>
         <activity android:name=".ExamSummaryActivity"/>
+        <activity android:name=".ExamineDetailActivity"/>
     </application>
 </manifest>

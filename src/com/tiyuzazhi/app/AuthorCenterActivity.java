@@ -1,6 +1,7 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -54,6 +55,14 @@ public class AuthorCenterActivity extends Activity {
         comment = (TextView) findViewById(R.id.comment);
         state = (TextView) findViewById(R.id.state);
         attached = findViewById(R.id.attached);
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AuthorCenterActivity.this, ExamineDetailActivity.class);
+                intent.putExtra("articleId", articleId);
+                startActivity(intent);
+            }
+        });
         init();
     }
 
@@ -70,7 +79,7 @@ public class AuthorCenterActivity extends Activity {
                             opName.setText(examiningArticle.getOpName() + ":");
                             draftNo.setText(examiningArticle.getDraftNo());
                             dateDay.setText(DatetimeUtils.format(examiningArticle.getExamineFinish()));
-                            state.setText(examiningArticle.getConclusion());
+                            state.setText(examiningArticle.getConclusion() == 0 ? "通过" : "未通过");
                             if (TextUtils.isEmpty(examiningArticle.getAttachment())) {
                                 attached.setVisibility(View.GONE);
                                 comment.setText(Html.fromHtml(examiningArticle.getComment()));

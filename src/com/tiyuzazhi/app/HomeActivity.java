@@ -63,14 +63,15 @@ public class HomeActivity extends Activity {
         slideMenuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getBaseContext(), "选中了侧边栏菜单", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), UserCenterActivity.class);
+                startActivity(intent);
             }
         });
 
         authorCenterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), UserCenterActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AuthorCenterActivity.class);
                 startActivity(intent);
             }
         });

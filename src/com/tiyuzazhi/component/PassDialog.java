@@ -31,7 +31,7 @@ public abstract class PassDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.examine_dialog);
         comment = (EditText) findViewById(R.id.comment);
-        buttonOk = findViewById(R.id.buttonOk);
+        buttonOk = findViewById(R.id.buttonOkText);
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

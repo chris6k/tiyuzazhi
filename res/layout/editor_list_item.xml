@@ -107,7 +107,7 @@
             android:layout_height="52dp">
 
         <Button
-                android:id="@+id/buttonOk"
+                android:id="@+id/buttonOkText"
                 android:text="通过"
                 android:textColor="#2d3538"
                 android:textSize="18sp"
@@ -122,7 +122,7 @@
                 android:layout_height="fill_parent"/>
 
         <Button
-                android:id="@id/buttonReject"
+                android:id="@id/buttonRejectText"
                 android:text="退稿"
                 android:textColor="#2d3538"
                 android:textSize="18sp"
