@@ -1,10 +1,13 @@
 package com.tiyuzazhi.api;
 
+import com.tiyuzazhi.Category;
 import com.tiyuzazhi.beans.ArticleMenu;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.beans.Magazine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -66,7 +69,27 @@ public class ArticleApi {
      */
     public static List<ExaminingArticle> loadExamineArticle(int offset, int count) {
         //TODO
-        return new ArrayList<ExaminingArticle>(0);
+        ExaminingArticle examiningArticle = new ExaminingArticle();
+        examiningArticle.setCategory(Category.SHOUGAO.getCode());
+        examiningArticle.setComment("稿子很好");
+        examiningArticle.setConclusion(1);
+        examiningArticle.setDraftNo("No:10010");
+        examiningArticle.setExamineFinish(new Date());
+        examiningArticle.setExamineFinish(new Date());
+        examiningArticle.setAuthor("王小二");
+        examiningArticle.setId(1);
+        examiningArticle.setOpId(1);
+        examiningArticle.setOpName("鲁连海");
+        examiningArticle.setScore(5);
+        examiningArticle.setState(1);
+        examiningArticle.setStep(1);
+        List<ExaminingArticle> examiningArticles = new ArrayList<ExaminingArticle>(5);
+        examiningArticles.add(examiningArticle);
+        examiningArticles.add(examiningArticle);
+        examiningArticles.add(examiningArticle);
+        examiningArticles.add(examiningArticle);
+        examiningArticles.add(examiningArticle);
+        return examiningArticles;
     }
 
     /**
@@ -76,7 +99,19 @@ public class ArticleApi {
      */
     public static List<Magazine> loadNewestMagazine() {
         //TODO
-        return new ArrayList<Magazine>(0);
+        Magazine magazine = new Magazine();
+        magazine.setId(1);
+        magazine.setPublishNo(1);
+        magazine.setPublishTime(new Date());
+        magazine.setSubTitle("体育杂志副标题");
+        magazine.setTitle("体育杂志主标题");
+        Magazine magazine2 = new Magazine();
+        magazine2.setId(2);
+        magazine2.setPublishNo(2);
+        magazine2.setPublishTime(new Date());
+        magazine2.setSubTitle("体育杂志副标题2");
+        magazine2.setTitle("体育杂志主标题2");
+        return Arrays.asList(magazine, magazine2);
     }
 
     /**
@@ -87,7 +122,15 @@ public class ArticleApi {
      */
     public static List<ArticleMenu> loadArticleMenu(int magazineId) {
         //TODO
-        return new ArrayList<ArticleMenu>(0);
+        ArticleMenu magazine = new ArticleMenu();
+        magazine.setId(1);
+        magazine.setAuthor("鲁连海");
+        magazine.setTitle("体育杂志主标题");
+        ArticleMenu magazine2 = new ArticleMenu();
+        magazine2.setId(2);
+        magazine2.setAuthor("鲁连海");
+        magazine2.setTitle("体育杂志主标题2");
+        return Arrays.asList(magazine, magazine2);
     }
 
     /**
@@ -98,7 +141,13 @@ public class ArticleApi {
      */
     public static Magazine loadNextMagazine(int magazineId) {
         //TODO
-        return null;
+        Magazine magazine = new Magazine();
+        magazine.setId(magazineId + 1);
+        magazine.setPublishNo(magazineId + 1);
+        magazine.setPublishTime(new Date());
+        magazine.setSubTitle("体育杂志副标题" + (magazineId + 1));
+        magazine.setTitle("体育杂志主标题" + (magazineId + 1));
+        return magazine;
     }
 
     /**
@@ -109,7 +158,13 @@ public class ArticleApi {
      */
     public static Magazine loadPrevMagazine(int magazineId) {
         //TODO
-        return null;
+        Magazine magazine = new Magazine();
+        magazine.setId(magazineId - 1);
+        magazine.setPublishNo(magazineId - 1);
+        magazine.setPublishTime(new Date());
+        magazine.setSubTitle("体育杂志副标题" + (magazineId - 1));
+        magazine.setTitle("体育杂志主标题" + (magazineId - 1));
+        return magazine;
     }
 
 
@@ -122,7 +177,7 @@ public class ArticleApi {
      */
     public static boolean forward(ExaminingArticle examiningArticle, ArrayList<Integer> examinerIds) {
         //TODO
-        return false;
+        return true;
     }
 
     /**
@@ -133,7 +188,27 @@ public class ArticleApi {
      */
     public static List<ExaminingArticle> loadExamineFlow(int articleId) {
         //TODO
-        return new ArrayList<ExaminingArticle>(0);
+        ExaminingArticle examiningArticle = new ExaminingArticle();
+        examiningArticle.setCategory(Category.SHOUGAO.getCode());
+        examiningArticle.setComment("稿子很好");
+        examiningArticle.setConclusion(1);
+        examiningArticle.setDraftNo("No:10010");
+        examiningArticle.setExamineFinish(new Date());
+        examiningArticle.setExamineFinish(new Date());
+        examiningArticle.setAuthor("王小二");
+        examiningArticle.setId(1);
+        examiningArticle.setOpId(1);
+        examiningArticle.setOpName("鲁连海");
+        examiningArticle.setScore(5);
+        examiningArticle.setState(1);
+        examiningArticle.setStep(1);
+        List<ExaminingArticle> examiningArticles = new ArrayList<ExaminingArticle>(5);
+        examiningArticles.add(examiningArticle);
+        examiningArticles.add(examiningArticle);
+        examiningArticles.add(examiningArticle);
+        examiningArticles.add(examiningArticle);
+        examiningArticles.add(examiningArticle);
+        return examiningArticles;
     }
 
     /**
@@ -144,6 +219,20 @@ public class ArticleApi {
      */
     public static ExaminingArticle loadArticle(int articleId) {
         //TODO
-        return null;
+        ExaminingArticle examiningArticle = new ExaminingArticle();
+        examiningArticle.setCategory(Category.SHOUGAO.getCode());
+        examiningArticle.setComment("稿子很好");
+        examiningArticle.setConclusion(1);
+        examiningArticle.setDraftNo("No:10010");
+        examiningArticle.setExamineFinish(new Date());
+        examiningArticle.setExamineFinish(new Date());
+        examiningArticle.setAuthor("王小二");
+        examiningArticle.setId(1);
+        examiningArticle.setOpId(1);
+        examiningArticle.setOpName("鲁连海");
+        examiningArticle.setScore(5);
+        examiningArticle.setState(1);
+        examiningArticle.setStep(1);
+        return examiningArticle;
     }
 }

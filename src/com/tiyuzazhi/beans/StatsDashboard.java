@@ -1,5 +1,8 @@
 package com.tiyuzazhi.beans;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +15,13 @@ public class StatsDashboard implements Serializable {
     private int chiefEditorTaskNo;
 
     public StatsDashboard() {
+    }
+
+    public StatsDashboard(JSONObject jsonObject) throws JSONException {
+        userCenterTaskNo = jsonObject.getInt("userTaskNo");
+        masterCenterTaskNo = jsonObject.getInt("masterTaskNo");
+        editorTaskNo = jsonObject.getInt("editorTaskNo");
+        chiefEditorTaskNo = jsonObject.getInt("chiefTaskNo");
     }
 
     public int getUserCenterTaskNo() {

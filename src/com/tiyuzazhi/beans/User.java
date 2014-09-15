@@ -1,5 +1,8 @@
 package com.tiyuzazhi.beans;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -15,8 +18,30 @@ public class User implements Serializable {
     private String mobile;
     private int favCount;
     private int msgCount;
+    private int role;
 
     public User() {
+    }
+
+    public User(JSONObject jsonObject) throws JSONException {
+        setId(jsonObject.getInt("id"));
+        setAddress(jsonObject.getString("address"));
+        setCompany(jsonObject.getString("company"));
+        setEmail(jsonObject.getString("email"));
+        setName(jsonObject.getString("name"));
+        setIconPath(jsonObject.getString("thumbnail"));
+        setMobile(jsonObject.getString("mobile"));
+        setFavCount(jsonObject.getInt("fav"));
+        setMsgCount(jsonObject.getInt("msg"));
+        setRole(jsonObject.getInt("role"));
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     public String getMobile() {
@@ -105,4 +130,6 @@ public class User implements Serializable {
                 ", msgCount=" + msgCount +
                 '}';
     }
+
+
 }
