@@ -100,7 +100,7 @@
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:id="@+id/buttonRejectText"
-                    android:text="拒绝"
+                    android:text="不通过"
                     android:textSize="18sp"
                     android:textColor="#2d3538"
                     android:layout_width="wrap_content"

@@ -194,6 +194,7 @@ public class ArticleApi {
         ExaminingArticle examiningArticle = new ExaminingArticle();
         examiningArticle.setCategory(Category.SHOUGAO.getCode());
         examiningArticle.setComment("稿子很好");
+        examiningArticle.setAttachmentText("附件-2013-01");
         examiningArticle.setConclusion(1);
         examiningArticle.setDraftNo("No:10010");
         examiningArticle.setExamineStart(new Date());
@@ -203,14 +204,31 @@ public class ArticleApi {
         examiningArticle.setOpId(1);
         examiningArticle.setOpName("鲁连海");
         examiningArticle.setScore(5);
-        examiningArticle.setState(1);
-        examiningArticle.setStep(1);
+        examiningArticle.setState(0);
+        examiningArticle.setStep(5);
+
+        ExaminingArticle examiningArticle2 = new ExaminingArticle();
+        examiningArticle2.setCategory(Category.SHOUGAO.getCode());
+        examiningArticle2.setComment("稿子很好");
+        examiningArticle2.setAttachment("http://localhost/hehe.jpg");
+        examiningArticle2.setAttachmentText("附件-2013-01");
+        examiningArticle2.setConclusion(1);
+        examiningArticle2.setDraftNo("No:10010");
+        examiningArticle2.setExamineStart(new Date());
+        examiningArticle2.setExamineFinish(new Date());
+        examiningArticle2.setAuthor("王小二");
+        examiningArticle2.setId(1);
+        examiningArticle2.setOpId(1);
+        examiningArticle2.setOpName("鲁连海");
+        examiningArticle2.setScore(5);
+        examiningArticle2.setState(0);
+        examiningArticle2.setStep(5);
         List<ExaminingArticle> examiningArticles = new ArrayList<ExaminingArticle>(5);
         examiningArticles.add(examiningArticle);
         examiningArticles.add(examiningArticle);
         examiningArticles.add(examiningArticle);
         examiningArticles.add(examiningArticle);
-        examiningArticles.add(examiningArticle);
+        examiningArticles.add(examiningArticle2);
         return examiningArticles;
     }
 
