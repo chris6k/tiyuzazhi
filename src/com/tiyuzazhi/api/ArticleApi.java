@@ -206,7 +206,6 @@ public class ArticleApi {
         examiningArticle.setScore(5);
         examiningArticle.setState(0);
         examiningArticle.setStep(5);
-
         ExaminingArticle examiningArticle2 = new ExaminingArticle();
         examiningArticle2.setCategory(Category.SHOUGAO.getCode());
         examiningArticle2.setComment("稿子很好");
