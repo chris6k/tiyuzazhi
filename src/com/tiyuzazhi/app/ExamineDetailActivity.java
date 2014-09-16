@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.LeadingMarginSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
+import com.tiyuzazhi.enums.Status;
+import com.tiyuzazhi.enums.Step;
 import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 
@@ -93,6 +97,7 @@ public class ExamineDetailActivity extends Activity {
                 helper.detailPanel = view.findViewById(R.id.commPanel);
                 helper.attachmentPanel = view.findViewById(R.id.attachmentPanel);
                 helper.detail = (TextView) view.findViewById(R.id.stepDetail);
+                helper.systemNotify = (TextView) view.findViewById(R.id.systemNotify);
                 helper.attachmentText = (TextView) view.findViewById(R.id.attachmentText);
                 view.setTag(helper);
             } else {
@@ -103,11 +108,13 @@ public class ExamineDetailActivity extends Activity {
             helper.step.setText(article.getOpName());
             if (TextUtils.isEmpty(article.getAttachment())) {
                 helper.detailPanel.setVisibility(View.VISIBLE);
+                helper.detail.setText(Step.findStatusByCode(article.getStep()).getSystem());
+                helper.systemNotify.setText(createIndentedText(Status.findStatusByCode(article.getState()).getSystem(), 2, 0));
                 helper.attachmentPanel.setVisibility(View.GONE);
             } else {
                 helper.detailPanel.setVisibility(View.GONE);
                 helper.attachmentPanel.setVisibility(View.VISIBLE);
-                helper.attachmentText.setText(article.getAttachment());
+                helper.attachmentText.setText(article.getAttachmentText());
             }
             return view;
         }
@@ -121,5 +128,11 @@ public class ExamineDetailActivity extends Activity {
         private TextView attachmentText;
         private TextView detail;
         private TextView systemNotify;
+    }
+
+    static SpannableString createIndentedText(String text, int marginFirstLine, int marginNextLines) {
+        SpannableString result = new SpannableString(text);
+        result.setSpan(new LeadingMarginSpan.Standard(marginFirstLine, marginNextLines), 0, text.length(), 0);
+        return result;
     }
 }

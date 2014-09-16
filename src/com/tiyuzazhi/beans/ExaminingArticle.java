@@ -21,9 +21,18 @@ public class ExaminingArticle extends ArticleMenu {
     private String orgName;
     private int step;
     private String attachment;
+    private String attachmentText;
 
 
     public ExaminingArticle() {
+    }
+
+    public String getAttachmentText() {
+        return attachmentText;
+    }
+
+    public void setAttachmentText(String attachmentText) {
+        this.attachmentText = attachmentText;
     }
 
     public int getStep() {
@@ -164,6 +173,7 @@ public class ExaminingArticle extends ArticleMenu {
                 ", orgName='" + orgName + '\'' +
                 ", step=" + step +
                 ", attachment='" + attachment + '\'' +
+                ", attachmentText='" + attachmentText + '\'' +
                 "} " + super.toString();
     }
 }

@@ -172,8 +172,8 @@ public class UserCenterActivity extends Activity {
                             });
                             company.setText(user.getCompany());
                             address.setText(user.getAddress());
-                            myFavText.setText("我的收藏(" + user.getFavCount() + ")");
-                            myMsgText.setText("我的消息(" + user.getMsgCount() + ")");
+                            myFavText.setText("我的收藏（" + user.getFavCount() + "）");
+                            myMsgText.setText("我的消息（" + user.getMsgCount() + "）");
                         }
                     });
                     ImageLoader.loadPic(user.getIconPath(), new ImageLoader.ImageLoaderCallback() {

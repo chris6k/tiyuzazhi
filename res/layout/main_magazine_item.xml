@@ -11,7 +11,7 @@
     <ImageView
             android:layout_marginLeft="20dp"
             android:id="@+id/mag_item_side_color"
-            android:src="@android:color/holo_blue_bright"
+            android:background="#113d7d"
             android:layout_width="5dp"
             android:layout_height="fill_parent"/>
 
