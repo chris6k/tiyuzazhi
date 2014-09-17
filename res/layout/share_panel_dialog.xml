@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:background="@drawable/module_bg"
+              android:layout_marginLeft="15dp"
+              android:layout_marginRight="15dp"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+
+    <GridView
+            android:layout_width="fill_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/shareGrid"
+            android:background="@drawable/input"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="15dp"
+            android:textSize="16sp"
+            android:textColor="#a6a7a7"
+            ></GridView>
+
+</LinearLayout>

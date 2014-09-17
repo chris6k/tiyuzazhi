@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@android:color/white">
+
+    <ImageView
+            android:layout_gravity="center"
+            android:src="#2d3538"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+
+    <TextView
+            android:text="QQ"
+            android:id="@+id/sharePlatformName"
+            android:textSize="16sp"
+            android:textColor="#2d3539"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+</LinearLayout>

@@ -14,6 +14,10 @@
     <uses-permission android:name="android.permission.READ_LOGS"/>
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
     <uses-permission android:name="android.permission.REORDER_TASKS"/>
+    <uses-permission android:name="android.permission.GET_TASKS"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
 
     <uses-sdk android:minSdkVersion="15"/>
     <application
@@ -30,17 +34,54 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".MasterActivity"/>
-        <activity android:name=".MagazineActivity"/>
-        <activity android:name=".UserCenterActivity"/>
-        <activity android:name=".ArticleSummaryActivity"/>
-        <activity android:name=".AuthorCenterActivity"/>
-        <activity android:name=".ChiefEditorActivity"/>
-        <activity android:name=".CommentCenterActivity"/>
-        <activity android:name=".EditorActivity"/>
-        <activity android:name=".ExaminerActivity"/>
-        <activity android:name=".ExamSummaryActivity"/>
-        <activity android:name=".ExamineDetailActivity"/>
-        <activity android:name=".UserInfoActivity"/>
+        <activity android:name=".MasterActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".MagazineActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".UserCenterActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".ArticleSummaryActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".AuthorCenterActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".ChiefEditorActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".CommentCenterActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".EditorActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".ExaminerActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".ExamSummaryActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".ExamineDetailActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity android:name=".UserInfoActivity" android:configChanges="keyboardHidden|orientation|screenSize"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity
+                android:name="cn.sharesdk.framework.ShareSDKUIShell"
+                android:theme="@android:style/Theme.Translucent.NoTitleBar"
+                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100371282"/>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
     </application>
 </manifest>

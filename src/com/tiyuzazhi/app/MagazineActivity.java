@@ -12,10 +12,15 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.PlatformActionListener;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ArticleMenu;
 import com.tiyuzazhi.beans.Magazine;
+import com.tiyuzazhi.component.ShareDialog;
+import com.tiyuzazhi.component.SharePanelDialog;
 import com.tiyuzazhi.utils.DatetimeUtils;
+import com.tiyuzazhi.utils.ShareUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
@@ -68,7 +73,49 @@ public class MagazineActivity extends Activity {
             @Override
             public void onClick(View v) {
                 //TODO
-                ToastUtils.show("收藏成功");
+                ToastUtils.show("操作成功");
+            }
+        });
+        share = findViewById(R.id.share);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharePanelDialog sharePanelDialog = new SharePanelDialog(MagazineActivity.this, R.style.my_dialog) {
+                    @Override
+                    public void onButtonClick(final int platformId) {
+                        ShareDialog shareDialog = new ShareDialog(MagazineActivity.this, R.style.my_dialog) {
+                            @Override
+                            public void onButtonClick(final String content) {
+                                TPool.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+
+                                        ShareUtils.share(platformId, content, new PlatformActionListener() {
+                                            @Override
+                                            public void onComplete(Platform platform, int i, HashMap<String, Object> stringObjectHashMap) {
+                                                ToastUtils.show("分享成功");
+                                            }
+
+                                            @Override
+                                            public void onError(Platform platform, int i, Throwable throwable) {
+                                                ToastUtils.show("分享失败");
+                                            }
+
+                                            @Override
+                                            public void onCancel(Platform platform, int i) {
+                                                ToastUtils.show("分享取消");
+                                            }
+                                        });
+                                    }
+                                });
+                                dismiss();
+                            }
+                        };
+                        shareDialog.show();
+                        dismiss();
+                    }
+                };
+                sharePanelDialog.show();
             }
         });
         nextButton.setOnClickListener(new View.OnClickListener() {
