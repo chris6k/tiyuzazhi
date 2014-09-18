@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.ShareSDK;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ArticleMenu;
 import com.tiyuzazhi.beans.Magazine;
@@ -186,6 +187,7 @@ public class MagazineActivity extends Activity {
                 }
             }
         });
+        ShareSDK.initSDK(this);
         init();
     }
 

@@ -9,14 +9,16 @@ import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.tencent.qzone.QZone;
 import cn.sharesdk.wechat.friends.Wechat;
+import com.tiyuzazhi.app.R;
 
 /**
  * @author chris.xue
  *         分享模块
  */
 public class ShareUtils {
-    public static String[] iconName = {"QQ", "人人", "微信", "微博", "QQ空间", "豆瓣"};
-    public static int[] iconArray = {};
+    public static String[] iconName = {"分享到QQ", "分享到人人", "分享到微信", "分享到微博", "分享到空间", "分享到豆瓣"};
+    public static int[] iconArray = {R.drawable.qq, R.drawable.renren, R.drawable.wechat, R.drawable.weibo,
+            R.drawable.qzone, R.drawable.douban};
 
     public static void share(int platformId, String content, PlatformActionListener platformActionListener) {
         switch (platformId) {

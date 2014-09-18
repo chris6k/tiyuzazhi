@@ -55,6 +55,7 @@
             android:gravity="center"
             android:clickable="true"
             android:text="通过"
+            android:background="@drawable/feet_white_selector"
             android:textColor="@color/pass_text_selector"
             android:textSize="18sp"
             android:layout_gravity="center_horizontal"

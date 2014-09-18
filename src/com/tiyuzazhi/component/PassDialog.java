@@ -13,9 +13,10 @@ import com.tiyuzazhi.app.R;
  *         审核通过对话框
  */
 public abstract class PassDialog extends Dialog {
-    TextView title;
-    View buttonOk;
-    EditText comment;
+    private TextView title;
+    private View buttonOk;
+    private EditText comment;
+    private String titleText = "";
 
     public PassDialog(Context context) {
         super(context);
@@ -33,6 +34,7 @@ public abstract class PassDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.examine_dialog);
         title = (TextView) findViewById(R.id.examinTitleText);
+        title.setText(titleText);
         comment = (EditText) findViewById(R.id.comment);
         buttonOk = findViewById(R.id.buttonOkText);
         buttonOk.setOnClickListener(new View.OnClickListener() {
@@ -44,7 +46,10 @@ public abstract class PassDialog extends Dialog {
     }
 
     public void setText(String text) {
-        title.setText(text);
+        titleText = text;
+        if (title != null) {
+            title.setText(titleText);
+        }
     }
 
     public abstract void onButtonClick(String comment);
