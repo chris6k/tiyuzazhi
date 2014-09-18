@@ -61,7 +61,7 @@
             android:background="@drawable/feet_white"
             android:layout_alignParentBottom="true"
             android:layout_width="fill_parent"
-            android:layout_height="60dp">
+            android:layout_height="63dp">
 
         <RelativeLayout
                 android:id="@+id/buttonOk"
@@ -81,7 +81,8 @@
                     android:layout_height="fill_parent"/>
 
             <ImageView
-                    android:layout_marginRight="5dp"
+                    android:scaleType="centerInside"
+                    android:layout_marginRight="10dp"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/buttonOkText"
                     android:src="@drawable/ok_xhdpi"
@@ -107,7 +108,8 @@
                     android:layout_height="fill_parent"/>
 
             <ImageView
-                    android:layout_marginRight="5dp"
+                    android:scaleType="centerInside"
+                    android:layout_marginRight="10dp"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/buttonRejectText"
                     android:src="@drawable/unpass_xhdpi"
@@ -133,7 +135,8 @@
                     android:layout_height="fill_parent"/>
 
             <ImageView
-                    android:layout_marginRight="5dp"
+                    android:scaleType="centerInside"
+                    android:layout_marginRight="10dp"
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@id/examinerText"
                     android:src="@drawable/examiner_xhdpi"

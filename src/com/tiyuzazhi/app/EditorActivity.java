@@ -260,11 +260,12 @@ public class EditorActivity extends Activity {
                             }
                         }
                     };
+                    passDialog.setText("审核通过");
                     passDialog.show();
                     WindowManager windowManager = getWindowManager();
                     Display display = windowManager.getDefaultDisplay();
                     WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
-                    lp.width = (int)(display.getWidth()); //设置宽度
+                    lp.width = (int) (display.getWidth()); //设置宽度
                     passDialog.getWindow().setAttributes(lp);
                 }
             });
@@ -298,11 +299,12 @@ public class EditorActivity extends Activity {
                             }
                         }
                     };
+                    passDialog.setText("审核不通过");
                     passDialog.show();
                     WindowManager windowManager = getWindowManager();
                     Display display = windowManager.getDefaultDisplay();
                     WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
-                    lp.width = (int)(display.getWidth()); //设置宽度
+                    lp.width = (int) (display.getWidth()); //设置宽度
                     passDialog.getWindow().setAttributes(lp);
                 }
             });

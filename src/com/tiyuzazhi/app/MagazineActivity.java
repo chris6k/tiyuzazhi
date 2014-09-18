@@ -5,9 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -112,10 +110,21 @@ public class MagazineActivity extends Activity {
                             }
                         };
                         shareDialog.show();
+                        WindowManager windowManager = getWindowManager();
+                        Display display = windowManager.getDefaultDisplay();
+                        WindowManager.LayoutParams lp = shareDialog.getWindow().getAttributes();
+                        lp.width = (int) (display.getWidth()); //设置宽度
+                        shareDialog.getWindow().setAttributes(lp);
                         dismiss();
                     }
                 };
                 sharePanelDialog.show();
+                WindowManager windowManager = getWindowManager();
+                Display display = windowManager.getDefaultDisplay();
+                WindowManager.LayoutParams lp = sharePanelDialog.getWindow().getAttributes();
+                lp.width = (int) (display.getWidth()); //设置宽度
+                sharePanelDialog.getWindow().setAttributes(lp);
+
             }
         });
         nextButton.setOnClickListener(new View.OnClickListener() {

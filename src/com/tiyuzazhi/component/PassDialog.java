@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import com.tiyuzazhi.app.R;
 
 /**
@@ -12,6 +13,7 @@ import com.tiyuzazhi.app.R;
  *         审核通过对话框
  */
 public abstract class PassDialog extends Dialog {
+    TextView title;
     View buttonOk;
     EditText comment;
 
@@ -30,6 +32,7 @@ public abstract class PassDialog extends Dialog {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.examine_dialog);
+        title = (TextView) findViewById(R.id.examinTitleText);
         comment = (EditText) findViewById(R.id.comment);
         buttonOk = findViewById(R.id.buttonOkText);
         buttonOk.setOnClickListener(new View.OnClickListener() {
@@ -38,6 +41,10 @@ public abstract class PassDialog extends Dialog {
                 onButtonClick(comment.toString());
             }
         });
+    }
+
+    public void setText(String text) {
+        title.setText(text);
     }
 
     public abstract void onButtonClick(String comment);
