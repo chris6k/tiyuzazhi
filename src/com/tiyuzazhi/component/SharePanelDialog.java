@@ -6,10 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.TextView;
+import android.widget.*;
 import com.tiyuzazhi.app.R;
 import com.tiyuzazhi.utils.ShareUtils;
 
@@ -35,7 +32,7 @@ public abstract class SharePanelDialog extends Dialog {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.share_dialog);
+        setContentView(R.layout.share_panel_dialog);
         grid = (GridView) findViewById(R.id.shareGrid);
         grid.setNumColumns(3);
         grid.setAdapter(new BaseAdapter() {
@@ -59,6 +56,8 @@ public abstract class SharePanelDialog extends Dialog {
                 view = LayoutInflater.from(getContext()).inflate(R.layout.share_panel_item, null, false);
                 TextView name = (TextView) view.findViewById(R.id.sharePlatformName);
                 name.setText(ShareUtils.iconName[i]);
+                ImageView icon = (ImageView) view.findViewById(R.id.sharePlatformIcon);
+                icon.setImageResource(ShareUtils.iconArray[i]);
                 return view;
             }
         });

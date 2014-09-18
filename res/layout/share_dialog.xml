@@ -2,39 +2,40 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:background="@drawable/module_bg"
+              android:layout_width="match_parent"
               android:layout_marginLeft="15dp"
               android:layout_marginRight="15dp"
-              android:layout_width="match_parent"
               android:layout_height="wrap_content">
 
+    <LinearLayout
+            android:background="@drawable/abstract_up_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <EditText
-            android:layout_marginTop="10dp"
-            android:id="@+id/shareContent"
-            android:background="@drawable/input"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:padding="15dp"
-            android:textSize="16sp"
-            android:textColor="#a6a7a7"
-            android:layout_width="fill_parent"
-            android:layout_height="90dp"/>
+        <EditText
+                android:layout_marginTop="10dp"
+                android:id="@+id/shareContent"
+                android:background="@drawable/input"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:padding="15dp"
+                android:textSize="16sp"
+                android:textColor="#a6a7a7"
+                android:layout_width="fill_parent"
+                android:layout_marginBottom="25dp"
+                android:layout_height="90dp"/>
 
-    <ImageView
-            android:src="#a0a0a0"
-            android:layout_marginTop="25dp"
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"/>
+    </LinearLayout>
 
-    <TextView
-            android:id="@+id/buttonShare"
+    <Button
             android:gravity="center"
-            android:clickable="true"
             android:text="分享"
             android:textColor="@color/pass_text_selector"
             android:textSize="18sp"
-            android:layout_gravity="center_horizontal"
+            android:id="@+id/buttonShare"
+            android:clickable="true"
+            android:background="@drawable/abstract_down_bg"
             android:layout_width="fill_parent"
-            android:layout_height="60dp"/>
+            android:layout_height="60dp">
+    </Button>
 </LinearLayout>
