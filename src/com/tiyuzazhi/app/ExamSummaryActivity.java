@@ -145,12 +145,6 @@ public class ExamSummaryActivity extends Activity {
                 passDialog.getWindow().setAttributes(lp);
             }
         });
-        buttonReject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtils.show("操作成功");
-            }
-        });
         buttonExaminer = findViewById(R.id.examiner);
         buttonExaminer.setOnClickListener(new View.OnClickListener() {
             @Override
