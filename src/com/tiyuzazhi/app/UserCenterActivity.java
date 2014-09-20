@@ -59,6 +59,7 @@ public class UserCenterActivity extends Activity {
         handler = new Handler(Looper.getMainLooper());
 
         userInfoPanel = findViewById(R.id.userInfoPanel);
+        userInfoPanel.setClickable(true);
         unloginPanel = findViewById(R.id.unlogin_panel);
         header = (RoundedImageView) findViewById(R.id.header);
         name = (TextView) findViewById(R.id.name);
@@ -162,7 +163,7 @@ public class UserCenterActivity extends Activity {
                         public void run() {
 
                             name.setText(user.getName());
-                            name.setOnClickListener(new View.OnClickListener() {
+                            userInfoPanel.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
                                     Intent intent = new Intent(UserCenterActivity.this, UserInfoActivity.class);

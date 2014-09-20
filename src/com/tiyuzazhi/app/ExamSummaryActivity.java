@@ -5,21 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
+import com.tiyuzazhi.component.PassDialog;
 import com.tiyuzazhi.enums.Category;
 import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author chris.xue
@@ -29,18 +29,19 @@ public class ExamSummaryActivity extends Activity {
 
     private Handler handler;
     private ListView flowListView;
-    private int articleId;
+    private ExaminingArticle article;
     private View operate;
     private View buttonOk;
     private View buttonReject;
     private View buttonExaminer;
+    private AtomicBoolean opLock;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.examine_center);
         super.onCreate(savedInstanceState);
-        articleId = getIntent().getIntExtra("articleId", 0);
+        article = (ExaminingArticle) getIntent().getSerializableExtra("article");
         View back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +53,7 @@ public class ExamSummaryActivity extends Activity {
         flowListView = (ListView) findViewById(R.id.summaryList);
         final View opPanel = findViewById(R.id.opPanel);
         opPanel.setVisibility(View.GONE);
+        opLock = new AtomicBoolean(false);
         operate = findViewById(R.id.operate);
         operate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,10 +69,82 @@ public class ExamSummaryActivity extends Activity {
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtils.show("操作成功");
+                final PassDialog passDialog = new PassDialog(ExamSummaryActivity.this, R.style.my_dialog) {
+                    @Override
+                    public void onButtonClick(final String comment) {
+                        if (opLock.compareAndSet(false, true)) {
+                            TPool.post(new Runnable() {
+                                           @Override
+                                           public void run() {
+                                               try {
+                                                   article.setComment(comment);
+                                                   if (ArticleApi.passExamine(article)) {
+                                                       ToastUtils.show("操作成功");
+                                                       dismiss();
+                                                       init();
+                                                   } else {
+                                                       ToastUtils.show("操作失败");
+                                                   }
+                                               } finally {
+                                                   opLock.set(false);
+                                               }
+                                           }
+                                       }
+                            );
+                        } else {
+                            ToastUtils.show("前一个操作正在进行，请稍后再试");
+                        }
+                    }
+                };
+                passDialog.setText("审核通过");
+                passDialog.show();
+                WindowManager windowManager = getWindowManager();
+                Display display = windowManager.getDefaultDisplay();
+                WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
+                lp.width = (int) (display.getWidth()); //设置宽度
+                passDialog.getWindow().setAttributes(lp);
             }
         });
         buttonReject = findViewById(R.id.buttonReject);
+        buttonReject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final PassDialog passDialog = new PassDialog(ExamSummaryActivity.this, R.style.my_dialog) {
+                    @Override
+                    public void onButtonClick(final String comment) {
+                        if (opLock.compareAndSet(false, true)) {
+                            TPool.post(new Runnable() {
+                                           @Override
+                                           public void run() {
+                                               try {
+                                                   article.setComment(comment);
+                                                   if (ArticleApi.passExamine(article)) {
+                                                       ToastUtils.show("操作成功");
+                                                       dismiss();
+                                                       init();
+                                                   } else {
+                                                       ToastUtils.show("操作失败");
+                                                   }
+                                               } finally {
+                                                   opLock.set(false);
+                                               }
+                                           }
+                                       }
+                            );
+                        } else {
+                            ToastUtils.show("前一个操作正在进行，请稍后再试");
+                        }
+                    }
+                };
+                passDialog.setText("审核不通过");
+                passDialog.show();
+                WindowManager windowManager = getWindowManager();
+                Display display = windowManager.getDefaultDisplay();
+                WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
+                lp.width = (int) (display.getWidth()); //设置宽度
+                passDialog.getWindow().setAttributes(lp);
+            }
+        });
         buttonReject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,7 +171,7 @@ public class ExamSummaryActivity extends Activity {
         TPool.post(new Runnable() {
             @Override
             public void run() {
-                final List<ExaminingArticle> examiningArticles = ArticleApi.loadExamineFlow(articleId);
+                final List<ExaminingArticle> examiningArticles = ArticleApi.loadExamineFlow(article.getId());
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -156,7 +230,7 @@ public class ExamSummaryActivity extends Activity {
                 helper = (AdaptorHelper) view.getTag();
             }
             final ExaminingArticle article = (ExaminingArticle) getItem(i);
-            helper.summaryNo.setText(String.valueOf(i));
+            helper.summaryNo.setText(String.valueOf(getCount() - i));
             helper.step.setText(Category.findByCode(article.getStep()).getName());
             helper.company.setText(article.getOrgName());
             helper.examiner.setText(article.getOpName());

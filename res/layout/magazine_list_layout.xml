@@ -68,7 +68,7 @@
             android:layout_alignParentBottom="true"
             android:layout_width="fill_parent"
             android:layout_height="80dp"
-            android:background="#f5f5f5">
+            android:background="#90f5f5f5">
 
         <ImageView
                 android:id="@+id/previous_mag"

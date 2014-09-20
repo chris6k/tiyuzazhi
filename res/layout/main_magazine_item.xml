@@ -25,6 +25,7 @@
         <TextView
                 android:id="@+id/mag_item_title"
                 android:text="中国体育杂志"
+                android:singleLine="true"
                 android:textStyle="bold"
                 android:textSize="30dp"
                 android:textColor="#2d3538"
@@ -33,6 +34,7 @@
                 android:layout_height="fill_parent"/>
 
         <TextView
+                android:singleLine="true"
                 android:id="@+id/mag_item_sub_title"
                 android:text="CHINA SPORT SECIENCE"
                 android:textColor="#969a9b"

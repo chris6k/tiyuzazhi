@@ -4,7 +4,6 @@ import com.tiyuzazhi.beans.Examiner;
 import com.tiyuzazhi.beans.StatsDashboard;
 import com.tiyuzazhi.beans.User;
 import com.tiyuzazhi.utils.Constants;
-import com.tiyuzazhi.utils.LocalUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +18,9 @@ public class UserApi {
     public static final String USER_LOGOUT_ENDPOINT = Constants.API_ROOT + "/api/logout";
     public static final String USER_EXAMLIST_ENDPOINT = Constants.API_ROOT + "/api/examiners";
 
+    public static final String KEY_USER_ID = "userId";
+    public static final String KEY_USER = "user";
+
     /**
      * 读取当前用户信息
      *
@@ -26,14 +28,16 @@ public class UserApi {
      */
     public static User getUserInfo() {
         User user = null;
-//        if (LocalUtils.get("userId", 0) != 0) {
+//        if (LocalUtils.get(KEY_USER_ID, 0) != 0) {
 //            try {
-//                user = new User(new JSONObject(LocalUtils.get("user","{}")));
+//                user = new User(new JSONObject(LocalUtils.get(KEY_USER, "{}")));
 //            } catch (JSONException e) {
 //                return null;
 //            }
 //        }
 //        return user;
+
+
         user = new User();
         user.setEmail("test@test.com");
         user.setId(1);
@@ -64,7 +68,7 @@ public class UserApi {
      * @return
      */
     public static StatsDashboard getUserDashboard() {
-//        int userId = LocalUtils.get("userId", 0);
+//        int userId = LocalUtils.get(KEY_USER_ID, 0);
 //        HttpGet get = new HttpGet(USER_DASHBOARD_ENDPOINT + "?id=" + userId);
 //        try {
 //            HttpResponse response = TiHttp.getInstance().send(get).get(1, TimeUnit.MINUTES);
@@ -80,7 +84,10 @@ public class UserApi {
 //            Log.e("UserApi", "Exception", e);
 //            ToastUtils.show("发生异常，请稍候再试");
 //        }
-        return new StatsDashboard();
+        StatsDashboard dashboard = new StatsDashboard();
+        dashboard.setChiefEditorTaskNo(1);
+        dashboard.setEditorTaskNo(2);
+        return dashboard;
     }
 
     /**
@@ -141,13 +148,13 @@ public class UserApi {
      * @return
      */
     public static boolean logout() {
-//        int userId = LocalUtils.get("userId", 0);
+//        int userId = LocalUtils.get(KEY_USER_ID, 0);
 //        HttpGet get = new HttpGet(USER_LOGOUT_ENDPOINT);
 //        try {
 //            HttpResponse response = TiHttp.getInstance().send(get).get(1, TimeUnit.MINUTES);
 //            if (response.getStatusLine().getStatusCode() == 200) {
-//                LocalUtils.put("userId", 0);
-//                LocalUtils.put("user", "");
+//                LocalUtils.put(KEY_USER_ID, 0);
+//                LocalUtils.put(KEY_USER, "");
 //                return true;
 //            } else {
 //                return false;
@@ -164,7 +171,7 @@ public class UserApi {
 
     public static User login(String userName, String password) {
 //        User user = null;
-//        int userId = LocalUtils.get("userId", 0);
+//        int userId = LocalUtils.get(KEY_USER_ID, 0);
 //        if (userId == 0) return null;
 //        else {
 //            HttpPost post = new HttpPost(USER_ENDPOINT);
@@ -179,8 +186,8 @@ public class UserApi {
 //                    String content = EntityUtils.toString(res.getEntity());
 //                    JSONObject jsonObject = new JSONObject(content);
 //                    user = new User(jsonObject);
-//                    LocalUtils.put("user", content);
-//                    LocalUtils.put("userId", user.getId());
+//                    LocalUtils.put(KEY_USER, content);
+//                    LocalUtils.put(KEY_USER_ID, user.getId());
 //                    LocalUtils.put("userRole", user.getRole());
 //                }
 //            } catch (TimeoutException e) {

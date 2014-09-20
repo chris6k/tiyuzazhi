@@ -107,13 +107,13 @@ public class ArticleApi {
         magazine.setPublishNo(1);
         magazine.setPublishTime(new Date());
         magazine.setSubTitle("体育杂志副标题");
-        magazine.setTitle("体育杂志主标题");
+        magazine.setTitle("体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题");
         Magazine magazine2 = new Magazine();
         magazine2.setId(2);
         magazine2.setPublishNo(2);
         magazine2.setPublishTime(new Date());
         magazine2.setSubTitle("体育杂志副标题2");
-        magazine2.setTitle("体育杂志主标题2");
+        magazine2.setTitle("体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题2");
         return Arrays.asList(magazine, magazine2);
     }
 
@@ -128,12 +128,12 @@ public class ArticleApi {
         ArticleMenu magazine = new ArticleMenu();
         magazine.setId(1);
         magazine.setAuthor("鲁连海");
-        magazine.setTitle("体育杂志主标题" + magazineId);
+        magazine.setTitle("体育杂志主标题杂志主标题杂志主标题杂志主标题杂志主标题杂志主标题" + magazineId);
         ArticleMenu magazine2 = new ArticleMenu();
         magazine2.setId(2);
         magazine2.setAuthor("鲁连海");
-        magazine2.setTitle("体育杂志主标题2" + magazineId);
-        return Arrays.asList(magazine, magazine2);
+        magazine2.setTitle("体育杂志主标题杂志主标题杂志主标题杂志主标题杂志主标题杂志主标题杂志主标题杂志主标题2" + magazineId);
+        return Arrays.asList(magazine, magazine2, magazine, magazine2, magazine, magazine2, magazine, magazine2, magazine, magazine2, magazine, magazine2, magazine, magazine2, magazine, magazine2);
     }
 
     /**
@@ -149,7 +149,7 @@ public class ArticleApi {
         magazine.setPublishNo(magazineId + 1);
         magazine.setPublishTime(new Date());
         magazine.setSubTitle("体育杂志副标题" + (magazineId + 1));
-        magazine.setTitle("体育杂志主标题" + (magazineId + 1));
+        magazine.setTitle("体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题" + (magazineId + 1));
         return magazine;
     }
 
@@ -165,8 +165,8 @@ public class ArticleApi {
         magazine.setId(magazineId - 1);
         magazine.setPublishNo(magazineId - 1);
         magazine.setPublishTime(new Date());
-        magazine.setSubTitle("体育杂志副标题" + (magazineId - 1));
-        magazine.setTitle("体育杂志主标题" + (magazineId - 1));
+        magazine.setSubTitle("体育杂志副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题" + (magazineId - 1));
+        magazine.setTitle("体育杂志主标题主标题主标题主标题主标题主标题主标题主标题主标题主标题主标题主标题主标题" + (magazineId - 1));
         return magazine;
     }
 

@@ -6,6 +6,8 @@ import java.io.Serializable;
  * @author chris.xue
  */
 public class ArticleMenu implements Serializable {
+
+    private static final long serialVersionUID = -1961751315009657279L;
     private int id;
     private String title;
     private String author;

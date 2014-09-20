@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.text.Html;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.TextView;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
@@ -24,7 +24,7 @@ public class ArticleSummaryActivity extends Activity {
     private Handler handler;
     private TextView title;
     private TextView author;
-    private TextView summary;
+    private WebView summary;
     private int articleId;
 
     @Override
@@ -43,7 +43,7 @@ public class ArticleSummaryActivity extends Activity {
         handler = new Handler(Looper.getMainLooper());
         title = (TextView) findViewById(R.id.title);
         author = (TextView) findViewById(R.id.author);
-        summary = (TextView) findViewById(R.id.summary);
+        summary = (WebView) findViewById(R.id.summary);
         View buttonOk = findViewById(R.id.buttonOkText);
         View buttonReject = findViewById(R.id.buttonRejectText);
         buttonOk.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +107,8 @@ public class ArticleSummaryActivity extends Activity {
                         public void run() {
                             title.setText(examiningArticle.getTitle());
                             author.setText(examiningArticle.getAuthor());
-                            summary.setText(Html.fromHtml("<font color='#00367e'>[摘要]</font>  " + examiningArticle.getSummary()));
+                            summary.loadDataWithBaseURL("", "<font color='#00367e'>[摘要]</font>  "
+                                    + examiningArticle.getSummary(), "text/html", "utf-8", null);
                         }
                     });
                 } else {

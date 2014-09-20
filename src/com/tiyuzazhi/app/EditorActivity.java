@@ -223,7 +223,7 @@ public class EditorActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(EditorActivity.this, ExamSummaryActivity.class);
-                    intent.putExtra("articleId", article.getId());
+                    intent.putExtra("article", article);
                     startActivity(intent);
                 }
             });

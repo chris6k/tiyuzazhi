@@ -6,6 +6,7 @@ import java.util.Date;
  * @author chris.xue
  */
 public class ExaminingArticle extends ArticleMenu {
+    private static final long serialVersionUID = 5717063565774216907L;
     private int id;
     private int state;
     private String summary;
