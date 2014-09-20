@@ -38,6 +38,9 @@ public abstract class PassDialog extends Dialog {
         title.setText(titleText);
         comment = (EditText) findViewById(R.id.comment);
         buttonOk = findViewById(R.id.buttonOkText);
+        if (buttonOk instanceof TextView) {
+            ((TextView) buttonOk).setText(buttonText);
+        }
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
