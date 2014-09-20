@@ -45,6 +45,7 @@
             android:layout_height="90dp"/>
 
     <TextView
+            android:layout_marginTop="15dp"
             android:id="@+id/buttonOkText"
             android:gravity="center"
             android:clickable="true"
