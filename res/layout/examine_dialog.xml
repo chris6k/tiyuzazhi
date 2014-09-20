@@ -44,12 +44,6 @@
             android:layout_width="fill_parent"
             android:layout_height="90dp"/>
 
-    <ImageView
-            android:src="#a0a0a0"
-            android:layout_marginTop="25dp"
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"/>
-
     <TextView
             android:id="@+id/buttonOkText"
             android:gravity="center"
