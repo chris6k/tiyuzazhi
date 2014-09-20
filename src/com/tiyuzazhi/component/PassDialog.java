@@ -17,6 +17,7 @@ public abstract class PassDialog extends Dialog {
     private View buttonOk;
     private EditText comment;
     private String titleText = "";
+    private String buttonText = "";
 
     public PassDialog(Context context) {
         super(context);
@@ -49,6 +50,13 @@ public abstract class PassDialog extends Dialog {
         titleText = text;
         if (title != null) {
             title.setText(titleText);
+        }
+    }
+
+    public void setButtonText(String text) {
+        buttonText = text;
+        if (buttonOk != null && buttonOk instanceof TextView) {
+            ((TextView) buttonOk).setText(buttonText);
         }
     }
 

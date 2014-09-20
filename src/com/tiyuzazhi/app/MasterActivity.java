@@ -162,6 +162,7 @@ public class MasterActivity extends Activity {
                         }
                     };
                     passDialog.setText("审核通过");
+                    passDialog.setButtonText("通过");
                     passDialog.show();
                     WindowManager windowManager = getWindowManager();
                     Display display = windowManager.getDefaultDisplay();
@@ -201,6 +202,7 @@ public class MasterActivity extends Activity {
                         }
                     };
                     passDialog.setText("审核不通过");
+                    passDialog.setButtonText("不通过");
                     passDialog.show();
                     WindowManager windowManager = getWindowManager();
                     Display display = windowManager.getDefaultDisplay();
