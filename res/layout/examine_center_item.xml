@@ -134,7 +134,7 @@
         <ImageView
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:src="#6b6f70"
+                android:src="#d8d8d8"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"/>
 

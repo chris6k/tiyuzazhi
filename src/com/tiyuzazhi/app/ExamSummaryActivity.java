@@ -30,7 +30,7 @@ public class ExamSummaryActivity extends Activity {
     private Handler handler;
     private ListView flowListView;
     private ExaminingArticle article;
-    private View operate;
+    private ImageView operate;
     private View buttonOk;
     private View buttonReject;
     private View buttonExaminer;
@@ -54,13 +54,15 @@ public class ExamSummaryActivity extends Activity {
         final View opPanel = findViewById(R.id.opPanel);
         opPanel.setVisibility(View.GONE);
         opLock = new AtomicBoolean(false);
-        operate = findViewById(R.id.operate);
+        operate = (ImageView) findViewById(R.id.operate);
         operate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (opPanel.getVisibility() != View.VISIBLE) {
+                    operate.setImageResource(R.drawable.edit);
                     opPanel.setVisibility(View.VISIBLE);
                 } else {
+                    operate.setImageResource(R.drawable.points);
                     opPanel.setVisibility(View.GONE);
                 }
             }
@@ -233,11 +235,20 @@ public class ExamSummaryActivity extends Activity {
             helper.dateDayStart.setText(DatetimeUtils.format(article.getExamineStart()));
             helper.dateDayEnd.setText(DatetimeUtils.format(article.getExamineFinish()));
             helper.comment.setText(article.getComment());
+            final int openDrawableId;
+            final int closeDrawableId;
             if (article.getState() == 1) {
+                view.setBackgroundResource(R.drawable.module_bg);
                 helper.result.setImageResource(R.drawable.complete_xhdpi);
+                openDrawableId = R.drawable.open_module_gray_xhdpi;
+                closeDrawableId = R.drawable.close_module_gray_xhdpi;
             } else {
+                openDrawableId = R.drawable.open_module_white_xhdpi;
+                view.setBackgroundResource(R.drawable.module_yellow_bg);
                 helper.result.setImageResource(R.drawable.uncomplete_xhdpi);
+                closeDrawableId = R.drawable.close_module_white_xhdpi;
             }
+            helper.upDownArrow.setImageResource(openDrawableId);
             helper.bottomPanel.setVisibility(View.GONE);
             helper.upDownArrow.setClickable(true);
             helper.upDownArrow.setOnClickListener(new View.OnClickListener() {
@@ -245,10 +256,10 @@ public class ExamSummaryActivity extends Activity {
                 public void onClick(View v) {
                     if (helper.bottomPanel.getVisibility() != View.VISIBLE) {
                         helper.bottomPanel.setVisibility(View.VISIBLE);
-                        helper.upDownArrow.setImageResource(R.drawable.close_module_gray_xhdpi);
+                        helper.upDownArrow.setImageResource(closeDrawableId);
                     } else {
                         helper.bottomPanel.setVisibility(View.GONE);
-                        helper.upDownArrow.setImageResource(R.drawable.open_module_gray_xhdpi);
+                        helper.upDownArrow.setImageResource(openDrawableId);
                     }
                 }
             });

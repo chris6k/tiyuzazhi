@@ -107,8 +107,9 @@ public class ArticleSummaryActivity extends Activity {
                         public void run() {
                             title.setText(examiningArticle.getTitle());
                             author.setText(examiningArticle.getAuthor());
-                            summary.loadDataWithBaseURL("", "<font color='#00367e'>[摘要]</font>  "
-                                    + examiningArticle.getSummary(), "text/html", "utf-8", null);
+                            summary.loadDataWithBaseURL("", "<html><head><style type='text/css'>*{font-size:16px;color:#4a5153;line-height:150%;text-indent:2em;}</style></head><body>" +
+                                    "<span style='color:#00367e;float:left;margin-left:-2em;'>[摘要]</span>"
+                                    + examiningArticle.getSummary() + "</body></html>", "text/html", "utf-8", null);
                         }
                     });
                 } else {

@@ -40,7 +40,6 @@
             android:text="标题标题标题标题标题标题标题标题标题标题标题标题标题"
             android:lineSpacingExtra="10dp"
             android:padding="15dp"
-            android:maxLines="2"
             android:ellipsize="end"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -79,7 +78,6 @@
 
     <WebView
             android:id="@+id/summary"
-            android:layout_marginTop="15dp"
             android:layout_below="@id/line"
             android:layout_width="fill_parent"
             android:background="#ffffff"
@@ -102,23 +100,28 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
-            <TextView
-                    android:gravity="center"
-                    android:id="@+id/rejectText"
+            <LinearLayout
                     android:layout_centerInParent="true"
-                    android:text="拒绝"
-                    android:textColor="#2d3538"
-                    android:textSize="18sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"/>
+                    android:layout_height="wrap_content">
 
-            <ImageView
-                    android:paddingRight="5dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/rejectText"
-                    android:src="@drawable/unpass_xhdpi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <ImageView
+                        android:paddingRight="10dp"
+                        android:src="@drawable/unpass_xhdpi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:gravity="center"
+                        android:id="@+id/rejectText"
+                        android:text="拒绝"
+                        android:textColor="#2d3538"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"/>
+
+
+            </LinearLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -128,23 +131,26 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
 
-            <TextView
-                    android:gravity="center"
-                    android:id="@+id/passText"
+            <LinearLayout
                     android:layout_centerInParent="true"
-                    android:text="同意"
-                    android:textColor="#2d3538"
-                    android:textSize="18sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="fill_parent"/>
+                    android:layout_height="wrap_content">
 
-            <ImageView
-                    android:paddingRight="5dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@id/passText"
-                    android:src="@drawable/ok_xhdpi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                <ImageView
+                        android:paddingRight="10dp"
+                        android:src="@drawable/ok_xhdpi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:gravity="center"
+                        android:id="@+id/passText"
+                        android:text="同意"
+                        android:textColor="#2d3538"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"/>
+            </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

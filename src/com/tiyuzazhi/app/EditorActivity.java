@@ -30,6 +30,8 @@ public class EditorActivity extends Activity {
     private AtomicBoolean opLock;
     private Handler handler;
     private View reorderByDateDay;
+    private View flowButton;
+    private View reorderButton;
     private ImageView dateDayOrder;
     private View filter;
     private ImageView filterOrder;
@@ -53,6 +55,8 @@ public class EditorActivity extends Activity {
             }
         });
         articleListView = (ListView) findViewById(R.id.articleList);
+        flowButton = findViewById(R.id.flowButton);
+        reorderButton = findViewById(R.id.reorderButton);
         reorderByDateDay = findViewById(R.id.reorderByDateDay);
         dateDayOrder = (ImageView) findViewById(R.id.dateDayOrder);
         filter = findViewById(R.id.filter);
@@ -84,7 +88,7 @@ public class EditorActivity extends Activity {
         filterOrder = (ImageView) findViewById(R.id.filterOrder);
         opLock = new AtomicBoolean(false);
         handler = new Handler(Looper.getMainLooper());
-        reorderByDateDay.setOnClickListener(new View.OnClickListener() {
+        reorderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (opLock.compareAndSet(false, true)) {
@@ -105,7 +109,7 @@ public class EditorActivity extends Activity {
                 }
             }
         });
-        filter.setOnClickListener(new View.OnClickListener() {
+        flowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

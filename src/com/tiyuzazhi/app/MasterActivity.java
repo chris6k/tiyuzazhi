@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.SpannableString;
+import android.text.style.LeadingMarginSpan;
+import android.util.DisplayMetrics;
 import android.view.*;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -29,6 +32,7 @@ public class MasterActivity extends Activity {
     private ListView articleListView;
     private AtomicBoolean opLock;
     private Handler handler;
+    private int indentPixel;
     private volatile List<ExaminingArticle> examiningArticles;
 
     @Override
@@ -45,6 +49,9 @@ public class MasterActivity extends Activity {
         articleListView = (ListView) findViewById(R.id.article_item_list);
         opLock = new AtomicBoolean(false);
         handler = new Handler(Looper.getMainLooper());
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        indentPixel = Math.round(dm.density * 16 + 1) * 2;
         init();
     }
 
@@ -126,10 +133,18 @@ public class MasterActivity extends Activity {
                     startActivity(intent);
                 }
             });
-            helper.draftNo.setText(article.getDraftNo());
+            helper.summary.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MasterActivity.this, ArticleSummaryActivity.class);
+                    intent.putExtra("articleId", article.getId());
+                    startActivity(intent);
+                }
+            });
+            helper.draftNo.setText("稿号:" + article.getDraftNo());
             helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
             helper.leftDay.setText(String.valueOf(DatetimeUtils.getDuringDay(article.getExamineStart(), new Date())) + "天");
-            helper.summary.setText(article.getSummary());
+            helper.summary.setText(createIndentedText(article.getSummary(), indentPixel, 0));
 
             helper.ok.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -223,6 +238,12 @@ public class MasterActivity extends Activity {
         private TextView summary;
         private Button ok;
         private Button reject;
+    }
+
+    static SpannableString createIndentedText(String text, int marginFirstLine, int marginNextLines) {
+        SpannableString result = new SpannableString(text);
+        result.setSpan(new LeadingMarginSpan.Standard(marginFirstLine, marginNextLines), 0, text.length(), 0);
+        return result;
     }
 
 }
