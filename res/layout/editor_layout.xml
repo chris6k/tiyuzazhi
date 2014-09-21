@@ -8,7 +8,6 @@
 
     <Spinner
             android:id="@+id/cateSpinner"
-            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="0dp">
     </Spinner>

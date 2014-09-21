@@ -81,7 +81,7 @@ public class EditorActivity extends Activity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                ToastUtils.show("");
             }
         });
         spinner.setAdapter(adapter);

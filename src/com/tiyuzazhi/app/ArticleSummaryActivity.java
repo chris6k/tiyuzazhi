@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.TextView;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
+import com.tiyuzazhi.component.PassDialog;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
@@ -26,6 +29,8 @@ public class ArticleSummaryActivity extends Activity {
     private TextView author;
     private WebView summary;
     private int articleId;
+    private View buttonOk;
+    private View buttonReject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,55 +49,9 @@ public class ArticleSummaryActivity extends Activity {
         title = (TextView) findViewById(R.id.title);
         author = (TextView) findViewById(R.id.author);
         summary = (WebView) findViewById(R.id.summary);
-        View buttonOk = findViewById(R.id.buttonOkText);
-        View buttonReject = findViewById(R.id.buttonRejectText);
-        buttonOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (opLock.compareAndSet(false, true)) {
-                    TPool.post(new Runnable() {
-                                   @Override
-                                   public void run() {
-                                       try {
-                                           boolean success = ArticleApi.passExamine(articleId);
-                                           if (success) {
-                                               ToastUtils.show("操作成功");
-                                           }
-                                       } finally {
-                                           opLock.set(false);
-                                       }
-                                   }
-                               }
+        buttonOk = findViewById(R.id.buttonOkText);
+        buttonReject = findViewById(R.id.buttonRejectText);
 
-                    );
-                } else {
-                    ToastUtils.show("前一个操作正在处理中，请稍后再试");
-                }
-            }
-        });
-        buttonReject.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (opLock.compareAndSet(false, true)) {
-                    TPool.post(new Runnable() {
-                                   @Override
-                                   public void run() {
-                                       try {
-                                           boolean success = ArticleApi.rejectExamine(articleId);
-                                           if (success) {
-                                               ToastUtils.show("操作成功");
-                                           }
-                                       } finally {
-                                           opLock.set(false);
-                                       }
-                                   }
-                               }
-                    );
-                } else {
-                    ToastUtils.show("前一个操作正在处理中，请稍后再试");
-                }
-            }
-        });
         init();
     }
 
@@ -110,6 +69,87 @@ public class ArticleSummaryActivity extends Activity {
                             summary.loadDataWithBaseURL("", "<html><head><style type='text/css'>*{font-size:16px;color:#4a5153;line-height:150%;text-indent:2em;}</style></head><body>" +
                                     "<span style='color:#00367e;float:left;margin-left:-2em;'>[摘要]</span>"
                                     + examiningArticle.getSummary() + "</body></html>", "text/html", "utf-8", null);
+                        }
+                    });
+
+                    buttonOk.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final PassDialog passDialog = new PassDialog(ArticleSummaryActivity.this, R.style.my_dialog) {
+                                @Override
+                                public void onButtonClick(final String comment) {
+                                    if (opLock.compareAndSet(false, true)) {
+                                        TPool.post(new Runnable() {
+                                                       @Override
+                                                       public void run() {
+                                                           try {
+                                                               examiningArticle.setComment(comment);
+                                                               if (ArticleApi.passExamine(examiningArticle)) {
+                                                                   ToastUtils.show("操作成功");
+                                                                   dismiss();
+                                                                   init();
+                                                               } else {
+                                                                   ToastUtils.show("操作失败");
+                                                               }
+                                                           } finally {
+                                                               opLock.set(false);
+                                                           }
+                                                       }
+                                                   }
+                                        );
+                                    } else {
+                                        ToastUtils.show("前一个操作正在进行，请稍后再试");
+                                    }
+                                }
+                            };
+                            passDialog.setText("审核通过");
+                            passDialog.setButtonText("通过");
+                            passDialog.show();
+                            WindowManager windowManager = getWindowManager();
+                            Display display = windowManager.getDefaultDisplay();
+                            WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
+                            lp.width = (int) (display.getWidth()); //设置宽度
+                            passDialog.getWindow().setAttributes(lp);
+                        }
+                    });
+                    buttonReject.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            final PassDialog passDialog = new PassDialog(ArticleSummaryActivity.this, R.style.my_dialog) {
+                                @Override
+                                public void onButtonClick(final String comment) {
+                                    if (opLock.compareAndSet(false, true)) {
+                                        TPool.post(new Runnable() {
+                                                       @Override
+                                                       public void run() {
+                                                           try {
+                                                               examiningArticle.setComment(comment);
+                                                               if (ArticleApi.rejectExamine(examiningArticle)) {
+                                                                   ToastUtils.show("操作成功");
+                                                                   dismiss();
+                                                                   init();
+                                                               } else {
+                                                                   ToastUtils.show("操作失败");
+                                                               }
+                                                           } finally {
+                                                               opLock.set(false);
+                                                           }
+                                                       }
+                                                   }
+                                        );
+                                    } else {
+                                        ToastUtils.show("前一个操作正在进行，请稍后再试");
+                                    }
+                                }
+                            };
+                            passDialog.setText("审核不通过");
+                            passDialog.setButtonText("不通过");
+                            passDialog.show();
+                            WindowManager windowManager = getWindowManager();
+                            Display display = windowManager.getDefaultDisplay();
+                            WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
+                            lp.width = (int) (display.getWidth()); //设置宽度
+                            passDialog.getWindow().setAttributes(lp);
                         }
                     });
                 } else {
