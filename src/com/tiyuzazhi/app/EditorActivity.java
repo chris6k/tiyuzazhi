@@ -10,7 +10,7 @@ import android.widget.*;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.component.PassDialog;
-import com.tiyuzazhi.enums.Category;
+import com.tiyuzazhi.enums.EXAM_STEP;
 import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
@@ -40,8 +40,8 @@ public class EditorActivity extends Activity {
     private volatile List<ExaminingArticle> articles;
     private int step;
     private String stepName;
-    private String[] stepNames = {"全部流程", Category.SHOUGAO.getName(), Category.TUIXIU.getName(), Category.WAISHEN.getName(), Category.ZHONGSHEN.getName()};
-    private int[] stepCodes = {-1, Category.SHOUGAO.getCode(), Category.TUIXIU.getCode(), Category.WAISHEN.getCode(), Category.ZHONGSHEN.getCode()};
+    private String[] stepNames = {"全部流程", EXAM_STEP.SHOUGAO.getName(), EXAM_STEP.TUIXIU.getName(), EXAM_STEP.WAISHEN.getName(), EXAM_STEP.ZHONGSHEN.getName()};
+    private int[] stepCodes = {-1, EXAM_STEP.SHOUGAO.getCode(), EXAM_STEP.TUIXIU.getCode(), EXAM_STEP.WAISHEN.getCode(), EXAM_STEP.ZHONGSHEN.getCode()};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +81,6 @@ public class EditorActivity extends Activity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                ToastUtils.show("");
             }
         });
         spinner.setAdapter(adapter);
@@ -223,7 +222,7 @@ public class EditorActivity extends Activity {
             }
             final ExaminingArticle article = (ExaminingArticle) getItem(i);
             helper.title.setText(article.getTitle());
-            helper.title.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(EditorActivity.this, ExamSummaryActivity.class);

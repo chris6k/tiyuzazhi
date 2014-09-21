@@ -53,6 +53,19 @@ public class ExaminerActivity extends Activity {
         selectedList = new ArrayList<Integer>(10);
         examinerList = (ListView) findViewById(R.id.examSelector);
         spinner = (Spinner) findViewById(R.id.examinerTypeSpinner);
+        SpinnerAdapter adapter = new ArrayAdapter<String>(ExaminerActivity.this,
+                android.R.layout.simple_spinner_item, typeNames);
+        View doneButton = findViewById(R.id.done);
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putIntegerArrayListExtra("examiners", selectedList);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+        spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -67,27 +80,15 @@ public class ExaminerActivity extends Activity {
             }
         });
         filter = findViewById(R.id.examiner_category);
-        SpinnerAdapter adapter = new ArrayAdapter<String>(ExaminerActivity.this,
-                android.R.layout.simple_spinner_item, typeNames);
-        spinner.setAdapter(adapter);
-        View doneButton = findViewById(R.id.done);
-        doneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putIntegerArrayListExtra("examiners", selectedList);
-                setResult(RESULT_OK, intent);
-                finish();
-            }
-        });
         View refreshButton = findViewById(R.id.refresh);
+        View cateSelector = findViewById(R.id.cateSelector);
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 init();
             }
         });
-        filter.setOnClickListener(new View.OnClickListener() {
+        cateSelector.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 spinner.performClick();
@@ -132,7 +133,7 @@ public class ExaminerActivity extends Activity {
         Map<String, List<Examiner>> examinerMap =
                 new HashMap<String, List<Examiner>>(examinerList.size());
         List<Examiner> itemList;
-        for (Examiner examiner : examiners) {
+        for (Examiner examiner : examinerList) {
             String key = ExaminerType.findByCode(examiner.getType()).getName();
             itemList = examinerMap.get(key);
             if (itemList == null) {

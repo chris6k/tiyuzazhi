@@ -3,12 +3,12 @@ package com.tiyuzazhi.enums;
 /**
  * @author chris.xue
  */
-public enum Category {
+public enum EXAM_STEP {
     ZHONGSHEN(4, "终审"), WAISHEN(3, "外审"), TUIXIU(2, "退修"), SHOUGAO(1, "收稿");
     private final int code;
     private final String name;
 
-    private Category(int code, String name) {
+    private EXAM_STEP(int code, String name) {
         this.code = code;
         this.name = name;
     }
@@ -21,12 +21,12 @@ public enum Category {
         return name;
     }
 
-    public static Category findByCode(int step) {
-        for (Category category : values()) {
-            if (category.getCode() == step) {
-                return category;
+    public static EXAM_STEP findByCode(int step) {
+        for (EXAM_STEP examStep : values()) {
+            if (examStep.getCode() == step) {
+                return examStep;
             }
         }
-        return Category.SHOUGAO;
+        return EXAM_STEP.SHOUGAO;
     }
 }

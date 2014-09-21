@@ -67,8 +67,8 @@ public class ArticleSummaryActivity extends Activity {
                             title.setText(examiningArticle.getTitle());
                             author.setText(examiningArticle.getAuthor());
                             summary.loadDataWithBaseURL("", "<html><head><style type='text/css'>*{font-size:16px;color:#4a5153;line-height:150%;text-indent:2em;}</style></head><body>" +
-                                    "<span style='color:#00367e;float:left;margin-left:-2em;'>[摘要]</span>"
-                                    + examiningArticle.getSummary() + "</body></html>", "text/html", "utf-8", null);
+                                    "<div style='width:98%;'><span style='color:#00367e;margin-left:-2em;'>[摘要]</span>&nbsp;&nbsp;"
+                                    + examiningArticle.getSummary() + "</div><div style='clear:both;'></div></body></html>", "text/html", "utf-8", null);
                         }
                     });
 

@@ -3,7 +3,7 @@ package com.tiyuzazhi.api;
 import com.tiyuzazhi.beans.ArticleMenu;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.beans.Magazine;
-import com.tiyuzazhi.enums.Category;
+import com.tiyuzazhi.enums.EXAM_STEP;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,10 +70,10 @@ public class ArticleApi {
     public static List<ExaminingArticle> loadExamineArticle(int offset, int count) {
         //TODO
         ExaminingArticle examiningArticle = new ExaminingArticle();
-        examiningArticle.setCategory(Category.SHOUGAO.getCode());
+        examiningArticle.setCategory(EXAM_STEP.SHOUGAO.getCode());
         examiningArticle.setComment("稿子很好");
         examiningArticle.setConclusion(1);
-        examiningArticle.setDraftNo("No:10010");
+        examiningArticle.setDraftNo("10010");
         examiningArticle.setExamineStart(new Date());
         examiningArticle.setExamineFinish(new Date());
         examiningArticle.setAuthor("王小二");
@@ -191,28 +191,12 @@ public class ArticleApi {
      */
     public static List<ExaminingArticle> loadExamineFlow(int articleId) {
         //TODO
-        ExaminingArticle examiningArticle = new ExaminingArticle();
-        examiningArticle.setCategory(Category.SHOUGAO.getCode());
-        examiningArticle.setComment("稿子很好");
-        examiningArticle.setAttachmentText("附件-2013-01");
-        examiningArticle.setConclusion(1);
-        examiningArticle.setDraftNo("No:10010");
-        examiningArticle.setExamineStart(new Date());
-        examiningArticle.setExamineFinish(new Date());
-        examiningArticle.setAuthor("王小二");
-        examiningArticle.setId(1);
-        examiningArticle.setOpId(1);
-        examiningArticle.setOpName("鲁连海");
-        examiningArticle.setScore(5);
-        examiningArticle.setState(0);
-        examiningArticle.setStep(5);
         ExaminingArticle examiningArticle2 = new ExaminingArticle();
-        examiningArticle2.setCategory(Category.SHOUGAO.getCode());
         examiningArticle2.setComment("稿子很好");
         examiningArticle2.setAttachment("http://localhost/hehe.jpg");
         examiningArticle2.setAttachmentText("附件-2013-01");
         examiningArticle2.setConclusion(1);
-        examiningArticle2.setDraftNo("No:10010");
+        examiningArticle2.setDraftNo("10010");
         examiningArticle2.setExamineStart(new Date());
         examiningArticle2.setExamineFinish(new Date());
         examiningArticle2.setAuthor("王小二");
@@ -221,13 +205,27 @@ public class ArticleApi {
         examiningArticle2.setOpName("鲁连海");
         examiningArticle2.setScore(5);
         examiningArticle2.setState(0);
-        examiningArticle2.setStep(5);
+        examiningArticle2.setStep(EXAM_STEP.WAISHEN.getCode());
+        ExaminingArticle examiningArticle = new ExaminingArticle();
+        examiningArticle.setComment("稿子很好");
+        examiningArticle.setAttachmentText("附件-2013-01");
+        examiningArticle.setConclusion(1);
+        examiningArticle.setDraftNo("10010");
+        examiningArticle.setExamineStart(new Date());
+        examiningArticle.setExamineFinish(new Date());
+        examiningArticle.setAuthor("王小二");
+        examiningArticle.setId(1);
+        examiningArticle.setOpId(1);
+        examiningArticle.setOpName("鲁连海");
+        examiningArticle.setScore(5);
+        examiningArticle.setState(1);
+        examiningArticle.setStep(EXAM_STEP.TUIXIU.getCode());
         List<ExaminingArticle> examiningArticles = new ArrayList<ExaminingArticle>(5);
-        examiningArticles.add(examiningArticle);
-        examiningArticles.add(examiningArticle);
-        examiningArticles.add(examiningArticle);
-        examiningArticles.add(examiningArticle);
         examiningArticles.add(examiningArticle2);
+        examiningArticles.add(examiningArticle);
+        examiningArticles.add(examiningArticle);
+        examiningArticles.add(examiningArticle);
+        examiningArticles.add(examiningArticle);
         return examiningArticles;
     }
 
@@ -240,11 +238,11 @@ public class ArticleApi {
     public static ExaminingArticle loadArticle(int articleId) {
         //TODO
         ExaminingArticle examiningArticle = new ExaminingArticle();
-        examiningArticle.setCategory(Category.SHOUGAO.getCode());
+        examiningArticle.setCategory(EXAM_STEP.SHOUGAO.getCode());
         examiningArticle.setComment("稿子很好");
         examiningArticle.setConclusion(1);
         examiningArticle.setSummary("这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要<p/>这是摘要这是摘要这这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要");
-        examiningArticle.setDraftNo("No:10010");
+        examiningArticle.setDraftNo("10010");
         examiningArticle.setExamineFinish(new Date());
         examiningArticle.setExamineFinish(new Date());
         examiningArticle.setAuthor("王小二");

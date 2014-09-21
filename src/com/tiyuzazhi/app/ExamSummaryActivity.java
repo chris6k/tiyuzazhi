@@ -2,6 +2,7 @@ package com.tiyuzazhi.app;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -13,7 +14,7 @@ import android.widget.TextView;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.component.PassDialog;
-import com.tiyuzazhi.enums.Category;
+import com.tiyuzazhi.enums.EXAM_STEP;
 import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
@@ -99,7 +100,7 @@ public class ExamSummaryActivity extends Activity {
                     }
                 };
                 passDialog.setText("审核通过");
-                passDialog.setText("通过");
+                passDialog.setButtonText("通过");
                 passDialog.show();
                 WindowManager windowManager = getWindowManager();
                 Display display = windowManager.getDefaultDisplay();
@@ -229,7 +230,7 @@ public class ExamSummaryActivity extends Activity {
             }
             final ExaminingArticle article = (ExaminingArticle) getItem(i);
             helper.summaryNo.setText(String.valueOf(getCount() - i));
-            helper.step.setText(Category.findByCode(article.getStep()).getName());
+            helper.step.setText(EXAM_STEP.findByCode(article.getStep()).getName());
             helper.company.setText(article.getOrgName());
             helper.examiner.setText(article.getOpName());
             helper.dateDayStart.setText(DatetimeUtils.format(article.getExamineStart()));
@@ -239,10 +240,12 @@ public class ExamSummaryActivity extends Activity {
             final int closeDrawableId;
             if (article.getState() == 1) {
                 view.setBackgroundResource(R.drawable.module_bg);
+                helper.summaryNo.setTextColor(Color.parseColor("#e6e6e6"));
                 helper.result.setImageResource(R.drawable.complete_xhdpi);
                 openDrawableId = R.drawable.open_module_gray_xhdpi;
                 closeDrawableId = R.drawable.close_module_gray_xhdpi;
             } else {
+                helper.summaryNo.setTextColor(Color.parseColor("#fdc68f"));
                 openDrawableId = R.drawable.open_module_white_xhdpi;
                 view.setBackgroundResource(R.drawable.module_yellow_bg);
                 helper.result.setImageResource(R.drawable.uncomplete_xhdpi);

@@ -44,36 +44,41 @@
                 android:layout_height="wrap_content"/>
     </RelativeLayout>
 
-    <LinearLayout
-            android:orientation="horizontal"
+    <RelativeLayout
             android:id="@+id/cateSelector"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/title_bar"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="50dp">
-        
-        <Spinner
-                android:id="@+id/examinerTypeSpinner"
-                android:layout_width="0dp"
-                android:layout_height="0dp"/>
 
-        <TextView
-                android:clickable="true"
-                android:layout_gravity="center"
-                android:textColor="#2d3538"
-                android:id="@+id/examiner_category"
-                android:textSize="18sp"
-                android:layout_marginRight="5dp"
-                android:text="全部"
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_centerHorizontal="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="50dp">
 
-        <ImageView
-                android:layout_gravity="center"
-                android:src="@drawable/open_xhdpi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-    </LinearLayout>
+            <Spinner
+                    android:id="@+id/examinerTypeSpinner"
+                    android:visibility="visible"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"/>
+
+            <TextView
+                    android:layout_gravity="center"
+                    android:textColor="#2d3538"
+                    android:id="@+id/examiner_category"
+                    android:textSize="18sp"
+                    android:layout_marginRight="5dp"
+                    android:text="全部"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <ImageView
+                    android:layout_gravity="center"
+                    android:src="@drawable/open_xhdpi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </RelativeLayout>
 
 
     <ListView

@@ -121,7 +121,7 @@ public class ChiefEditorActivity extends Activity {
             }
             final ExaminingArticle article = (ExaminingArticle) getItem(i);
             helper.title.setText(article.getTitle());
-            helper.draftNo.setText(article.getDraftNo());
+            helper.draftNo.setText("编号:" + article.getDraftNo());
             helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
             helper.leftDay.setText(DatetimeUtils.getDuringDay(article.getExamineStart(), new Date()) + "天");
             helper.opName.setText(article.getOpName());
