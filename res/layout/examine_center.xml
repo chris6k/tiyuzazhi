@@ -46,6 +46,7 @@
             android:paddingTop="7dp"
             android:id="@+id/summaryList"
             android:divider="@android:color/transparent"
+            android:dividerHeight="10dp"
             android:background="#ffffff"
             android:cacheColorHint="@android:color/transparent"
             android:layout_width="fill_parent"
