@@ -5,8 +5,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.*;
-import android.widget.AdapterView;
+import android.view.Display;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import cn.sharesdk.framework.ShareSDK;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ArticleMenu;
 import com.tiyuzazhi.beans.Magazine;
+import com.tiyuzazhi.component.MagazineItem;
 import com.tiyuzazhi.component.ShareDialog;
 import com.tiyuzazhi.component.SharePanelDialog;
 import com.tiyuzazhi.utils.DatetimeUtils;
@@ -25,7 +28,6 @@ import com.tiyuzazhi.utils.ToastUtils;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -40,7 +42,7 @@ public class MagazineActivity extends Activity {
     private TextView magazineNo;
     private TextView magazinePubTime;
     private AtomicBoolean opLock;
-    private Map<Integer, Boolean> selectIds;
+    //    private Map<Integer, Boolean> selectIds;
     private volatile Magazine magazine;
     private View fav;
     private View share;
@@ -58,7 +60,6 @@ public class MagazineActivity extends Activity {
         });
         menuListView = (ListView) findViewById(R.id.article_item_list);
         menuListView.setItemsCanFocus(true);
-
         handler = new Handler(Looper.getMainLooper());
         nextButton = findViewById(R.id.next_mag);
         previousButton = findViewById(R.id.previous_mag);
@@ -66,7 +67,7 @@ public class MagazineActivity extends Activity {
         magazinePubTime = (TextView) findViewById(R.id.mag_date);
         opLock = new AtomicBoolean(false);
         magazine = (Magazine) this.getIntent().getSerializableExtra("magazine");
-        selectIds = new HashMap<Integer, Boolean>(30, 0.5f);
+//        selectIds = new HashMap<Integer, Boolean>(30, 0.5f);
         fav = findViewById(R.id.collect);
         fav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +111,11 @@ public class MagazineActivity extends Activity {
                                 dismiss();
                             }
                         };
+                        int pos = menuListView.getCheckedItemPosition();
+                        if (pos >= 0) {
+                            ArticleMenu menu = (ArticleMenu) menuListView.getAdapter().getItem(pos);
+                            shareDialog.setContent(menu.getTitle());
+                        }
                         shareDialog.show();
                         WindowManager windowManager = getWindowManager();
                         Display display = windowManager.getDefaultDisplay();
@@ -208,21 +214,6 @@ public class MagazineActivity extends Activity {
                         @Override
                         public void run() {
                             menuListView.setAdapter(new ArticleAdaptor(articleMenus));
-                            menuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    Boolean checked = selectIds.get(position);
-                                    if (checked == null || !checked) {
-                                        checked = Boolean.TRUE;
-                                        selectIds.put(position, checked);
-                                        menuListView.setItemChecked(position, checked);
-                                    } else {
-                                        checked = Boolean.FALSE;
-                                        selectIds.put(position, checked);
-                                        menuListView.setItemChecked(position, checked);
-                                    }
-                                }
-                            });
                         }
                     });
                 } catch (Exception e) {
@@ -263,10 +254,12 @@ public class MagazineActivity extends Activity {
         public View getView(int i, View view, ViewGroup viewGroup) {
             AdaptorHelper helper;
             if (view == null || view.getTag() == null) {
-                view = LayoutInflater.from(getBaseContext()).inflate(R.layout.magazine_list_item, null, false);
+                view = new MagazineItem(MagazineActivity.this);
+                int color = getResources().getColor(R.color.white);
                 if ((i + 1) % 2 == 0) {
-                    view.setBackgroundColor(Color.parseColor("#f5f5f5"));
+                    color = Color.parseColor("#f5f5f5");
                 }
+                ((MagazineItem) view).setBaseColor(color);
                 helper = new AdaptorHelper();
                 helper.title = (TextView) view.findViewById(R.id.title);
                 helper.author = (TextView) view.findViewById(R.id.author);

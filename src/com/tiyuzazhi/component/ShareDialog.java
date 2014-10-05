@@ -3,6 +3,7 @@ package com.tiyuzazhi.component;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import com.tiyuzazhi.app.R;
@@ -14,6 +15,7 @@ import com.tiyuzazhi.app.R;
 public abstract class ShareDialog extends Dialog {
     View buttonShare;
     EditText content;
+    String defaultContent;
 
     public ShareDialog(Context context) {
         super(context);
@@ -38,6 +40,13 @@ public abstract class ShareDialog extends Dialog {
                 onButtonClick(content.toString());
             }
         });
+        if (!TextUtils.isEmpty(defaultContent)) {
+            this.content.setText(defaultContent);
+        }
+    }
+
+    public void setContent(String content) {
+        defaultContent = content;
     }
 
     public abstract void onButtonClick(String content);
