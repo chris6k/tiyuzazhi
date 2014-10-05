@@ -1,19 +1,38 @@
 package com.tiyuzazhi.beans;
 
+import com.tiyuzazhi.utils.DatetimeUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author chris.xue
  */
 public class Magazine implements Serializable {
+    private Pattern pattern = Pattern.compile("(第[一二三四五六七八九十百千万0-9]期)");
     private int id;
     private String title;
     private String subTitle;
     private Date publishTime;
-    private int publishNo;
+    private String publishNo;
 
     public Magazine() {
+    }
+
+    public Magazine(JSONObject obj) throws JSONException {
+        this.id = obj.getInt("id");
+        this.title = obj.getString("title");
+        this.subTitle = obj.getString("subTitle");
+        this.publishTime = DatetimeUtils.parse(obj.getString("publishTime"));
+        this.publishNo = obj.getString("publishNo");
+        Matcher matcher = pattern.matcher(publishNo);
+        if (matcher.find()) {
+            publishNo = matcher.group(0);
+        }
     }
 
     public String getTitle() {
@@ -32,11 +51,11 @@ public class Magazine implements Serializable {
         this.publishTime = publishTime;
     }
 
-    public int getPublishNo() {
+    public String getPublishNo() {
         return publishNo;
     }
 
-    public void setPublishNo(int publishNo) {
+    public void setPublishNo(String publishNo) {
         this.publishNo = publishNo;
     }
 

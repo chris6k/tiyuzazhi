@@ -1,5 +1,8 @@
 package com.tiyuzazhi.beans;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -13,6 +16,11 @@ public class ArticleMenu implements Serializable {
     private String author;
 
     public ArticleMenu() {
+    }
+
+    public ArticleMenu(JSONObject jsonObject) throws JSONException {
+        id = jsonObject.getInt("id");
+        title = jsonObject.getString("title");
     }
 
     public String getTitle() {

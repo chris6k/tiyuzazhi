@@ -192,7 +192,7 @@ public class MagazineActivity extends Activity {
     }
 
     private void init() {
-        magazineNo.setText("第" + magazine.getPublishNo() + "期");
+        magazineNo.setText(magazine.getPublishNo());
         magazinePubTime.setText(DatetimeUtils.format2(magazine.getPublishTime()));
         TPool.post(new Runnable() {
             @Override
@@ -200,7 +200,8 @@ public class MagazineActivity extends Activity {
                 try {
                     final List<ArticleMenu> articleMenus = ArticleApi.loadArticleMenu(magazine.getId());
                     if (articleMenus.isEmpty()) {
-                        ToastUtils.show("该期杂志目录为空");
+                        ToastUtils.show("没有更多杂志");
+                        nextButton.setEnabled(false);
                         return;
                     }
                     handler.post(new Runnable() {

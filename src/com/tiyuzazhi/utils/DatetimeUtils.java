@@ -1,5 +1,6 @@
 package com.tiyuzazhi.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,5 +26,29 @@ public class DatetimeUtils {
         if (start == null || end == null) return 0;
         long diff = end.getTime() - start.getTime();
         return Math.round((float) diff / MILLS_OF_DAY);
+    }
+
+    /**
+     * @param time
+     * @return null if parse failed.
+     */
+    public static Date parse(String time) {
+        try {
+            return formatter.parse(time);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    /**
+     * @param time
+     * @return null if parse failed.
+     */
+    public static Date parse2(String time) {
+        try {
+            return formatter2.parse(time);
+        } catch (ParseException e) {
+            return null;
+        }
     }
 }

@@ -1,14 +1,23 @@
 package com.tiyuzazhi.api;
 
+import android.util.Log;
 import com.tiyuzazhi.beans.ArticleMenu;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.beans.Magazine;
 import com.tiyuzazhi.enums.EXAM_STEP;
+import com.tiyuzazhi.utils.TiHttp;
+import com.tiyuzazhi.utils.ToastUtils;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author chris.xue
@@ -101,20 +110,28 @@ public class ArticleApi {
      * @return
      */
     public static List<Magazine> loadNewestMagazine() {
-        //TODO
-        Magazine magazine = new Magazine();
-        magazine.setId(1);
-        magazine.setPublishNo(1);
-        magazine.setPublishTime(new Date());
-        magazine.setSubTitle("体育杂志副标题");
-        magazine.setTitle("体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题");
-        Magazine magazine2 = new Magazine();
-        magazine2.setId(2);
-        magazine2.setPublishNo(2);
-        magazine2.setPublishTime(new Date());
-        magazine2.setSubTitle("体育杂志副标题2");
-        magazine2.setTitle("体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题2");
-        return Arrays.asList(magazine, magazine2);
+        HttpGet get = new HttpGet(TiHttp.HOST + "/mag/list");
+        Future<HttpResponse> responseFuture = TiHttp.getInstance().send(get);
+        try {
+            HttpResponse response = responseFuture.get(1, TimeUnit.MINUTES);
+            if (response.getStatusLine().getStatusCode() == 200) {
+                String baseString = EntityUtils.toString(response.getEntity());
+                JSONObject object = new JSONObject(baseString);
+                if (object.has("result") && object.getBoolean("result")) {
+                    JSONArray array = object.getJSONArray("data");
+                    int len = array.length();
+                    ArrayList<Magazine> magazines = new ArrayList<Magazine>(len);
+                    for (int i = 0; i < len; i++) {
+                        magazines.add(new Magazine(array.getJSONObject(i)));
+                    }
+                    return magazines;
+                }
+            }
+        } catch (Exception e) {
+            Log.e("ArticleApi", "load newest magazine failed.", e);
+        }
+        ToastUtils.show("读取杂志信息失败");
+        return new ArrayList<Magazine>(0);
     }
 
     /**
@@ -124,16 +141,28 @@ public class ArticleApi {
      * @return
      */
     public static List<ArticleMenu> loadArticleMenu(int magazineId) {
-        //TODO
-        ArticleMenu magazine = new ArticleMenu();
-        magazine.setId(1);
-        magazine.setAuthor("鲁连海");
-        magazine.setTitle("体育杂志主标题杂志主标题杂志主标题杂志主标题杂志主标题杂志主标题" + magazineId);
-        ArticleMenu magazine2 = new ArticleMenu();
-        magazine2.setId(2);
-        magazine2.setAuthor("鲁连海");
-        magazine2.setTitle("体育杂志主标题杂志主标题杂志主标题杂志主标题杂志主标题杂志主标题杂志主标题杂志主标题2" + magazineId);
-        return Arrays.asList(magazine, magazine2, magazine, magazine2, magazine, magazine2, magazine, magazine2, magazine, magazine2, magazine, magazine2, magazine, magazine2, magazine, magazine2);
+        HttpGet get = new HttpGet(TiHttp.HOST + "/mag/articles?magId=" + magazineId);
+        Future<HttpResponse> responseFuture = TiHttp.getInstance().send(get);
+        try {
+            HttpResponse response = responseFuture.get(1, TimeUnit.MINUTES);
+            if (response.getStatusLine().getStatusCode() == 200) {
+                String baseString = EntityUtils.toString(response.getEntity());
+                JSONObject object = new JSONObject(baseString);
+                if (object.has("result") && object.getBoolean("result")) {
+                    JSONArray array = object.getJSONArray("data");
+                    int len = array.length();
+                    ArrayList<ArticleMenu> articleMenus = new ArrayList<ArticleMenu>(len);
+                    for (int i = 0; i < len; i++) {
+                        articleMenus.add(new ArticleMenu(array.getJSONObject(i)));
+                    }
+                    return articleMenus;
+                }
+            }
+        } catch (Exception e) {
+            Log.e("ArticleApi", "load newest magazine failed.", e);
+        }
+        ToastUtils.show("读取杂志信息失败");
+        return new ArrayList<ArticleMenu>(0);
     }
 
     /**
@@ -143,14 +172,26 @@ public class ArticleApi {
      * @return
      */
     public static Magazine loadNextMagazine(int magazineId) {
-        //TODO
-        Magazine magazine = new Magazine();
-        magazine.setId(magazineId + 1);
-        magazine.setPublishNo(magazineId + 1);
-        magazine.setPublishTime(new Date());
-        magazine.setSubTitle("体育杂志副标题" + (magazineId + 1));
-        magazine.setTitle("体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题体育杂志主标题" + (magazineId + 1));
-        return magazine;
+        HttpGet get = new HttpGet(TiHttp.HOST + "/mag/nextMag?magId=" + magazineId);
+        Future<HttpResponse> responseFuture = TiHttp.getInstance().send(get);
+        try {
+            HttpResponse response = responseFuture.get(1, TimeUnit.MINUTES);
+            if (response.getStatusLine().getStatusCode() == 200) {
+                String baseString = EntityUtils.toString(response.getEntity());
+                JSONObject object = new JSONObject(baseString);
+                if (object.has("result") && object.getBoolean("result")) {
+                    JSONObject data = object.getJSONObject("data");
+                    return new Magazine(data);
+                } else {
+                    ToastUtils.show("没有更多杂志");
+                    return null;
+                }
+            }
+        } catch (Exception e) {
+            Log.e("ArticleApi", "load newest magazine failed.", e);
+        }
+        ToastUtils.show("读取杂志信息失败");
+        return null;
     }
 
     /**
@@ -160,14 +201,26 @@ public class ArticleApi {
      * @return
      */
     public static Magazine loadPrevMagazine(int magazineId) {
-        //TODO
-        Magazine magazine = new Magazine();
-        magazine.setId(magazineId - 1);
-        magazine.setPublishNo(magazineId - 1);
-        magazine.setPublishTime(new Date());
-        magazine.setSubTitle("体育杂志副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题副标题" + (magazineId - 1));
-        magazine.setTitle("体育杂志主标题主标题主标题主标题主标题主标题主标题主标题主标题主标题主标题主标题主标题" + (magazineId - 1));
-        return magazine;
+        HttpGet get = new HttpGet(TiHttp.HOST + "/mag/prevMag?magId=" + magazineId);
+        Future<HttpResponse> responseFuture = TiHttp.getInstance().send(get);
+        try {
+            HttpResponse response = responseFuture.get(1, TimeUnit.MINUTES);
+            if (response.getStatusLine().getStatusCode() == 200) {
+                String baseString = EntityUtils.toString(response.getEntity());
+                JSONObject object = new JSONObject(baseString);
+                if (object.has("result") && object.getBoolean("result")) {
+                    JSONObject data = object.getJSONObject("data");
+                    return new Magazine(data);
+                } else {
+                    ToastUtils.show("没有更多杂志");
+                    return null;
+                }
+            }
+        } catch (Exception e) {
+            Log.e("ArticleApi", "load newest magazine failed.", e);
+        }
+        ToastUtils.show("读取杂志信息失败");
+        return null;
     }
 
 

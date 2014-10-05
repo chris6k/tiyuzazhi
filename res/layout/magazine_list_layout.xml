@@ -124,10 +124,10 @@
             <TextView
                     android:id="@+id/mag_no"
                     android:gravity="center_horizontal"
-                    android:text="第1期"
+                    android:text="第一期"
                     android:textSize="16sp"
                     android:textColor="#ff8a00"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             <TextView

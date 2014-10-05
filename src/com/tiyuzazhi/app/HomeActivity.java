@@ -207,7 +207,7 @@ public class HomeActivity extends Activity {
                                 magItem.magData.setText(dateFormat.format(magazine.getPublishTime()));
                                 magItem.title.setText(magazine.getTitle());
                                 magItem.subTitle.setText(magazine.getSubTitle());
-                                magItem.magNo.setText("第" + magazine.getPublishNo() + "期");
+                                magItem.magNo.setText(magazine.getPublishNo());
 
                                 return view;
                             }

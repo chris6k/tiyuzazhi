@@ -28,6 +28,8 @@ import java.util.concurrent.Future;
  *         http client
  */
 public class TiHttp {
+    public static final String HOST = "http://192.168.10.104:8000/tiyuzazhi/api";
+
     private static ExecutorService service = Executors.newSingleThreadExecutor();
 
     public static TiHttp getInstance() {
