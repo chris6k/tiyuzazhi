@@ -41,12 +41,12 @@ public class MagazineItem extends LinearLayout implements Checkable {
 
     @Override
     public void setChecked(boolean b) {
-        isChecked = b;
         if (b) {
             view.setBackgroundColor(getResources().getColor(R.color.orange));
         } else {
             view.setBackgroundColor(baseColor);
         }
+        isChecked = b;
     }
 
     @Override

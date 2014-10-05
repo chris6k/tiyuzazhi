@@ -60,7 +60,7 @@
             android:id="@+id/article_item_list"
             android:background="#ffffff"
             android:divider="@android:color/transparent"
-            android:choiceMode="singleChoice"
+            android:choiceMode="multipleChoice"
             android:focusable="true"
             android:cacheColorHint="@android:color/transparent"
             android:layout_width="fill_parent"

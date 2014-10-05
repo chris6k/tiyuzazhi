@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.SparseBooleanArray;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
@@ -111,10 +112,17 @@ public class MagazineActivity extends Activity {
                                 dismiss();
                             }
                         };
-                        int pos = menuListView.getCheckedItemPosition();
-                        if (pos >= 0) {
-                            ArticleMenu menu = (ArticleMenu) menuListView.getAdapter().getItem(pos);
-                            shareDialog.setContent(menu.getTitle());
+                        SparseBooleanArray array = menuListView.getCheckedItemPositions();
+                        if (array.size() > 0) {
+                            StringBuilder sb = new StringBuilder();
+                            for (int i = 0, j = 0; i < menuListView.getAdapter().getCount() && j < array.size(); i++) {
+                                if (array.get(i, false)) {
+                                    ArticleMenu menu = (ArticleMenu) menuListView.getAdapter().getItem(i);
+                                    sb.append(menu.getTitle()).append(" ");
+                                    j++;
+                                }
+                            }
+                            shareDialog.setContent(sb.toString());
                         }
                         shareDialog.show();
                         WindowManager windowManager = getWindowManager();

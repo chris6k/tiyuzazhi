@@ -22,7 +22,7 @@
 
     <TextView
             android:id="@+id/author"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="7dp"
             android:text="作者：刘家，高新"
             android:textSize="15sp"
             android:textColor="#969a9b"
