@@ -43,6 +43,7 @@ public class MagazineActivity extends Activity {
     private TextView magazineNo;
     private TextView magazinePubTime;
     private AtomicBoolean opLock;
+    private TextView title;
     //    private Map<Integer, Boolean> selectIds;
     private volatile Magazine magazine;
     private View fav;
@@ -68,7 +69,10 @@ public class MagazineActivity extends Activity {
         magazinePubTime = (TextView) findViewById(R.id.mag_date);
         opLock = new AtomicBoolean(false);
         magazine = (Magazine) this.getIntent().getSerializableExtra("magazine");
+        title = (TextView) findViewById(R.id.title);
+        title.setText(magazine.getTitle());
 //        selectIds = new HashMap<Integer, Boolean>(30, 0.5f);
+
         fav = findViewById(R.id.collect);
         fav.setOnClickListener(new View.OnClickListener() {
             @Override
