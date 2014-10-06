@@ -70,7 +70,7 @@ public class SearchActivity extends Activity {
         TextView nextText = (TextView) findViewById(R.id.next_mag_text);
         nextText.setText("下一页");
         TextView prevText = (TextView) findViewById(R.id.previous_mag_text);
-        nextText.setText("上一页");
+        prevText.setText("上一页");
         View closeArrow = findViewById(R.id.close_arrow);
         closeArrow.setVisibility(View.INVISIBLE);
         fav = findViewById(R.id.collect);
