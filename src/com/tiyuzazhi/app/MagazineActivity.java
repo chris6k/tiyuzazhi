@@ -161,7 +161,16 @@ public class MagazineActivity extends Activity {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
+                                            previousButton.setEnabled(true);
                                             init();
+                                        }
+                                    });
+                                } else {
+                                    ToastUtils.show("没有更新的杂志");
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            nextButton.setEnabled(false);
                                         }
                                     });
                                 }
@@ -191,7 +200,16 @@ public class MagazineActivity extends Activity {
                                     handler.post(new Runnable() {
                                         @Override
                                         public void run() {
+                                            nextButton.setEnabled(true);
                                             init();
+                                        }
+                                    });
+                                } else {
+                                    ToastUtils.show("没有更早的杂志");
+                                    handler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            previousButton.setEnabled(false);
                                         }
                                     });
                                 }
@@ -217,11 +235,6 @@ public class MagazineActivity extends Activity {
             public void run() {
                 try {
                     final List<ArticleMenu> articleMenus = ArticleApi.loadArticleMenu(magazine.getId());
-                    if (articleMenus.isEmpty()) {
-                        ToastUtils.show("没有更多杂志");
-                        nextButton.setEnabled(false);
-                        return;
-                    }
                     handler.post(new Runnable() {
                         @Override
                         public void run() {

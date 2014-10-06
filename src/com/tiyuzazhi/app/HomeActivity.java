@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.*;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.api.UserApi;
@@ -67,6 +69,19 @@ public class HomeActivity extends Activity {
         editorCenterNo = (TextView) findViewById(R.id.editor_center_no);
         chiefEditorNo = (TextView) findViewById(R.id.chief_editor_no);
         EditText searchBar = (EditText) findViewById(R.id.search_editor);
+        searchBar.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        searchBar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(final TextView textView, int i, KeyEvent keyEvent) {
+                if (i == EditorInfo.IME_ACTION_SEARCH) {
+                    Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
+                    intent.putExtra("keywords", textView.getText().toString());
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
+            }
+        });
         userName = (TextView) findViewById(R.id.user_name);
 
         slideMenuButton.setOnClickListener(new View.OnClickListener() {

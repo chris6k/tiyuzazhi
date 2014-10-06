@@ -13,6 +13,8 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -162,6 +164,43 @@ public class ArticleApi {
             Log.e("ArticleApi", "load newest magazine failed.", e);
         }
         ToastUtils.show("读取杂志信息失败");
+        return new ArrayList<ArticleMenu>(0);
+    }
+
+    /**
+     * 搜索杂志的文章
+     *
+     * @param keywords 搜索关键词
+     * @return
+     */
+    public static List<ArticleMenu> search(String keywords, int index) {
+        String encKeywords;
+        try {
+            encKeywords = URLEncoder.encode(keywords, "utf-8");
+        } catch (UnsupportedEncodingException e) {
+            encKeywords = keywords;
+        }
+        HttpGet get = new HttpGet(TiHttp.HOST + "/mag/search?keywords=" + encKeywords + "&index=" + index);
+        Future<HttpResponse> responseFuture = TiHttp.getInstance().send(get);
+        try {
+            HttpResponse response = responseFuture.get(1, TimeUnit.MINUTES);
+            if (response.getStatusLine().getStatusCode() == 200) {
+                String baseString = EntityUtils.toString(response.getEntity());
+                JSONObject object = new JSONObject(baseString);
+                if (object.has("result") && object.getBoolean("result")) {
+                    JSONArray array = object.getJSONArray("data");
+                    int len = array.length();
+                    ArrayList<ArticleMenu> articleMenus = new ArrayList<ArticleMenu>(len);
+                    for (int i = 0; i < len; i++) {
+                        articleMenus.add(new ArticleMenu(array.getJSONObject(i)));
+                    }
+                    return articleMenus;
+                }
+            }
+        } catch (Exception e) {
+            Log.e("ArticleApi", "load newest magazine failed.", e);
+        }
+        ToastUtils.show("读取搜索结果失败");
         return new ArrayList<ArticleMenu>(0);
     }
 

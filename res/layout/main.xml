@@ -46,6 +46,7 @@
                     android:background="@android:color/transparent"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/search_editor"
+                    android:inputType="text"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:layout_width="fill_parent"
