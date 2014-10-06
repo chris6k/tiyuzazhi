@@ -46,6 +46,7 @@ public class SearchActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.magazine_list_layout);
         super.onCreate(savedInstanceState);
+        hasMore = true;
         View back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +67,12 @@ public class SearchActivity extends Activity {
         keywords = this.getIntent().getStringExtra("keywords");
         title = (TextView) findViewById(R.id.title);
         title.setText("搜索结果");
-
+        TextView nextText = (TextView) findViewById(R.id.next_mag_text);
+        nextText.setText("下一页");
+        TextView prevText = (TextView) findViewById(R.id.previous_mag_text);
+        nextText.setText("上一页");
+        View closeArrow = findViewById(R.id.close_arrow);
+        closeArrow.setVisibility(View.INVISIBLE);
         fav = findViewById(R.id.collect);
         fav.setVisibility(View.INVISIBLE);
         share = findViewById(R.id.share);
@@ -111,7 +117,7 @@ public class SearchActivity extends Activity {
                             try {
                                 index = Math.max(index - 10, 0);
                                 if (index > 0) {
-                                    hasMore = false;
+                                    hasMore = true;
                                 }
                                 handler.post(new Runnable() {
                                     @Override
@@ -139,17 +145,17 @@ public class SearchActivity extends Activity {
             public void run() {
                 try {
                     final List<ArticleMenu> articleMenus = ArticleApi.search(keywords, index);
-                    if (articleMenus.isEmpty()) {
-                        ToastUtils.show("没有更多杂志");
-                        hasMore = false;
-                        nextButton.setEnabled(false);
-                        return;
-                    } else {
-                        nextButton.setEnabled(true);
-                    }
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            if (articleMenus.isEmpty() || articleMenus.size() < 10) {
+                                ToastUtils.show("没有更多结果");
+                                hasMore = false;
+                                nextButton.setEnabled(false);
+                            } else {
+
+                                nextButton.setEnabled(true);
+                            }
                             menuListView.setAdapter(new ArticleAdaptor(articleMenus));
                         }
                     });

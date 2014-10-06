@@ -84,6 +84,7 @@
                 android:layout_height="40dp"/>
 
         <TextView
+                android:id="@+id/previous_mag_text"
                 android:gravity="center_vertical"
                 android:layout_toRightOf="@id/previous_mag"
                 android:text="上一期"
@@ -104,6 +105,7 @@
                 android:layout_height="40dp"/>
 
         <TextView
+                android:id="@+id/next_mag_text"
                 android:gravity="center_vertical"
                 android:layout_toLeftOf="@id/next_mag"
                 android:text="下一期"
@@ -120,6 +122,7 @@
                 android:layout_height="wrap_content">
 
             <ImageView
+                    android:id="@+id/close_arrow"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/close_xhdpi"
                     android:layout_width="40dp"
