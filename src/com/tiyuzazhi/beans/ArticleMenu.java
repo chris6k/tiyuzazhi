@@ -21,6 +21,7 @@ public class ArticleMenu implements Serializable {
     public ArticleMenu(JSONObject jsonObject) throws JSONException {
         id = jsonObject.getInt("id");
         title = jsonObject.getString("title");
+        author = jsonObject.getString("author");
     }
 
     public String getTitle() {
