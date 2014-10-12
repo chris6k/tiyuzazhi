@@ -14,6 +14,7 @@ public class ArticleMenu implements Serializable {
     private int id;
     private String title;
     private String author;
+    private String summary;
 
     public ArticleMenu() {
     }
@@ -22,6 +23,9 @@ public class ArticleMenu implements Serializable {
         id = jsonObject.getInt("id");
         title = jsonObject.getString("title");
         author = jsonObject.getString("author");
+        if (jsonObject.has("summary")) {
+            summary = jsonObject.getString("summary");
+        }
     }
 
     public String getTitle() {
@@ -48,12 +52,21 @@ public class ArticleMenu implements Serializable {
         this.id = id;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     @Override
     public String toString() {
-        return "Article{" +
+        return "ArticleMenu{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
+                ", summary='" + summary + '\'' +
                 '}';
     }
 }

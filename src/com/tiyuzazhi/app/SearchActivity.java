@@ -1,12 +1,14 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -41,6 +43,7 @@ public class SearchActivity extends Activity {
     private volatile int index;
     private String keywords;
     private volatile boolean hasMore;
+    private volatile List<ArticleMenu> articleMenus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,17 @@ public class SearchActivity extends Activity {
         fav.setVisibility(View.INVISIBLE);
         share = findViewById(R.id.share);
         share.setVisibility(View.INVISIBLE);
+        menuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                ArticleMenu menu = articleMenus.get(i);
+                if (menu != null) {
+                    Intent intent = new Intent(SearchActivity.this, MagSummaryActivity.class);
+                    intent.putExtra("menu", menu);
+                    startActivity(intent);
+                }
+            }
+        });
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,7 +158,7 @@ public class SearchActivity extends Activity {
             @Override
             public void run() {
                 try {
-                    final List<ArticleMenu> articleMenus = ArticleApi.search(keywords, index);
+                    articleMenus = ArticleApi.search(keywords, index);
                     handler.post(new Runnable() {
                         @Override
                         public void run() {

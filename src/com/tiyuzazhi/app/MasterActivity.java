@@ -1,21 +1,20 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.content.ServiceConnection;
+import android.os.*;
 import android.text.SpannableString;
 import android.text.style.LeadingMarginSpan;
 import android.util.DisplayMetrics;
 import android.view.*;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.component.PassDialog;
+import com.tiyuzazhi.service.CheckNotifyService;
 import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
@@ -34,6 +33,9 @@ public class MasterActivity extends Activity {
     private Handler handler;
     private int indentPixel;
     private volatile List<ExaminingArticle> examiningArticles;
+    private CheckNotifyService.SimpleBinder sBinder;
+    private RelativeLayout articleListPanel;
+    private boolean hasShowNotify = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +50,48 @@ public class MasterActivity extends Activity {
         });
         articleListView = (ListView) findViewById(R.id.article_item_list);
         opLock = new AtomicBoolean(false);
-        handler = new Handler(Looper.getMainLooper());
+        handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message message) {
+                if (message.what == 1) {
+                    if (sBinder.hasNotiy() && !hasShowNotify) {
+                        View view = LayoutInflater.from(MasterActivity.this).inflate(R.layout.notify, null, false);
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                        params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+                        view.setLayoutParams(params);
+                        view.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                hasShowNotify = false;
+                                articleListPanel.removeView(view);
+                            }
+                        });
+                        articleListPanel.addView(view);
+                        hasShowNotify = true;
+                    }
+                    handler.sendEmptyMessageDelayed(1, 30 * 1000);
+                }
+                return true;
+            }
+        });
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
         indentPixel = Math.round(dm.density * 16 + 1) * 2;
+        //初始化通知
+        ServiceConnection sc = new ServiceConnection() {
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+
+            }
+
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                sBinder = (CheckNotifyService.SimpleBinder) service;
+                handler.sendEmptyMessageDelayed(1, 30 * 1000);
+            }
+        };
+        bindService(new Intent(MasterActivity.this, CheckNotifyService.class), sc, Context.BIND_AUTO_CREATE);
         init();
     }
 
