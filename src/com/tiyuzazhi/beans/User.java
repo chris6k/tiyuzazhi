@@ -29,11 +29,18 @@ public class User implements Serializable {
         setCompany(jsonObject.getString("company"));
         setEmail(jsonObject.getString("email"));
         setName(jsonObject.getString("name"));
-        setIconPath(jsonObject.getString("thumbnail"));
+        setIconPath(jsonObject.getString("iconPath"));
         setMobile(jsonObject.getString("mobile"));
-        setFavCount(jsonObject.getInt("fav"));
-        setMsgCount(jsonObject.getInt("msg"));
-        setRole(jsonObject.getInt("role"));
+        if (jsonObject.has("favCount"))
+        setFavCount(jsonObject.getInt("favCount"));
+        if (jsonObject.has("msgCount"))
+        setMsgCount(jsonObject.getInt("msgCount"));
+        boolean isCommittee = jsonObject.getBoolean("role_committee");
+        boolean isFinal = jsonObject.getBoolean("role_final");
+        boolean isReader = jsonObject.getBoolean("role_reader");
+        boolean isExternal = jsonObject.getBoolean("role_external");
+        int role = (isCommittee ? 1 : 0) + (isFinal ? 2 : 0) + (isReader ? 4 : 0) + (isExternal ? 8 : 0);
+        setRole(role);
     }
 
     public int getRole() {

@@ -139,7 +139,8 @@ public class UserCenterActivity extends Activity {
             loginButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO
+                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivityForResult(i, 1);
                 }
             });
             regButton.setOnClickListener(new View.OnClickListener() {
@@ -192,5 +193,12 @@ public class UserCenterActivity extends Activity {
             });
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            init();
+        }
     }
 }
