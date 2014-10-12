@@ -4,7 +4,6 @@ import android.util.Log;
 import com.tiyuzazhi.beans.Examiner;
 import com.tiyuzazhi.beans.StatsDashboard;
 import com.tiyuzazhi.beans.User;
-import com.tiyuzazhi.utils.Constants;
 import com.tiyuzazhi.utils.LocalUtils;
 import com.tiyuzazhi.utils.TiHttp;
 import com.tiyuzazhi.utils.ToastUtils;
@@ -25,14 +24,16 @@ import java.util.concurrent.TimeoutException;
  * @author chris.xue
  */
 public class UserApi {
-    public static final String USER_ENDPOINT = Constants.API_ROOT + "/api/user";
-    public static final String USER_DASHBOARD_ENDPOINT = Constants.API_ROOT + "/api/user/dashboard";
-    public static final String USER_LOGIN_ENDPOINT = Constants.API_ROOT + "/api/login";
-    public static final String USER_LOGOUT_ENDPOINT = Constants.API_ROOT + "/api/logout";
-    public static final String USER_EXAMLIST_ENDPOINT = Constants.API_ROOT + "/api/examiners";
+    public static final String USER_ENDPOINT = TiHttp.HOST + "/user";
+    public static final String USER_DASHBOARD_ENDPOINT = USER_ENDPOINT + "/dashboard";
+    public static final String USER_LOGIN_ENDPOINT = USER_ENDPOINT + "/login";
+    public static final String USER_EXAMLIST_ENDPOINT = USER_ENDPOINT + "/examiners";
+    public static final String USER_MAIL_COUNT_ENDPOINT = USER_ENDPOINT + "/mailCount";
 
     public static final String KEY_USER_ID = "userId";
     public static final String KEY_USER = "user";
+    public static final String KEY_USER_ROLE = "userRole";
+    public static final String KEY_LAST_MAIL_ID = "lastMailId";
 
     /**
      * 读取当前用户信息
@@ -71,7 +72,7 @@ public class UserApi {
      * @return
      */
     public static int loginRole() {
-        return LocalUtils.get("role", 0);
+        return LocalUtils.get(KEY_USER_ROLE, 0);
 //        return 1;
     }
 
@@ -161,11 +162,11 @@ public class UserApi {
      * @return
      */
     public static boolean logout() {
-        int userId = LocalUtils.get(KEY_USER_ID, 0);
 //        HttpGet get = new HttpGet(USER_LOGOUT_ENDPOINT + "?userId=");
 //        try {
 //            HttpResponse response = TiHttp.getInstance().send(get).get(1, TimeUnit.MINUTES);
 //            if (response.getStatusLine().getStatusCode() == 200) {
+        LocalUtils.put(KEY_USER_ROLE, 0);
         LocalUtils.put(KEY_USER_ID, 0);
         LocalUtils.put(KEY_USER, "");
         return true;
@@ -183,33 +184,65 @@ public class UserApi {
 
     public static User login(String userName, String password) {
         User user = null;
-        int userId = LocalUtils.get(KEY_USER_ID, 0);
-        if (userId == 0) return null;
-        else {
-            HttpPost post = new HttpPost(USER_LOGIN_ENDPOINT);
-            List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("username", userName));
-            nameValuePairs.add(new BasicNameValuePair("password", password));
-            try {
-                UrlEncodedFormEntity encodedFormEntity = new UrlEncodedFormEntity(nameValuePairs, "utf-8");
-                post.setEntity(encodedFormEntity);
-                HttpResponse res = TiHttp.getInstance().send(post).get(1, TimeUnit.MINUTES);
-                if (res.getStatusLine().getStatusCode() == 200) {
-                    String content = EntityUtils.toString(res.getEntity());
-                    JSONObject jsonObject = new JSONObject(content);
-                    user = new User(jsonObject);
-                    LocalUtils.put(KEY_USER, content);
+//        int userId = LocalUtils.get(KEY_USER_ID, 0);
+        HttpPost post = new HttpPost(USER_LOGIN_ENDPOINT);
+        List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>(2);
+        nameValuePairs.add(new BasicNameValuePair("username", userName));
+        nameValuePairs.add(new BasicNameValuePair("password", password));
+        try {
+            UrlEncodedFormEntity encodedFormEntity = new UrlEncodedFormEntity(nameValuePairs, "utf-8");
+            post.setEntity(encodedFormEntity);
+            HttpResponse res = TiHttp.getInstance().send(post).get(1, TimeUnit.MINUTES);
+            if (res.getStatusLine().getStatusCode() == 200) {
+                String content = EntityUtils.toString(res.getEntity());
+                JSONObject jsonObject = new JSONObject(content);
+                if (jsonObject.getBoolean("result")) {
+                    user = new User(jsonObject.getJSONObject("data"));
+                    LocalUtils.put(KEY_USER, jsonObject.getString("data"));
                     LocalUtils.put(KEY_USER_ID, user.getId());
-                    LocalUtils.put("userRole", user.getRole());
+                    LocalUtils.put(KEY_USER_ROLE, user.getRole());
+                    ToastUtils.show("登录成功");
+                } else {
+                    ToastUtils.show("登录失败");
                 }
-            } catch (TimeoutException e) {
-                ToastUtils.show("请求超时");
-            } catch (Exception e) {
-                Log.e("UserApi", "Exception", e);
-                ToastUtils.show("发生异常，请稍候再试");
             }
+        } catch (TimeoutException e) {
+            ToastUtils.show("请求超时");
+        } catch (Exception e) {
+            Log.e("UserApi", "Exception", e);
+            ToastUtils.show("发生异常，请稍候再试");
         }
         return user;
 
+    }
+
+    public static boolean checkNotify() {
+        int userId = LocalUtils.get(KEY_USER_ID, 0);
+        if (userId == 0) return false;
+        HttpPost post = new HttpPost(USER_MAIL_COUNT_ENDPOINT);
+        List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>(2);
+        nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(userId)));
+        try {
+            UrlEncodedFormEntity encodedFormEntity = new UrlEncodedFormEntity(nameValuePairs, "utf-8");
+            post.setEntity(encodedFormEntity);
+            HttpResponse res = TiHttp.getInstance().send(post).get(1, TimeUnit.MINUTES);
+            if (res.getStatusLine().getStatusCode() == 200) {
+                String content = EntityUtils.toString(res.getEntity());
+                JSONObject jsonObject = new JSONObject(content);
+                if (jsonObject.getBoolean("result")) {
+                    JSONObject obj = jsonObject.getJSONObject("data");
+                    if (obj.has("id") && obj.getInt("id") > LocalUtils.get(KEY_LAST_MAIL_ID, 0)) {
+                        LocalUtils.put(KEY_LAST_MAIL_ID, obj.getInt("id"));
+                        return true;
+                    }
+                }
+            }
+        } catch (TimeoutException e) {
+            ToastUtils.show("请求超时");
+        } catch (Exception e) {
+            Log.e("UserApi", "Exception", e);
+            ToastUtils.show("发生异常，请稍候再试");
+        }
+        return false;
     }
 }

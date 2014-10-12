@@ -132,8 +132,8 @@ public class HomeActivity extends Activity {
 
     @Override
     protected void onResume() {
-        super.onResume();
         init();
+        super.onResume();
     }
 
     @Override
@@ -245,25 +245,28 @@ public class HomeActivity extends Activity {
                                 startActivity(intent);
                             }
                         });
+                        if (user != null) {
+                            //初始化头像和名字
+                            userName.setText(user.getName());
+                            TPool.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ImageLoader.loadPic(user.getIconPath(), new ImageLoader.ImageLoaderCallback() {
+                                        @Override
+                                        public void finish(Bitmap image) {
+                                            header.setImageBitmap(image);
+                                        }
 
-                        //初始化头像和名字
-                        userName.setText(user.getName());
-                        TPool.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                ImageLoader.loadPic(user.getIconPath(), new ImageLoader.ImageLoaderCallback() {
-                                    @Override
-                                    public void finish(Bitmap image) {
-                                        header.setImageBitmap(image);
-                                    }
-
-                                    @Override
-                                    public void error(Exception e) {
-                                        Log.e("HomeActivity", "Load header failed", e);
-                                    }
-                                });
-                            }
-                        });
+                                        @Override
+                                        public void error(Exception e) {
+                                            Log.e("HomeActivity", "Load header failed", e);
+                                        }
+                                    });
+                                }
+                            });
+                        } else {
+                            userName.setText("");
+                        }
                     }
                 });
             }
@@ -271,4 +274,6 @@ public class HomeActivity extends Activity {
 
 
     }
+
+
 }

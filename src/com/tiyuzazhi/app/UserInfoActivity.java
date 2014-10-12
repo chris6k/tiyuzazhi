@@ -1,6 +1,7 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -62,6 +63,7 @@ public class UserInfoActivity extends Activity {
                             handler.post(new Runnable() {
                                 @Override
                                 public void run() {
+                                    setResult(Activity.RESULT_OK);
                                     finish();
                                 }
                             });

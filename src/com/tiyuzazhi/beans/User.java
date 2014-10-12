@@ -1,5 +1,6 @@
 package com.tiyuzazhi.beans;
 
+import android.text.TextUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,14 +33,17 @@ public class User implements Serializable {
         setIconPath(jsonObject.getString("iconPath"));
         setMobile(jsonObject.getString("mobile"));
         if (jsonObject.has("favCount"))
-        setFavCount(jsonObject.getInt("favCount"));
+            setFavCount(jsonObject.getInt("favCount"));
         if (jsonObject.has("msgCount"))
-        setMsgCount(jsonObject.getInt("msgCount"));
-        boolean isCommittee = jsonObject.getBoolean("role_committee");
-        boolean isFinal = jsonObject.getBoolean("role_final");
-        boolean isReader = jsonObject.getBoolean("role_reader");
-        boolean isExternal = jsonObject.getBoolean("role_external");
-        int role = (isCommittee ? 1 : 0) + (isFinal ? 2 : 0) + (isReader ? 4 : 0) + (isExternal ? 8 : 0);
+            setMsgCount(jsonObject.getInt("msgCount"));
+        String isCommittee = jsonObject.getString("role_committee");
+        String isFinal = jsonObject.getString("role_final");
+        String isReader = jsonObject.getString("role_reader");
+        String isExternal = jsonObject.getString("role_external");
+        int role = (TextUtils.equals("T", isCommittee) ? 1 : 0)
+                + (TextUtils.equals("T", isFinal) ? 2 : 0)
+                + (TextUtils.equals("T", isReader) ? 4 : 0)
+                + (TextUtils.equals("T", isExternal) ? 8 : 0);
         setRole(role);
     }
 

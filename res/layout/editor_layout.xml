@@ -125,10 +125,17 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <ListView
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/articleList"
-            android:divider="@android:color/transparent"
-            android:layout_width="353dp"
-            android:layout_height="fill_parent"/>
+    <RelativeLayout
+            android:id="@+id/articleListPanel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+        <ListView
+                android:layout_centerHorizontal="true"
+                android:id="@+id/articleList"
+                android:divider="@android:color/transparent"
+                android:cacheColorHint="@android:color/transparent"
+                android:layout_width="353dp"
+                android:layout_height="fill_parent"/>
+    </RelativeLayout>
 </LinearLayout>

@@ -169,7 +169,7 @@ public class UserCenterActivity extends Activity {
                                 public void onClick(View v) {
                                     Intent intent = new Intent(UserCenterActivity.this, UserInfoActivity.class);
                                     intent.putExtra("userId", user.getId());
-                                    startActivity(intent);
+                                    startActivityForResult(intent, 1);
                                 }
                             });
                             company.setText(user.getCompany());
