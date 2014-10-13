@@ -17,14 +17,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class MagSummaryActivity extends Activity {
 
-    private AtomicBoolean opLock;
-    private Handler handler;
     private TextView title;
     private TextView author;
     private WebView summary;
     private View buttonOk;
     private View buttonReject;
     private ArticleMenu menu;
+    private View footerWhite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +37,15 @@ public class MagSummaryActivity extends Activity {
                 finish();
             }
         });
-        opLock = new AtomicBoolean(false);
-        handler = new Handler(Looper.getMainLooper());
         title = (TextView) findViewById(R.id.title);
         author = (TextView) findViewById(R.id.author);
         summary = (WebView) findViewById(R.id.summary);
         buttonOk = findViewById(R.id.buttonOkText);
         buttonReject = findViewById(R.id.buttonRejectText);
-
+        buttonOk.setVisibility(View.GONE);
+        buttonReject.setVisibility(View.GONE);
+        footerWhite = findViewById(R.id.footerBar);
+        footerWhite.setVisibility(View.GONE);
         init();
     }
 

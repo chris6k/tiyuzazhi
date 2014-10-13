@@ -88,6 +88,7 @@
 
 
     <LinearLayout
+            android:id="@+id/footerBar"
             android:background="@drawable/feet_white"
             android:layout_alignParentBottom="true"
             android:layout_width="fill_parent"

@@ -1,15 +1,16 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.SparseBooleanArray;
 import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -62,6 +63,14 @@ public class MagazineActivity extends Activity {
         });
         menuListView = (ListView) findViewById(R.id.article_item_list);
         menuListView.setItemsCanFocus(true);
+        menuListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(MagazineActivity.this, MagSummaryActivity.class);
+                intent.putExtra("menu", (ArticleMenu) menuListView.getAdapter().getItem(i));
+                startActivity(intent);
+            }
+        });
         handler = new Handler(Looper.getMainLooper());
         nextButton = findViewById(R.id.next_mag);
         previousButton = findViewById(R.id.previous_mag);
@@ -116,18 +125,9 @@ public class MagazineActivity extends Activity {
                                 dismiss();
                             }
                         };
-                        SparseBooleanArray array = menuListView.getCheckedItemPositions();
-                        if (array.size() > 0) {
-                            StringBuilder sb = new StringBuilder();
-                            for (int i = 0, j = 0; i < menuListView.getAdapter().getCount() && j < array.size(); i++) {
-                                if (array.get(i, false)) {
-                                    ArticleMenu menu = (ArticleMenu) menuListView.getAdapter().getItem(i);
-                                    sb.append(menu.getTitle()).append(" ");
-                                    j++;
-                                }
-                            }
-                            shareDialog.setContent(sb.toString());
-                        }
+                        int pos = menuListView.getCheckedItemPosition();
+                        ArticleMenu menu = (ArticleMenu) menuListView.getAdapter().getItem(pos);
+                        shareDialog.setContent(menu.getTitle());
                         shareDialog.show();
                         WindowManager windowManager = getWindowManager();
                         Display display = windowManager.getDefaultDisplay();

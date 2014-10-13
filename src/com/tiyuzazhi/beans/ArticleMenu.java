@@ -25,6 +25,8 @@ public class ArticleMenu implements Serializable {
         author = jsonObject.getString("author");
         if (jsonObject.has("summary")) {
             summary = jsonObject.getString("summary");
+        } else {
+            summary = "";
         }
     }
 
