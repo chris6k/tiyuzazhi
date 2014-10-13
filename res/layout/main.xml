@@ -5,6 +5,8 @@
                 android:layout_height="fill_parent">
 
     <RelativeLayout
+            android:clickable="true"
+            android:focusableInTouchMode="true"
             android:background="@drawable/home_bg"
             android:id="@+id/main_header_body"
             android:layout_width="fill_parent"
