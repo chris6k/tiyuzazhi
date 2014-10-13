@@ -6,10 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.Display;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.*;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -49,6 +46,7 @@ public class MagazineActivity extends Activity {
     private volatile Magazine magazine;
     private View fav;
     private View share;
+    private View bottomBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -224,6 +222,14 @@ public class MagazineActivity extends Activity {
             }
         });
         ShareSDK.initSDK(this);
+        bottomBar = findViewById(R.id.bottom_bar);
+        bottomBar.setClickable(true);
+        bottomBar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return false;
+            }
+        });
         init();
     }
 

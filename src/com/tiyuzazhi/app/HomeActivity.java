@@ -1,6 +1,7 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.api.UserApi;
@@ -68,8 +70,19 @@ public class HomeActivity extends Activity {
         refereeingNo = (TextView) findViewById(R.id.refereeing_no);
         editorCenterNo = (TextView) findViewById(R.id.editor_center_no);
         chiefEditorNo = (TextView) findViewById(R.id.chief_editor_no);
-        EditText searchBar = (EditText) findViewById(R.id.search_editor);
+        final EditText searchBar = (EditText) findViewById(R.id.search_editor);
         searchBar.setImeOptions(EditorInfo.IME_ACTION_SEARCH);
+        searchBar.setSelectAllOnFocus(false);
+        searchBar.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (!b) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(searchBar.getWindowToken(), 0);
+                }
+            }
+        });
         searchBar.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(final TextView textView, int i, KeyEvent keyEvent) {
@@ -77,6 +90,9 @@ public class HomeActivity extends Activity {
                     Intent intent = new Intent(HomeActivity.this, SearchActivity.class);
                     intent.putExtra("keywords", textView.getText().toString());
                     startActivity(intent);
+                    InputMethodManager imm = (InputMethodManager) getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(searchBar.getWindowToken(), 0);
                     return true;
                 }
                 return false;
