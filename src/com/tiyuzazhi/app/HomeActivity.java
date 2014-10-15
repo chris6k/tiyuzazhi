@@ -58,8 +58,8 @@ public class HomeActivity extends Activity {
         setContentView(R.layout.main);
         zeroColor = Color.parseColor("#b8b8b8");
         noZeroColor = Color.parseColor("#ff8a00");
-        sideColorOdd = Color.parseColor("#df1f68");
-        sideColorEven = Color.parseColor("#113d7d");
+        sideColorOdd = Color.parseColor("#113d7d");
+        sideColorEven = Color.parseColor("#df1f68");
         handler = new Handler(Looper.getMainLooper());
         View slideMenuButton = findViewById(R.id.slide_menu_button);
         magazineList = (ListView) findViewById(R.id.magazine_list);
