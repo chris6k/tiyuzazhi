@@ -178,12 +178,13 @@ public class MasterActivity extends Activity {
                 public void onClick(View v) {
                     Intent intent = new Intent(MasterActivity.this, ArticleSummaryActivity.class);
                     intent.putExtra("articleId", article.getId());
+                    intent.putExtra("article", article);
                     startActivity(intent);
                 }
             });
             helper.draftNo.setText("稿号:" + article.getDraftNo());
             helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
-            helper.leftDay.setText(String.valueOf(DatetimeUtils.getDuringDay(article.getExamineStart(), new Date())) + "天");
+            helper.leftDay.setText(String.valueOf(DatetimeUtils.getDuringDay(article.getExamineStart(), article.getExamineEnd())) + "天");
             helper.summary.setText(createIndentedText(article.getSummary(), indentPixel, 0));
 
             helper.ok.setOnClickListener(new View.OnClickListener() {

@@ -13,6 +13,7 @@ public class ExaminingArticle extends ArticleMenu {
     private String draftNo;
     private Date examineStart;
     private Date examineFinish;
+    private Date examineEnd;
     private int opId;
     private String opName;
     private String comment;
@@ -156,6 +157,14 @@ public class ExaminingArticle extends ArticleMenu {
         this.attachment = attachment;
     }
 
+    public Date getExamineEnd() {
+        return examineEnd;
+    }
+
+    public void setExamineEnd(Date examineEnd) {
+        this.examineEnd = examineEnd;
+    }
+
     @Override
     public String toString() {
         return "ExaminingArticle{" +
@@ -165,6 +174,7 @@ public class ExaminingArticle extends ArticleMenu {
                 ", draftNo='" + draftNo + '\'' +
                 ", examineStart=" + examineStart +
                 ", examineFinish=" + examineFinish +
+                ", examineEnd=" + examineEnd +
                 ", opId=" + opId +
                 ", opName='" + opName + '\'' +
                 ", comment='" + comment + '\'' +
@@ -175,6 +185,6 @@ public class ExaminingArticle extends ArticleMenu {
                 ", step=" + step +
                 ", attachment='" + attachment + '\'' +
                 ", attachmentText='" + attachmentText + '\'' +
-                "} " + super.toString();
+                '}';
     }
 }

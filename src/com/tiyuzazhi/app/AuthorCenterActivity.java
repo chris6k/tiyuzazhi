@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
+import com.tiyuzazhi.enums.Step;
 import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
@@ -79,7 +80,7 @@ public class AuthorCenterActivity extends Activity {
                             opName.setText(examiningArticle.getOpName() + ":");
                             draftNo.setText(examiningArticle.getDraftNo());
                             dateDay.setText(DatetimeUtils.format(examiningArticle.getExamineFinish()));
-                            state.setText(examiningArticle.getConclusion() == 0 ? "通过" : "未通过");
+                            state.setText(Step.findStatusByCode(examiningArticle.getStep()).getSystem());
                             if (TextUtils.isEmpty(examiningArticle.getAttachment())) {
                                 attached.setVisibility(View.GONE);
                                 comment.setText(Html.fromHtml(examiningArticle.getComment()));

@@ -31,12 +31,14 @@ public class ArticleSummaryActivity extends Activity {
     private int articleId;
     private View buttonOk;
     private View buttonReject;
+    private ExaminingArticle examiningArticle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.article_summary);
         super.onCreate(savedInstanceState);
         articleId = getIntent().getIntExtra("articleId", 0);
+        examiningArticle = (ExaminingArticle) getIntent().getSerializableExtra("article");
         View back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +61,7 @@ public class ArticleSummaryActivity extends Activity {
         TPool.post(new Runnable() {
             @Override
             public void run() {
-                final ExaminingArticle examiningArticle = ArticleApi.loadArticle(articleId);
+//                final ExaminingArticle examiningArticle = ArticleApi.loadArticle(articleId);
                 if (examiningArticle != null) {
                     handler.post(new Runnable() {
                         @Override

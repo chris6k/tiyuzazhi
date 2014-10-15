@@ -7,7 +7,7 @@ package com.tiyuzazhi.enums;
 public enum Step {
     NEW(0, "投稿", "作者: 投稿"), EDITOR_OK(1, "通过", "编辑审稿: 通过"), EDITOR_REJECT(2, "退修", "编辑审稿: 退修"),
     MASTER_OK(3, "通过", "专家审稿: 通过"), MASTER_REJECT(4, "退修", "专家审稿: 退修"), CHIEF_OK(5, "通过", "主编审稿: 通过"),
-    CHIEF_REJECT(6, "退修", "主编审稿: 退修"), RETRY(7, "退修", "作者: 重投稿");
+    CHIEF_REJECT(6, "退修", "主编审稿: 退修"), RETRY(7, "退修", "作者: 重投稿"), RETRY_OK(8, "通过", "修改后录用");
     private final int code;
     private final String text;
     private final String system;

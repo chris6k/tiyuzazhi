@@ -8,7 +8,7 @@ import java.util.Date;
  * @author chris.xue
  */
 public class DatetimeUtils {
-    private static long MILLS_OF_DAY = 3600 * 24;
+    private static long MILLS_OF_DAY = 3600 * 1000 * 24;
     private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy/MM/dd");
 
