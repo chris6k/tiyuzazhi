@@ -4,6 +4,7 @@ import android.util.Log;
 import com.tiyuzazhi.beans.ArticleMenu;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.beans.Magazine;
+import com.tiyuzazhi.beans.Notice;
 import com.tiyuzazhi.enums.EXAM_STEP;
 import com.tiyuzazhi.utils.TiHttp;
 import com.tiyuzazhi.utils.ToastUtils;
@@ -198,10 +199,40 @@ public class ArticleApi {
                 }
             }
         } catch (Exception e) {
-            Log.e("ArticleApi", "load newest magazine failed.", e);
+            Log.e("ArticleApi", "search articles failed.", e);
         }
         ToastUtils.show("读取搜索结果失败");
         return new ArrayList<ArticleMenu>(0);
+    }
+
+    /**
+     * 获取通告
+     *
+     * @return
+     */
+    public static List<Notice> getNotice() {
+        HttpGet get = new HttpGet(TiHttp.HOST + "/mag/news");
+        Future<HttpResponse> responseFuture = TiHttp.getInstance().send(get);
+        try {
+            HttpResponse response = responseFuture.get(1, TimeUnit.MINUTES);
+            if (response.getStatusLine().getStatusCode() == 200) {
+                String baseString = EntityUtils.toString(response.getEntity());
+                JSONObject object = new JSONObject(baseString);
+                if (object.has("result") && object.getBoolean("result")) {
+                    JSONArray array = object.getJSONArray("data");
+                    int len = array.length();
+                    ArrayList<Notice> notices = new ArrayList<Notice>(len);
+                    for (int i = 0; i < len; i++) {
+                        notices.add(new Notice(array.getJSONObject(i)));
+                    }
+                    return notices;
+                }
+            }
+        } catch (Exception e) {
+            Log.e("ArticleApi", "load notice failed.", e);
+        }
+        ToastUtils.show("读取通告失败");
+        return new ArrayList<Notice>(0);
     }
 
     /**

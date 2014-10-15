@@ -22,7 +22,9 @@ import com.tiyuzazhi.beans.Magazine;
 import com.tiyuzazhi.beans.StatsDashboard;
 import com.tiyuzazhi.beans.User;
 import com.tiyuzazhi.component.RoundedImageView;
+import com.tiyuzazhi.enums.Role;
 import com.tiyuzazhi.utils.ImageLoader;
+import com.tiyuzazhi.utils.LocalUtils;
 import com.tiyuzazhi.utils.TPool;
 
 import java.text.SimpleDateFormat;
@@ -111,8 +113,10 @@ public class HomeActivity extends Activity {
         authorCenterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), AuthorCenterActivity.class);
-                startActivity(intent);
+                if ((LocalUtils.get(UserApi.KEY_USER_ROLE, 0) | Role.AUTHOR.getCode()) > 0) {
+                    Intent intent = new Intent(getApplicationContext(), AuthorCenterActivity.class);
+                    startActivity(intent);
+                }
             }
         });
         refereeingBtn.setOnClickListener(new View.OnClickListener() {

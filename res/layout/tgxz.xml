@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#ffffff"
+        >
+
+    <RelativeLayout
+            android:id="@+id/title_bar"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal"
+            android:background="@drawable/navbar_bk"
+            android:layout_width="fill_parent"
+            android:layout_height="50dp">
+
+        <ImageButton
+                android:id="@+id/backButton"
+                android:background="@android:color/transparent"
+                android:src="@drawable/back_arr"
+                android:layout_marginLeft="15dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_width="40dp"
+                android:layout_height="40dp"/>
+
+        <TextView
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                android:text="投稿须知"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+
+    <WebView
+            android:id="@+id/summary"
+            android:layout_width="match_parent"
+            android:background="#ffffff"
+            android:textSize="16sp"
+            android:scrollbarStyle="insideOverlay"
+            android:textColor="#4a5153"
+            android:layout_height="match_parent"/>
+
+
+</LinearLayout>

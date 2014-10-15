@@ -15,6 +15,7 @@ public class ArticleMenu implements Serializable {
     private String title;
     private String author;
     private String summary;
+    private String bsummary;
 
     public ArticleMenu() {
     }
@@ -27,6 +28,9 @@ public class ArticleMenu implements Serializable {
             summary = jsonObject.getString("summary");
         } else {
             summary = "";
+        }
+        if (jsonObject.has("bsummary")) {
+            Object temp  = jsonObject.get("bsummary");
         }
     }
 

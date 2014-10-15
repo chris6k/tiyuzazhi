@@ -3,6 +3,7 @@ package com.tiyuzazhi.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -82,21 +83,24 @@ public class UserCenterActivity extends Activity {
         notifyBoard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                Intent i = new Intent(UserCenterActivity.this, NoticeActivity.class);
+                startActivity(i);
             }
         });
 
         shouldKnown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                Intent i = new Intent(UserCenterActivity.this, TGYQActivity.class);
+                startActivity(i);
             }
         });
 
         contactUs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel: 010-87182592"));
+                startActivity(i);
             }
         });
 
