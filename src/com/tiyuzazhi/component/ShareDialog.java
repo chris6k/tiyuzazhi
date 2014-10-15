@@ -37,7 +37,7 @@ public abstract class ShareDialog extends Dialog {
         buttonShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onButtonClick(content.toString());
+                onButtonClick(content.getText().toString());
             }
         });
         if (!TextUtils.isEmpty(defaultContent)) {

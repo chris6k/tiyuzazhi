@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
+import com.tiyuzazhi.enums.EXAM_STEP;
 import com.tiyuzazhi.enums.Status;
 import com.tiyuzazhi.enums.Step;
 import com.tiyuzazhi.utils.DatetimeUtils;
@@ -113,7 +114,7 @@ public class ExamineDetailActivity extends Activity {
             helper.step.setText(article.getOpName());
             if (TextUtils.isEmpty(article.getAttachment())) {
                 helper.detailPanel.setVisibility(View.VISIBLE);
-                helper.detail.setText(Step.findStatusByCode(article.getStep()).getSystem());
+                helper.detail.setText(EXAM_STEP.findByCode(article.getStep()).getName());
                 helper.systemNotify.setText(
                         createIndentedText(Status.findStatusByCode(article.getState()).getSystem(), indentPixel, 0));
                 helper.attachmentPanel.setVisibility(View.GONE);

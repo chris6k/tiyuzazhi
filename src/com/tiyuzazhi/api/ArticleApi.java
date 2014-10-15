@@ -93,7 +93,7 @@ public class ArticleApi {
             examiningArticle.setDraftNo("2014-10-0014");
             examiningArticle.setExamineStart(simpleDateFormat.parse("2014-10-11"));
             examiningArticle.setExamineEnd(simpleDateFormat.parse("2014-10-21"));
-            examiningArticle.setAuthor("鲁连海");
+            examiningArticle.setAuthor("匿名");
             examiningArticle.setId(1);
             examiningArticle.setOpId(1);
             examiningArticle.setOpName("鲁连海");
@@ -118,7 +118,7 @@ public class ArticleApi {
             examiningArticle2.setState(1);
             examiningArticle2.setStep(1);
             examiningArticle2.setTitle("福建村庙祭祀仪式中的民俗体育研究——以武夷山枫坡村奶娘庙“拔烛桥”为个案");
-            examiningArticle2.setAuthor("鲁连海");
+            examiningArticle2.setAuthor("匿名");
             examiningArticle2.setSummary("采用文献资料、田野调查和深度访谈等研究方法，对武夷山市枫坡村奶娘庙祭祀仪式中的“拔烛桥”活动的起源、发展现状、文化功能和传承载体进行分析。研究结果表明：民俗体育是福建村庙祭祀的重要内容，是维系、强化和巩固福建村庙信仰的重要手段；福建村庙祭祀仪式中的民俗体育在现代社会的复兴，主要依靠其所承载的文化功能能够满足村民的文化需求，以及福建发达的村庙文化为其传承提供了载体。");
 
             ExaminingArticle examiningArticle3 = new ExaminingArticle();
@@ -136,7 +136,7 @@ public class ArticleApi {
             examiningArticle3.setState(1);
             examiningArticle3.setStep(1);
             examiningArticle3.setTitle("体育人类学的身体动作分析法");
-            examiningArticle3.setAuthor("鲁连海");
+            examiningArticle3.setAuthor("匿名");
             examiningArticle3.setSummary("身体动作是体育的基本构成单元，也是体育人类学的首要研究对象。身体动作是一种文化符号，体育本身是一个承载和表述社会文化意义的象征系统，一项民族传统体育，就是一本以身体动作书写的民族精神文化史。中国体育人类学在对中华民族传统体育的长期田野调查和多次研究实践中，逐渐摸索和提炼出了以民族传统体育的身体动作为主要分析对象的身体动作分析法，它致力于研究体育身体动作的文化意义，实施步骤包括：（1）拍摄真实完整的身体动作影像；（2）典型动作的参与式分析；（3）对资料的比较分析和理论构建。身体动作分析法可以支持书写深入到身体动作的完整的民族体育志，也可通过研究东巴跳和东巴文形成的关系来探索身体动作对原始文字形成的影响。推而广之，还可用于研究身体动作与其他文化要素（原始宗教、原始艺术等）的互动关系，从而深化对民族传统体育在民族文化发生和发展过程中的特殊地位和独特作用的认识。体育人类学身体动作分析法对构建中国体育人类学的主体性具有重要意义。");
 
 
@@ -155,7 +155,7 @@ public class ArticleApi {
             examiningArticle4.setState(1);
             examiningArticle4.setStep(1);
             examiningArticle4.setTitle("民族传统体育的走向");
-            examiningArticle4.setAuthor("鲁连海");
+            examiningArticle4.setAuthor("匿名");
             examiningArticle4.setSummary("源于西方文化的体育运动风靡全球，已是一个基本事实。不过，对于体育的研究，东方学者应该扬长避短，运用科学的方法深入挖掘与改进养生保健文化，利用西方体育成熟之前在东方已存续千年的独特资源，借助东南亚各民族携手崛起的后发优势，构建新的体育发展之路。");
             List<ExaminingArticle> examiningArticles = new ArrayList<ExaminingArticle>(4);
             examiningArticles.add(examiningArticle);
@@ -377,42 +377,73 @@ public class ArticleApi {
      */
     public static List<ExaminingArticle> loadExamineFlow(int articleId) {
         //TODO
-        ExaminingArticle examiningArticle2 = new ExaminingArticle();
-        examiningArticle2.setComment("稿子很好");
-        examiningArticle2.setAttachment("http://localhost/hehe.jpg");
-        examiningArticle2.setAttachmentText("附件-2013-01");
-        examiningArticle2.setConclusion(1);
-        examiningArticle2.setDraftNo("10010");
-        examiningArticle2.setExamineStart(new Date());
-        examiningArticle2.setExamineFinish(new Date());
-        examiningArticle2.setAuthor("王小二");
-        examiningArticle2.setId(1);
-        examiningArticle2.setOpId(1);
-        examiningArticle2.setOpName("鲁连海");
-        examiningArticle2.setScore(5);
-        examiningArticle2.setState(0);
-        examiningArticle2.setStep(EXAM_STEP.WAISHEN.getCode());
-        ExaminingArticle examiningArticle = new ExaminingArticle();
-        examiningArticle.setComment("稿子很好");
-        examiningArticle.setAttachmentText("附件-2013-01");
-        examiningArticle.setConclusion(1);
-        examiningArticle.setDraftNo("10010");
-        examiningArticle.setExamineStart(new Date());
-        examiningArticle.setExamineFinish(new Date());
-        examiningArticle.setAuthor("王小二");
-        examiningArticle.setId(1);
-        examiningArticle.setOpId(1);
-        examiningArticle.setOpName("鲁连海");
-        examiningArticle.setScore(5);
-        examiningArticle.setState(1);
-        examiningArticle.setStep(EXAM_STEP.TUIXIU.getCode());
-        List<ExaminingArticle> examiningArticles = new ArrayList<ExaminingArticle>(5);
-        examiningArticles.add(examiningArticle2);
-        examiningArticles.add(examiningArticle);
-        examiningArticles.add(examiningArticle);
-        examiningArticles.add(examiningArticle);
-        examiningArticles.add(examiningArticle);
-        return examiningArticles;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            ExaminingArticle examiningArticle = new ExaminingArticle();
+            examiningArticle.setComment("");
+            examiningArticle.setConclusion(1);
+            examiningArticle.setDraftNo("2014-01-0024");
+            examiningArticle.setExamineStart(simpleDateFormat.parse("2014-01-03"));
+            examiningArticle.setExamineFinish(simpleDateFormat.parse("2014-01-03"));
+            examiningArticle.setAuthor("王小二");
+            examiningArticle.setId(1);
+            examiningArticle.setOpId(1);
+            examiningArticle.setOpName("编辑");
+            examiningArticle.setScore(5);
+            examiningArticle.setState(1);
+            examiningArticle.setStep(EXAM_STEP.SHOUGAO.getCode());
+
+            ExaminingArticle examiningArticle2 = new ExaminingArticle();
+            examiningArticle2.setComment("");
+            examiningArticle2.setConclusion(1);
+            examiningArticle2.setDraftNo("2014-01-0024");
+            examiningArticle2.setExamineStart(simpleDateFormat.parse("2014-01-05"));
+            examiningArticle2.setExamineFinish(simpleDateFormat.parse("2014-01-06"));
+            examiningArticle2.setAuthor("王小二");
+            examiningArticle2.setId(1);
+            examiningArticle2.setOpId(1);
+            examiningArticle2.setOpName("外审专家");
+            examiningArticle2.setScore(5);
+            examiningArticle2.setState(1);
+            examiningArticle2.setStep(EXAM_STEP.WAISHEN.getCode());
+
+            ExaminingArticle examiningArticle3 = new ExaminingArticle();
+            examiningArticle3.setComment("文章有排版错误，请修正");
+            examiningArticle3.setConclusion(1);
+            examiningArticle3.setDraftNo("2014-01-0024");
+            examiningArticle3.setExamineStart(simpleDateFormat.parse("2014-01-07"));
+            examiningArticle3.setExamineFinish(simpleDateFormat.parse("2014-01-10"));
+            examiningArticle3.setAuthor("王小二");
+            examiningArticle3.setId(1);
+            examiningArticle3.setOpId(1);
+            examiningArticle3.setOpName("外审专家");
+            examiningArticle3.setScore(5);
+            examiningArticle3.setState(1);
+            examiningArticle3.setStep(EXAM_STEP.TUIXIU.getCode());
+
+            ExaminingArticle examiningArticle4 = new ExaminingArticle();
+            examiningArticle4.setComment("该文对女性主义范式从认识论、方法论和理论等几个层面进行了清晰的阐释，对于我国女性体育的研究有很好的参考价值和引导价值。如果作者能在几个不同时期、不同流派的分析中，列出一些代表性的作品就更有说服力和科学性。");
+            examiningArticle4.setConclusion(1);
+            examiningArticle4.setDraftNo("2014-01-0024");
+            examiningArticle4.setExamineStart(simpleDateFormat.parse("2014-01-12"));
+            examiningArticle4.setExamineFinish(simpleDateFormat.parse("2014-01-12"));
+            examiningArticle4.setAuthor("王小二");
+            examiningArticle4.setId(1);
+            examiningArticle4.setOpId(1);
+            examiningArticle4.setOpName("外审专家");
+            examiningArticle4.setScore(5);
+            examiningArticle4.setState(1);
+            examiningArticle4.setStep(EXAM_STEP.ZHONGSHEN.getCode());
+            List<ExaminingArticle> examiningArticles = new ArrayList<ExaminingArticle>(4);
+            examiningArticles.add(examiningArticle);
+            examiningArticles.add(examiningArticle2);
+            examiningArticles.add(examiningArticle3);
+            examiningArticles.add(examiningArticle4);
+            return examiningArticles;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<ExaminingArticle>(0);
     }
 
     /**

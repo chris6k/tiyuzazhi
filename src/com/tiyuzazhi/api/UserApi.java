@@ -99,8 +99,10 @@ public class UserApi {
 //            ToastUtils.show("发生异常，请稍候再试");
 //        }
         StatsDashboard dashboard = new StatsDashboard();
-        dashboard.setChiefEditorTaskNo(1);
-        dashboard.setEditorTaskNo(2);
+        dashboard.setChiefEditorTaskNo(0);
+        dashboard.setEditorTaskNo(0);
+        dashboard.setUserCenterTaskNo(1);
+        dashboard.setMasterCenterTaskNo(4);
         return dashboard;
     }
 
