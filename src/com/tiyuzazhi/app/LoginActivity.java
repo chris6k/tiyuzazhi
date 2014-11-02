@@ -24,6 +24,7 @@ public class LoginActivity extends Activity {
     private EditText username;
     private EditText password;
     private View loginButton;
+    private View registerButton;
     private Handler handler;
     private RoundedImageView header;
     private View back;
@@ -38,7 +39,7 @@ public class LoginActivity extends Activity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                InputMethodManager imm = (InputMethodManager)getSystemService(
+                InputMethodManager imm = (InputMethodManager) getSystemService(
                         Context.INPUT_METHOD_SERVICE);
                 if (password.hasFocus()) {
                     imm.hideSoftInputFromWindow(password.getWindowToken(), 0);
@@ -96,6 +97,14 @@ public class LoginActivity extends Activity {
                         });
                     }
                 });
+            }
+        });
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(i);
+                finish();
             }
         });
     }

@@ -27,6 +27,7 @@ public class UserApi {
     public static final String USER_ENDPOINT = TiHttp.HOST + "/user";
     public static final String USER_DASHBOARD_ENDPOINT = USER_ENDPOINT + "/dashboard";
     public static final String USER_LOGIN_ENDPOINT = USER_ENDPOINT + "/login";
+    public static final String USER_REGISTER_ENDPOINT = USER_ENDPOINT + "/register";
     public static final String USER_EXAMLIST_ENDPOINT = USER_ENDPOINT + "/examiners";
     public static final String USER_MAIL_COUNT_ENDPOINT = USER_ENDPOINT + "/mailCount";
 
@@ -186,8 +187,40 @@ public class UserApi {
 
     public static User login(String userName, String password) {
         User user = null;
-//        int userId = LocalUtils.get(KEY_USER_ID, 0);
         HttpPost post = new HttpPost(USER_LOGIN_ENDPOINT);
+        List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>(2);
+        nameValuePairs.add(new BasicNameValuePair("username", userName));
+        nameValuePairs.add(new BasicNameValuePair("password", password));
+        try {
+            UrlEncodedFormEntity encodedFormEntity = new UrlEncodedFormEntity(nameValuePairs, "utf-8");
+            post.setEntity(encodedFormEntity);
+            HttpResponse res = TiHttp.getInstance().send(post).get(1, TimeUnit.MINUTES);
+            if (res.getStatusLine().getStatusCode() == 200) {
+                String content = EntityUtils.toString(res.getEntity());
+                JSONObject jsonObject = new JSONObject(content);
+                if (jsonObject.getBoolean("result")) {
+                    user = new User(jsonObject.getJSONObject("data"));
+                    LocalUtils.put(KEY_USER, jsonObject.getString("data"));
+                    LocalUtils.put(KEY_USER_ID, user.getId());
+                    LocalUtils.put(KEY_USER_ROLE, user.getRole());
+                    ToastUtils.show("登录成功");
+                } else {
+                    ToastUtils.show("登录失败");
+                }
+            }
+        } catch (TimeoutException e) {
+            ToastUtils.show("请求超时");
+        } catch (Exception e) {
+            Log.e("UserApi", "Exception", e);
+            ToastUtils.show("发生异常，请稍候再试");
+        }
+        return user;
+
+    }
+
+    public static User register(String userName, String password) {
+        User user = null;
+        HttpPost post = new HttpPost(USER_REGISTER_ENDPOINT);
         List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair("username", userName));
         nameValuePairs.add(new BasicNameValuePair("password", password));
