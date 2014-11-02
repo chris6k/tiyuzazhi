@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import com.tiyuzazhi.api.UserApi;
 import com.tiyuzazhi.beans.User;
+import com.tiyuzazhi.component.RoundedImageView;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
@@ -24,12 +25,15 @@ public class LoginActivity extends Activity {
     private EditText password;
     private View loginButton;
     private Handler handler;
+    private RoundedImageView header;
     private View back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.user_login);
         super.onCreate(savedInstanceState);
+        header = (RoundedImageView) findViewById(R.id.header);
+        header.setImageResource(R.drawable.header);
         back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
