@@ -37,17 +37,12 @@ public class User implements Serializable {
         if (jsonObject.has("msgCount"))
             setMsgCount(jsonObject.getInt("msgCount"));
         String isAuthor = jsonObject.getString("role_author");
-        String isCommittee = jsonObject.getString("role_committee");
-        String isTutor = jsonObject.getString("role_tutor");
-        String isFinal = jsonObject.getString("role_final");
-        String isReader = jsonObject.getString("role_reader");
         String isExternal = jsonObject.getString("role_external");
+        String type = jsonObject.getString("type");
         int role = (TextUtils.equals("T", isAuthor) ? 1 : 0)
-                + (TextUtils.equals("T", isFinal) ? 2 : 0)
-                + (TextUtils.equals("T", isReader) ? 4 : 0)
-                + (TextUtils.equals("T", isExternal) ? 8 : 0)
-                + (TextUtils.equals("T", isCommittee) ? 16 : 0)
-                + (TextUtils.equals("T", isTutor) ? 32 : 0);
+                | (TextUtils.equals("U", type) ? 2 : 0)
+                | (TextUtils.equals("C", type) ? 4 : 0)
+                | (TextUtils.equals("T", isExternal) ? 8 : 0);
         setRole(role);
     }
 

@@ -92,6 +92,8 @@ public class LoginActivity extends Activity {
                                     i.putExtra("userId", user.getId());
                                     setResult(Activity.RESULT_OK, i);
                                     finish();
+                                } else {
+                                    ToastUtils.show("用户名或密码错误");
                                 }
                             }
                         });
@@ -99,6 +101,7 @@ public class LoginActivity extends Activity {
                 });
             }
         });
+        registerButton = findViewById(R.id.register);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

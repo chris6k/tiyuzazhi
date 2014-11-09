@@ -37,7 +37,7 @@
     <TextView
             android:id="@+id/title"
             android:layout_below="@id/title_bar"
-            android:text="标题标题标题标题标题标题标题标题标题标题标题标题标题"
+            android:text=""
             android:padding="15dp"
             android:maxLines="2"
             android:ellipsize="end"
@@ -67,7 +67,7 @@
                 android:id="@+id/draftNo"
                 android:layout_marginLeft="12dp"
                 android:layout_toRightOf="@id/draftNoText"
-                android:text="12121212"
+                android:text=""
                 android:textSize="15sp"
                 android:textColor="#969a9b"
                 android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                 android:id="@+id/dateDay"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="12dp"
-                android:text="2014-01-01"
+                android:text=""
                 android:textSize="15sp"
                 android:textColor="#969a9b"
                 android:layout_width="wrap_content"
@@ -125,7 +125,7 @@
                 android:layout_height="fill_parent">
 
             <TextView
-                    android:text="1,2,3,4,5"
+                    android:text=""
                     android:id="@+id/comment"
                     android:textSize="18sp"
                     android:textColor="#2d3538"
@@ -184,7 +184,7 @@
         <TextView
                 android:id="@+id/state"
                 android:textStyle="bold"
-                android:text="等待作者修改"
+                android:text=""
                 android:layout_marginTop="5dp"
                 android:layout_marginLeft="15dp"
                 android:layout_centerVertical="true"

@@ -52,7 +52,7 @@ public class ChiefEditorActivity extends Activity {
             @Override
             public void run() {
                 try {
-                    examiningArticles = ArticleApi.loadExamineArticle(0, 10);
+                    examiningArticles = ArticleApi.loadExamineArticle(0, 10, 0);
                     if (examiningArticles.isEmpty()) {
                         ToastUtils.show("没有更多文章");
                         return;

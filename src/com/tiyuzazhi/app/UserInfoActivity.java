@@ -86,21 +86,21 @@ public class UserInfoActivity extends Activity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            if (TextUtils.isEmpty(user.getEmail())) {
+                            if (TextUtils.isEmpty(user.getEmail()) || TextUtils.equals("null", user.getEmail().toLowerCase())) {
                                 email.setText("未设置");
                                 email.setTextColor(unsetColor);
                             } else {
                                 email.setText(user.getEmail());
                                 email.setTextColor(normalColor);
                             }
-                            if (TextUtils.isEmpty(user.getCompany())) {
+                            if (TextUtils.isEmpty(user.getCompany()) || TextUtils.equals("null", user.getCompany().toLowerCase())) {
                                 company.setText("未设置");
                                 company.setTextColor(unsetColor);
                             } else {
                                 company.setText(user.getCompany());
                                 company.setTextColor(normalColor);
                             }
-                            if (TextUtils.isEmpty(user.getMobile())) {
+                            if (TextUtils.isEmpty(user.getMobile()) || TextUtils.equals("null", user.getMobile().toLowerCase())) {
                                 mobile.setText("未设置");
                                 mobile.setTextColor(unsetColor);
                             } else {

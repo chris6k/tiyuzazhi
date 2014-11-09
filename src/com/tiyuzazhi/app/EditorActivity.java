@@ -66,29 +66,8 @@ public class EditorActivity extends Activity {
         dateDayOrder = (ImageView) findViewById(R.id.dateDayOrder);
         filter = findViewById(R.id.filter);
         spinner = (Spinner) findViewById(R.id.cateSpinner);
-        SpinnerAdapter adapter = new ArrayAdapter<String>(EditorActivity.this,
-                android.R.layout.simple_spinner_item, stepNames);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (opLock.compareAndSet(false, true)) {
-                    try {
-                        List<ExaminingArticle> filtered = filterByStatus(stepCodes[position]);
-                        articleListView.setAdapter(new ArticleAdaptor(filtered));
-                        ((TextView) filter).setText(stepNames[position]);
-                    } finally {
-                        opLock.set(false);
-                    }
-                } else {
-                    ToastUtils.show("前一个操作正在进行，请稍后");
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        spinner.setAdapter(adapter);
+
         filterOrder = (ImageView) findViewById(R.id.filterOrder);
         opLock = new AtomicBoolean(false);
         handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
@@ -168,15 +147,39 @@ public class EditorActivity extends Activity {
             @Override
             public void run() {
                 try {
-                    articles = ArticleApi.loadExamineArticle(0, 10);
+                    articles = ArticleApi.loadExamineArticle(0, 10, 0);
                     if (articles.isEmpty()) {
                         ToastUtils.show("没有更多文章");
                         return;
                     }
+
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             articleListView.setAdapter(new ArticleAdaptor(articles));
+                            SpinnerAdapter adapter = new ArrayAdapter<String>(EditorActivity.this,
+                                    android.R.layout.simple_spinner_item, stepNames);
+                            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                @Override
+                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                    if (opLock.compareAndSet(false, true)) {
+                                        try {
+                                            List<ExaminingArticle> filtered = filterByStatus(stepCodes[position]);
+                                            articleListView.setAdapter(new ArticleAdaptor(filtered));
+                                            ((TextView) filter).setText(stepNames[position]);
+                                        } finally {
+                                            opLock.set(false);
+                                        }
+                                    } else {
+                                        ToastUtils.show("前一个操作正在进行，请稍后");
+                                    }
+                                }
+
+                                @Override
+                                public void onNothingSelected(AdapterView<?> parent) {
+                                }
+                            });
+                            spinner.setAdapter(adapter);
                         }
                     });
                 } catch (Exception e) {

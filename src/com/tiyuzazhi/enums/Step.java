@@ -5,9 +5,9 @@ package com.tiyuzazhi.enums;
  *         审核状态
  */
 public enum Step {
-    NEW(0, "投稿", "作者: 投稿"), EDITOR_OK(1, "通过", "编辑审稿: 通过"), EDITOR_REJECT(2, "退修", "编辑审稿: 退修"),
-    MASTER_OK(3, "通过", "专家审稿: 通过"), MASTER_REJECT(4, "退修", "专家审稿: 退修"), CHIEF_OK(5, "通过", "主编审稿: 通过"),
-    CHIEF_REJECT(6, "退修", "主编审稿: 退修"), RETRY(7, "退修", "作者: 重投稿"), RETRY_OK(8, "通过", "修改后录用");
+    NEW(6, "收稿", "作者: 收稿"), FIRST_MANU(7, "初审", "编辑审稿: 初审"), SECOND_MANU(8, "复审", "编辑审稿: 复审"),
+    EXTERNAL_MANU(8, "外审", "专家审稿: 外审"), REDO(10, "退修", "审稿: 退修"), REJECT(11, "退稿", "退稿"),
+    EDITOR_MODIFY(12, "编辑加工", "编辑加工"), PUBLISH(13, "发稿", "发稿"), FINAL(24, "终审", "终审");
     private final int code;
     private final String text;
     private final String system;

@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import com.tiyuzazhi.api.UserApi;
-import com.tiyuzazhi.beans.User;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
@@ -60,11 +59,17 @@ public class RegisterActivity extends Activity {
                 TPool.post(new Runnable() {
                     @Override
                     public void run() {
-                        User user = UserApi.register(usr, pwd1);
-                        if (user != null) {
-                            Intent i = new Intent(RegisterActivity.this, RegisterOkActivity.class);
-                            startActivity(i);
-                            finish();
+                        boolean succ = UserApi.register(usr, pwd1);
+                        if (succ) {
+                            UserApi.login(usr, pwd1);
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Intent i = new Intent(RegisterActivity.this, RegisterOkActivity.class);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            });
                         }
                     }
                 });

@@ -61,7 +61,7 @@ public class ArticleSummaryActivity extends Activity {
         TPool.post(new Runnable() {
             @Override
             public void run() {
-//                final ExaminingArticle examiningArticle = ArticleApi.loadArticle(articleId);
+                final ExaminingArticle examiningArticle = ArticleApi.loadArticle(articleId);
                 if (examiningArticle != null) {
                     handler.post(new Runnable() {
                         @Override

@@ -15,6 +15,7 @@ import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.component.PassDialog;
 import com.tiyuzazhi.enums.EXAM_STEP;
+import com.tiyuzazhi.enums.Step;
 import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
@@ -230,15 +231,15 @@ public class ExamSummaryActivity extends Activity {
             }
             final ExaminingArticle article = (ExaminingArticle) getItem(i);
             helper.summaryNo.setText(String.valueOf(getCount() - i));
-            helper.step.setText(EXAM_STEP.findByCode(article.getStep()).getName());
+            helper.step.setText(Step.findStatusByCode(article.getStep()).getText());
             helper.company.setText(article.getOrgName());
             helper.examiner.setText(article.getOpName());
             helper.dateDayStart.setText(DatetimeUtils.format(article.getExamineStart()));
-            helper.dateDayEnd.setText(DatetimeUtils.format(article.getExamineFinish()));
+            helper.dateDayEnd.setText(DatetimeUtils.format(article.getExamineEnd()));
             helper.comment.setText(article.getComment());
             final int openDrawableId;
             final int closeDrawableId;
-            if (article.getState() == 1) {
+            if (article.getConclusion() == 1) {
                 view.setBackgroundResource(R.drawable.module_bg);
                 helper.summaryNo.setTextColor(Color.parseColor("#e6e6e6"));
                 helper.result.setImageResource(R.drawable.complete_xhdpi);

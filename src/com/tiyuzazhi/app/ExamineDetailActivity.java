@@ -114,7 +114,7 @@ public class ExamineDetailActivity extends Activity {
             helper.step.setText(article.getOpName());
             if (TextUtils.isEmpty(article.getAttachment())) {
                 helper.detailPanel.setVisibility(View.VISIBLE);
-                helper.detail.setText(EXAM_STEP.findByCode(article.getStep()).getName());
+                helper.detail.setText(Step.findStatusByCode(article.getStep()).getText());
                 helper.systemNotify.setText(
                         createIndentedText(Status.findStatusByCode(article.getState()).getSystem(), indentPixel, 0));
                 helper.attachmentPanel.setVisibility(View.GONE);

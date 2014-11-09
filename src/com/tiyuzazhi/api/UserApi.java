@@ -218,8 +218,7 @@ public class UserApi {
 
     }
 
-    public static User register(String userName, String password) {
-        User user = null;
+    public static boolean register(String userName, String password) {
         HttpPost post = new HttpPost(USER_REGISTER_ENDPOINT);
         List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>(2);
         nameValuePairs.add(new BasicNameValuePair("username", userName));
@@ -231,15 +230,7 @@ public class UserApi {
             if (res.getStatusLine().getStatusCode() == 200) {
                 String content = EntityUtils.toString(res.getEntity());
                 JSONObject jsonObject = new JSONObject(content);
-                if (jsonObject.getBoolean("result")) {
-                    user = new User(jsonObject.getJSONObject("data"));
-                    LocalUtils.put(KEY_USER, jsonObject.getString("data"));
-                    LocalUtils.put(KEY_USER_ID, user.getId());
-                    LocalUtils.put(KEY_USER_ROLE, user.getRole());
-                    ToastUtils.show("登录成功");
-                } else {
-                    ToastUtils.show("登录失败");
-                }
+                return (jsonObject.getBoolean("result"));
             }
         } catch (TimeoutException e) {
             ToastUtils.show("请求超时");
@@ -247,7 +238,8 @@ public class UserApi {
             Log.e("UserApi", "Exception", e);
             ToastUtils.show("发生异常，请稍候再试");
         }
-        return user;
+        ToastUtils.show("注册失败");
+        return false;
 
     }
 

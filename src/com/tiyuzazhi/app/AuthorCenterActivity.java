@@ -71,19 +71,24 @@ public class AuthorCenterActivity extends Activity {
         TPool.post(new Runnable() {
             @Override
             public void run() {
-                final ExaminingArticle examiningArticle = ArticleApi.loadArticle(articleId);
+                final ExaminingArticle examiningArticle = ArticleApi.loadArticle();
                 if (examiningArticle != null) {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
+                            articleId = examiningArticle.getId();
                             title.setText(examiningArticle.getTitle());
                             opName.setText(examiningArticle.getOpName() + ":");
                             draftNo.setText(examiningArticle.getDraftNo());
-                            dateDay.setText(DatetimeUtils.format(examiningArticle.getExamineFinish()));
+                            dateDay.setText(DatetimeUtils.format(examiningArticle.getSubmitDate()));
                             state.setText(Step.findStatusByCode(examiningArticle.getStep()).getSystem());
                             if (TextUtils.isEmpty(examiningArticle.getAttachment())) {
                                 attached.setVisibility(View.GONE);
-                                comment.setText(Html.fromHtml(examiningArticle.getComment()));
+                                if (examiningArticle.getExamineFinish() == null) {
+                                    comment.setText("未审稿");
+                                } else {
+                                    comment.setText(Html.fromHtml(examiningArticle.getComment()));
+                                }
                             } else {
                                 attached.setVisibility(View.VISIBLE);
                                 comment.setVisibility(View.GONE);

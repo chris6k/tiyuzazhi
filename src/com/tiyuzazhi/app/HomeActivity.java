@@ -26,6 +26,7 @@ import com.tiyuzazhi.enums.Role;
 import com.tiyuzazhi.utils.ImageLoader;
 import com.tiyuzazhi.utils.LocalUtils;
 import com.tiyuzazhi.utils.TPool;
+import com.tiyuzazhi.utils.ToastUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -113,31 +114,45 @@ public class HomeActivity extends Activity {
         authorCenterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ((LocalUtils.get(UserApi.KEY_USER_ROLE, 0) | Role.AUTHOR.getCode()) > 0) {
+                if ((LocalUtils.get(UserApi.KEY_USER_ROLE, 0) & Role.AUTHOR.getCode()) > 0) {
                     Intent intent = new Intent(getApplicationContext(), AuthorCenterActivity.class);
                     startActivity(intent);
+                } else {
+                    ToastUtils.show("请登录作者账户进行查看");
                 }
             }
         });
         refereeingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MasterActivity.class);
-                startActivity(intent);
+                if ((LocalUtils.get(UserApi.KEY_USER_ROLE, 0) & Role.MASTER.getCode()) > 0) {
+                    Intent intent = new Intent(getApplicationContext(), MasterActivity.class);
+                    startActivity(intent);
+                } else {
+                    ToastUtils.show("请登录专家账户进行查看");
+                }
             }
         });
         editorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), EditorActivity.class);
-                startActivity(intent);
+                if ((LocalUtils.get(UserApi.KEY_USER_ROLE, 0) & Role.EDITOR.getCode()) > 0) {
+                    Intent intent = new Intent(getApplicationContext(), EditorActivity.class);
+                    startActivity(intent);
+                } else {
+                    ToastUtils.show("请登录编辑账户进行查看");
+                }
             }
         });
         chiefEditorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ChiefEditorActivity.class);
-                startActivity(intent);
+                if ((LocalUtils.get(UserApi.KEY_USER_ROLE, 0) & Role.CHIEF_EDITOR.getCode()) > 0) {
+                    Intent intent = new Intent(getApplicationContext(), ChiefEditorActivity.class);
+                    startActivity(intent);
+                } else {
+                    ToastUtils.show("请登录主编账户进行查看");
+                }
             }
         });
 

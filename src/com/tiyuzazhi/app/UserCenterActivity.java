@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -150,7 +151,9 @@ public class UserCenterActivity extends Activity {
             regButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO
+                    Intent intent = new Intent(UserCenterActivity.this, RegisterActivity.class);
+                    startActivity(intent);
+                    finish();
                 }
             });
         } else {
@@ -176,8 +179,14 @@ public class UserCenterActivity extends Activity {
                                     startActivityForResult(intent, 1);
                                 }
                             });
-                            company.setText(user.getCompany());
-                            address.setText(user.getAddress());
+                            if (!TextUtils.isEmpty(user.getCompany()) &&
+                                    !TextUtils.equals("null", user.getCompany().toLowerCase())) {
+                                company.setText(user.getCompany());
+                            }
+                            if (!TextUtils.isEmpty(user.getAddress()) &&
+                                    !TextUtils.equals("null", user.getAddress().toLowerCase())) {
+                                address.setText(user.getAddress());
+                            }
                             myFavText.setText("我的收藏（" + user.getFavCount() + "）");
                             myMsgText.setText("我的消息（" + user.getMsgCount() + "）");
                         }

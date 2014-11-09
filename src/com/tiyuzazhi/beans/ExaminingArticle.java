@@ -1,5 +1,11 @@
 package com.tiyuzazhi.beans;
 
+import android.text.TextUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -14,11 +20,12 @@ public class ExaminingArticle extends ArticleMenu {
     private Date examineStart;
     private Date examineFinish;
     private Date examineEnd;
+    private Date submitDate;
     private int opId;
     private String opName;
     private String comment;
     private int conclusion;
-    private int score;
+    private String score;
     private int category;
     private String orgName;
     private int step;
@@ -27,6 +34,56 @@ public class ExaminingArticle extends ArticleMenu {
 
 
     public ExaminingArticle() {
+    }
+
+    public ExaminingArticle(JSONObject jsonObject) throws JSONException, ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        id = jsonObject.getInt("id");
+        if (jsonObject.has("summary"))
+        summary = jsonObject.getString("summary");
+        if (jsonObject.has("draftNo"))
+        draftNo = jsonObject.getString("draftNo");
+        String tempDate = null;
+        if (jsonObject.has("examineStart"))
+        tempDate = jsonObject.getString("examineStart");
+        examineStart = (TextUtils.isEmpty(tempDate) || TextUtils.equals("null", tempDate)) ? null : format.parse(tempDate);
+
+        if (jsonObject.has("examineEnd"))
+        tempDate = jsonObject.getString("examineEnd");
+        examineEnd = (TextUtils.isEmpty(tempDate) || TextUtils.equals("null", tempDate)) ? null : format.parse(tempDate);
+
+        if (jsonObject.has("examineFinish"))
+        tempDate = jsonObject.getString("examineFinish");
+        examineFinish = (TextUtils.isEmpty(tempDate) || TextUtils.equals("null", tempDate)) ? null : format.parse(tempDate);
+
+        if (jsonObject.has("submitDate"))
+        tempDate = jsonObject.getString("submitDate");
+        submitDate = (TextUtils.isEmpty(tempDate) || TextUtils.equals("null", tempDate)) ? null : format.parse(tempDate);
+        state = examineFinish == null ? 0 : 1;
+        conclusion = state;
+        if (jsonObject.has("opId"))
+        opId = jsonObject.getInt("opId");
+        if (jsonObject.has("opName"))
+        opName = jsonObject.getString("opName");
+        if (jsonObject.has("comment"))
+        comment = jsonObject.getString("comment");
+        if (jsonObject.has("score"))
+        score = jsonObject.getString("score");
+        if (jsonObject.has("comment"))
+        if (jsonObject.has("category") && !TextUtils.equals("null", jsonObject.getString("category").toLowerCase())) {
+            category = jsonObject.getInt("category");
+        }
+        step = jsonObject.getInt("step");
+        if (jsonObject.has("orgName")) {
+            orgName = jsonObject.getString("orgName");
+        }
+        if (jsonObject.has("title")) {
+            setTitle(jsonObject.getString("title"));
+        }
+        if (jsonObject.has("author")) {
+            setAuthor(jsonObject.getString("author"));
+        }
+
     }
 
     public String getAttachmentText() {
@@ -117,11 +174,11 @@ public class ExaminingArticle extends ArticleMenu {
         this.comment = comment;
     }
 
-    public int getScore() {
+    public String getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(String score) {
         this.score = score;
     }
 
@@ -165,6 +222,15 @@ public class ExaminingArticle extends ArticleMenu {
         this.examineEnd = examineEnd;
     }
 
+
+    public Date getSubmitDate() {
+        return submitDate;
+    }
+
+    public void setSubmitDate(Date submitDate) {
+        this.submitDate = submitDate;
+    }
+
     @Override
     public String toString() {
         return "ExaminingArticle{" +
@@ -175,11 +241,12 @@ public class ExaminingArticle extends ArticleMenu {
                 ", examineStart=" + examineStart +
                 ", examineFinish=" + examineFinish +
                 ", examineEnd=" + examineEnd +
+                ", submitDate=" + submitDate +
                 ", opId=" + opId +
                 ", opName='" + opName + '\'' +
                 ", comment='" + comment + '\'' +
                 ", conclusion=" + conclusion +
-                ", score=" + score +
+                ", score='" + score + '\'' +
                 ", category=" + category +
                 ", orgName='" + orgName + '\'' +
                 ", step=" + step +
