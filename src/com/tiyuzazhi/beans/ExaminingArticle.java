@@ -67,6 +67,9 @@ public class ExaminingArticle extends ArticleMenu {
         opName = jsonObject.getString("opName");
         if (jsonObject.has("comment"))
         comment = jsonObject.getString("comment");
+        if (TextUtils.isEmpty(comment) || TextUtils.equals("null", comment.toLowerCase())) {
+            comment = "";
+        }
         if (jsonObject.has("score"))
         score = jsonObject.getString("score");
         if (jsonObject.has("comment"))

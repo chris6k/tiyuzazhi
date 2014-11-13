@@ -11,15 +11,12 @@ import android.widget.*;
 import com.tiyuzazhi.api.ArticleApi;
 import com.tiyuzazhi.beans.ExaminingArticle;
 import com.tiyuzazhi.component.PassDialog;
-import com.tiyuzazhi.enums.EXAM_STEP;
+import com.tiyuzazhi.enums.Step;
 import com.tiyuzazhi.service.CheckNotifyService;
 import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -38,20 +35,24 @@ public class EditorActivity extends Activity {
     private View filter;
     private ImageView filterOrder;
     private Spinner spinner;
-    private boolean orderByDateDesc = true;
+    private volatile boolean orderByDateDesc = true;
     private volatile List<ExaminingArticle> articles;
     private int step;
     private String stepName;
-    private String[] stepNames = {"全部流程", EXAM_STEP.SHOUGAO.getName(), EXAM_STEP.TUIXIU.getName(), EXAM_STEP.WAISHEN.getName(), EXAM_STEP.ZHONGSHEN.getName()};
-    private int[] stepCodes = {-1, EXAM_STEP.SHOUGAO.getCode(), EXAM_STEP.TUIXIU.getCode(), EXAM_STEP.WAISHEN.getCode(), EXAM_STEP.ZHONGSHEN.getCode()};
+    private String[] stepNames = {"全部流程", Step.NEW.getText(), Step.REDO.getText(), Step.EXTERNAL_MANU.getText(), Step.FINAL.getText()};
+    private int[] stepCodes = {0, Step.NEW.getCode(), Step.REDO.getCode(), Step.EXTERNAL_MANU.getCode(), Step.FINAL.getCode()};
     private CheckNotifyService.SimpleBinder sBinder;
     private RelativeLayout articleListPanel;
     private boolean hasShowNotify = false;
+    private volatile int offset;
+//    private volatile boolean isAsc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.editor_layout);
         super.onCreate(savedInstanceState);
+        offset = 0;
+        step = 0;
         View back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,6 +61,16 @@ public class EditorActivity extends Activity {
             }
         });
         articleListView = (ListView) findViewById(R.id.articleList);
+        TextView textView = new TextView(EditorActivity.this);
+        textView.setText("载入更多");
+        textView.setGravity(Gravity.CENTER);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                init(articles.size(), step, !orderByDateDesc);
+            }
+        });
+        articleListView.addFooterView(textView);
         flowButton = findViewById(R.id.flowButton);
         reorderButton = findViewById(R.id.reorderButton);
         reorderByDateDay = findViewById(R.id.reorderByDateDay);
@@ -139,18 +150,25 @@ public class EditorActivity extends Activity {
             }
         };
         bindService(new Intent(EditorActivity.this, CheckNotifyService.class), sc, Context.BIND_AUTO_CREATE);
-        init();
+        init(offset, step, !orderByDateDesc);
     }
 
-    private void init() {
+    private void init(final int offset, final int step, final boolean asc) {
         TPool.post(new Runnable() {
             @Override
             public void run() {
                 try {
-                    articles = ArticleApi.loadExamineArticle(0, 10, 0);
-                    if (articles.isEmpty()) {
+
+                    List<ExaminingArticle> articleList = ArticleApi.loadExamineArticle(offset, 10, step, asc);
+                    if (articleList.isEmpty()) {
                         ToastUtils.show("没有更多文章");
                         return;
+                    } else {
+                        if (offset > 0 && articles != null) {
+                            articles.addAll(articleList);
+                        } else {
+                            articles = articleList;
+                        }
                     }
 
                     handler.post(new Runnable() {
@@ -164,8 +182,7 @@ public class EditorActivity extends Activity {
                                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                                     if (opLock.compareAndSet(false, true)) {
                                         try {
-                                            List<ExaminingArticle> filtered = filterByStatus(stepCodes[position]);
-                                            articleListView.setAdapter(new ArticleAdaptor(filtered));
+//                                            filterByStatus(stepCodes[position]);
                                             ((TextView) filter).setText(stepNames[position]);
                                         } finally {
                                             opLock.set(false);
@@ -195,14 +212,8 @@ public class EditorActivity extends Activity {
      * @param asc
      */
     private void reorderByDateDay(final boolean asc) {
-        ExaminingArticle[] data = articles.toArray(new ExaminingArticle[articles.size()]);
-        Arrays.sort(data, new Comparator<ExaminingArticle>() {
-            @Override
-            public int compare(ExaminingArticle lhs, ExaminingArticle rhs) {
-                return lhs.getExamineStart().compareTo(rhs.getExamineStart()) * (asc ? 1 : -1);
-            }
-        });
-        articles = new ArrayList<ExaminingArticle>(Arrays.asList(data));
+        orderByDateDesc = !asc;
+        init(offset, step, orderByDateDesc);
     }
 
     /**
@@ -211,17 +222,10 @@ public class EditorActivity extends Activity {
      * @param step
      * @return
      */
-    private List<ExaminingArticle> filterByStatus(int step) {
-        if (step == -1) {
-            return articles;
-        }
-        List<ExaminingArticle> filtered = new ArrayList<ExaminingArticle>(articles.size());
-        for (ExaminingArticle article : articles) {
-            if (article.getStep() == step) {
-                filtered.add(article);
-            }
-        }
-        return filtered;
+    private void filterByStatus(int step) {
+        this.offset = 0;
+        this.step = step;
+        init(offset, step, !orderByDateDesc);
     }
 
     @Override
@@ -295,7 +299,7 @@ public class EditorActivity extends Activity {
                                                        if (ArticleApi.passExamine(article)) {
                                                            ToastUtils.show("操作成功");
                                                            dismiss();
-                                                           init();
+                                                           init(offset, step, !orderByDateDesc);
                                                        } else {
                                                            ToastUtils.show("操作失败");
                                                        }
@@ -335,7 +339,7 @@ public class EditorActivity extends Activity {
                                                        if (ArticleApi.rejectExamine(article)) {
                                                            ToastUtils.show("操作成功");
                                                            dismiss();
-                                                           init();
+                                                           init(offset, step, !orderByDateDesc);
                                                        } else {
                                                            ToastUtils.show("操作失败");
                                                        }

@@ -9,6 +9,7 @@ import com.tiyuzazhi.utils.TiHttp;
 import com.tiyuzazhi.utils.ToastUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -25,7 +26,7 @@ import java.util.concurrent.TimeoutException;
  */
 public class UserApi {
     public static final String USER_ENDPOINT = TiHttp.HOST + "/user";
-    public static final String USER_DASHBOARD_ENDPOINT = USER_ENDPOINT + "/dashboard";
+    public static final String USER_DASHBOARD_ENDPOINT = USER_ENDPOINT + "/todo";
     public static final String USER_LOGIN_ENDPOINT = USER_ENDPOINT + "/login";
     public static final String USER_REGISTER_ENDPOINT = USER_ENDPOINT + "/register";
     public static final String USER_EXAMLIST_ENDPOINT = USER_ENDPOINT + "/examiners";
@@ -83,28 +84,29 @@ public class UserApi {
      * @return
      */
     public static StatsDashboard getUserDashboard() {
-//        int userId = LocalUtils.get(KEY_USER_ID, 0);
-//        HttpGet get = new HttpGet(USER_DASHBOARD_ENDPOINT + "?id=" + userId);
-//        try {
-//            HttpResponse response = TiHttp.getInstance().send(get).get(1, TimeUnit.MINUTES);
-//            if (response.getStatusLine().getStatusCode() == 200) {
-//                JSONObject jsonObject = new JSONObject(EntityUtils.toString(response.getEntity()));
-//                return new StatsDashboard(jsonObject);
-//            } else {
-//                return new StatsDashboard();
-//            }
-//        } catch (TimeoutException e) {
-//            ToastUtils.show("请求超时");
-//        } catch (Exception e) {
-//            Log.e("UserApi", "Exception", e);
-//            ToastUtils.show("发生异常，请稍候再试");
-//        }
-        StatsDashboard dashboard = new StatsDashboard();
-        dashboard.setChiefEditorTaskNo(0);
-        dashboard.setEditorTaskNo(0);
-        dashboard.setUserCenterTaskNo(1);
-        dashboard.setMasterCenterTaskNo(4);
-        return dashboard;
+        int userId = LocalUtils.get(KEY_USER_ID, 0);
+        HttpGet get = new HttpGet(USER_DASHBOARD_ENDPOINT + "?uid=" + userId);
+        try {
+            HttpResponse response = TiHttp.getInstance().send(get).get(1, TimeUnit.MINUTES);
+            if (response.getStatusLine().getStatusCode() == 200) {
+                String content = EntityUtils.toString(response.getEntity());
+                JSONObject jsonObject = new JSONObject(content);
+                if (jsonObject.getBoolean("result")) {
+                    return new StatsDashboard(jsonObject.getJSONObject("data"));
+                }
+            }
+        } catch (TimeoutException e) {
+            ToastUtils.show("请求超时");
+        } catch (Exception e) {
+            Log.e("UserApi", "Exception", e);
+            ToastUtils.show("发生异常，请稍候再试");
+        }
+//        StatsDashboard dashboard = new StatsDashboard();
+//        dashboard.setChiefEditorTaskNo(0);
+//        dashboard.setEditorTaskNo(0);
+//        dashboard.setUserCenterTaskNo(1);
+//        dashboard.setMasterCenterTaskNo(4);
+        return new StatsDashboard();
     }
 
     /**

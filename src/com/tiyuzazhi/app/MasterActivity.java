@@ -19,7 +19,6 @@ import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -36,10 +35,16 @@ public class MasterActivity extends Activity {
     private CheckNotifyService.SimpleBinder sBinder;
     private RelativeLayout articleListPanel;
     private boolean hasShowNotify = false;
+    private volatile int offset;
+    private volatile int step;
+    private volatile boolean isAsc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.master_list_layout);
+        offset = 0;
+        step = 0;
+        isAsc = true;
         super.onCreate(savedInstanceState);
         View back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +105,7 @@ public class MasterActivity extends Activity {
             @Override
             public void run() {
                 try {
-                    examiningArticles = ArticleApi.loadExamineArticle(0, 10, 0);
+                    examiningArticles = ArticleApi.loadExamineArticle(offset, 10, step, isAsc);
                     if (examiningArticles.isEmpty()) {
                         ToastUtils.show("没有更多文章");
                         return;

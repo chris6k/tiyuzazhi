@@ -76,13 +76,15 @@ public class ArticleApi {
      *
      * @param offset 起始位置
      * @param count  文章总数
+     * @param asc
      * @return
      */
-    public static List<ExaminingArticle> loadExamineArticle(int offset, int count, int step) {
+    public static List<ExaminingArticle> loadExamineArticle(int offset, int count, int step, boolean asc) {
         try {
             List<ExaminingArticle> articles;
             Integer uid = LocalUtils.get(UserApi.KEY_USER_ID, 0);
-            HttpGet get = new HttpGet(TiHttp.HOST + "/exam/examArts?uid=" + uid + "&step=" + (step == 0 ? "" : step));
+            HttpGet get = new HttpGet(TiHttp.HOST + "/exam/examArts?uid=" + uid
+                    + "&step=" + (step == 0 ? "" : step) + "&asc=" + (asc ? 1 : 0) + "&of=" + offset);
             HttpResponse res = TiHttp.getInstance().send(get).get(1, TimeUnit.MINUTES);
             if (res.getStatusLine().getStatusCode() == 200) {
                 String content = EntityUtils.toString(res.getEntity());

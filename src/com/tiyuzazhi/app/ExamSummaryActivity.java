@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.view.*;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -236,7 +237,7 @@ public class ExamSummaryActivity extends Activity {
             helper.examiner.setText(article.getOpName());
             helper.dateDayStart.setText(DatetimeUtils.format(article.getExamineStart()));
             helper.dateDayEnd.setText(DatetimeUtils.format(article.getExamineEnd()));
-            helper.comment.setText(article.getComment());
+            helper.comment.setText(Html.fromHtml(article.getComment()));
             final int openDrawableId;
             final int closeDrawableId;
             if (article.getConclusion() == 1) {

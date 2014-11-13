@@ -18,10 +18,10 @@ public class StatsDashboard implements Serializable {
     }
 
     public StatsDashboard(JSONObject jsonObject) throws JSONException {
-        userCenterTaskNo = jsonObject.getInt("userTaskNo");
-        masterCenterTaskNo = jsonObject.getInt("masterTaskNo");
-        editorTaskNo = jsonObject.getInt("editorTaskNo");
-        chiefEditorTaskNo = jsonObject.getInt("chiefTaskNo");
+        userCenterTaskNo = jsonObject.getInt("author");
+        masterCenterTaskNo = jsonObject.getInt("external");
+        editorTaskNo = jsonObject.getInt("editor");
+        chiefEditorTaskNo = jsonObject.getInt("ceditor");
     }
 
     public int getUserCenterTaskNo() {
