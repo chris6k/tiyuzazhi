@@ -191,87 +191,89 @@ public class MasterActivity extends Activity {
             helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
             helper.leftDay.setText(String.valueOf(DatetimeUtils.getDuringDay(article.getExamineStart(), article.getExamineEnd())) + "天");
             helper.summary.setText(createIndentedText(article.getSummary(), indentPixel, 0));
-
-            helper.ok.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final PassDialog passDialog = new PassDialog(MasterActivity.this, R.style.my_dialog) {
-                        @Override
-                        public void onButtonClick(final String comment) {
-                            if (opLock.compareAndSet(false, true)) {
-                                TPool.post(new Runnable() {
-                                               @Override
-                                               public void run() {
-                                                   try {
-                                                       article.setComment(comment);
-                                                       if (ArticleApi.passExamine(article)) {
-                                                           ToastUtils.show("操作成功");
-                                                           dismiss();
-                                                           init();
-                                                       } else {
-                                                           ToastUtils.show("操作失败");
-                                                       }
-                                                   } finally {
-                                                       opLock.set(false);
-                                                   }
-                                               }
-                                           }
-                                );
-                            } else {
-                                ToastUtils.show("前一个操作正在进行，请稍后再试");
-                            }
-                        }
-                    };
-                    passDialog.setText("审核通过");
-                    passDialog.setButtonText("通过");
-                    passDialog.show();
-                    WindowManager windowManager = getWindowManager();
-                    Display display = windowManager.getDefaultDisplay();
-                    WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
-                    lp.width = (int) (display.getWidth()); //设置宽度
-                    passDialog.getWindow().setAttributes(lp);
-                }
-            });
-            helper.reject.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final PassDialog passDialog = new PassDialog(MasterActivity.this, R.style.my_dialog) {
-                        @Override
-                        public void onButtonClick(final String comment) {
-                            if (opLock.compareAndSet(false, true)) {
-                                TPool.post(new Runnable() {
-                                               @Override
-                                               public void run() {
-                                                   try {
-                                                       article.setComment(comment);
-                                                       if (ArticleApi.rejectExamine(article)) {
-                                                           ToastUtils.show("操作成功");
-                                                           dismiss();
-                                                           init();
-                                                       } else {
-                                                           ToastUtils.show("操作失败");
-                                                       }
-                                                   } finally {
-                                                       opLock.set(false);
-                                                   }
-                                               }
-                                           }
-                                );
-                            } else {
-                                ToastUtils.show("前一个操作正在进行，请稍后再试");
-                            }
-                        }
-                    };
-                    passDialog.setText("审核不通过");
-                    passDialog.setButtonText("不通过");
-                    passDialog.show();
-                    WindowManager windowManager = getWindowManager();
-                    Display display = windowManager.getDefaultDisplay();
-                    WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
-                    lp.width = (int) (display.getWidth()); //设置宽度
-                    passDialog.getWindow().setAttributes(lp);
-                }
-            });
+            helper.ok.setEnabled(false);
+            helper.reject.setEnabled(false);
+            //TODO
+//            helper.ok.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    final PassDialog passDialog = new PassDialog(MasterActivity.this, R.style.my_dialog) {
+//                        @Override
+//                        public void onButtonClick(final String comment) {
+//                            if (opLock.compareAndSet(false, true)) {
+//                                TPool.post(new Runnable() {
+//                                               @Override
+//                                               public void run() {
+//                                                   try {
+//                                                       article.setComment(comment);
+//                                                       if (ArticleApi.passExamine(article)) {
+//                                                           ToastUtils.show("操作成功");
+//                                                           dismiss();
+//                                                           init();
+//                                                       } else {
+//                                                           ToastUtils.show("操作失败");
+//                                                       }
+//                                                   } finally {
+//                                                       opLock.set(false);
+//                                                   }
+//                                               }
+//                                           }
+//                                );
+//                            } else {
+//                                ToastUtils.show("前一个操作正在进行，请稍后再试");
+//                            }
+//                        }
+//                    };
+//                    passDialog.setText("审核通过");
+//                    passDialog.setButtonText("通过");
+//                    passDialog.show();
+//                    WindowManager windowManager = getWindowManager();
+//                    Display display = windowManager.getDefaultDisplay();
+//                    WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
+//                    lp.width = (int) (display.getWidth()); //设置宽度
+//                    passDialog.getWindow().setAttributes(lp);
+//                }
+//            });
+//            helper.reject.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    final PassDialog passDialog = new PassDialog(MasterActivity.this, R.style.my_dialog) {
+//                        @Override
+//                        public void onButtonClick(final String comment) {
+//                            if (opLock.compareAndSet(false, true)) {
+//                                TPool.post(new Runnable() {
+//                                               @Override
+//                                               public void run() {
+//                                                   try {
+//                                                       article.setComment(comment);
+//                                                       if (ArticleApi.rejectExamine(article)) {
+//                                                           ToastUtils.show("操作成功");
+//                                                           dismiss();
+//                                                           init();
+//                                                       } else {
+//                                                           ToastUtils.show("操作失败");
+//                                                       }
+//                                                   } finally {
+//                                                       opLock.set(false);
+//                                                   }
+//                                               }
+//                                           }
+//                                );
+//                            } else {
+//                                ToastUtils.show("前一个操作正在进行，请稍后再试");
+//                            }
+//                        }
+//                    };
+//                    passDialog.setText("审核不通过");
+//                    passDialog.setButtonText("不通过");
+//                    passDialog.show();
+//                    WindowManager windowManager = getWindowManager();
+//                    Display display = windowManager.getDefaultDisplay();
+//                    WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
+//                    lp.width = (int) (display.getWidth()); //设置宽度
+//                    passDialog.getWindow().setAttributes(lp);
+//                }
+//            });
             return view;
         }
     }

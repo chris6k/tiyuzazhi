@@ -58,18 +58,20 @@ public class ExamSummaryActivity extends Activity {
         opPanel.setVisibility(View.GONE);
         opLock = new AtomicBoolean(false);
         operate = (ImageView) findViewById(R.id.operate);
-        operate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (opPanel.getVisibility() != View.VISIBLE) {
-                    operate.setImageResource(R.drawable.edit);
-                    opPanel.setVisibility(View.VISIBLE);
-                } else {
-                    operate.setImageResource(R.drawable.points);
-                    opPanel.setVisibility(View.GONE);
-                }
-            }
-        });
+        operate.setEnabled(false);
+        //TODO
+//        operate.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (opPanel.getVisibility() != View.VISIBLE) {
+//                    operate.setImageResource(R.drawable.edit);
+//                    opPanel.setVisibility(View.VISIBLE);
+//                } else {
+//                    operate.setImageResource(R.drawable.points);
+//                    opPanel.setVisibility(View.GONE);
+//                }
+//            }
+//        });
         buttonOk = findViewById(R.id.buttonOk);
         buttonOk.setOnClickListener(new View.OnClickListener() {
             @Override

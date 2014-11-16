@@ -184,7 +184,7 @@
 
         <Button
                 android:id="@+id/buttonOkText"
-                android:text="通过"
+                android:text="提交下一流程"
                 android:textColor="#2d3538"
                 android:textSize="18sp"
                 android:layout_weight="1"
@@ -195,10 +195,11 @@
         <ImageView
                 android:src="#d8d8d8"
                 android:layout_width="1dp"
-                android:layout_height="fill_parent"/>
+                android:layout_height="fill_parent" android:visibility="gone"/>
 
         <Button
                 android:id="@id/buttonRejectText"
+                android:visibility="gone"
                 android:text="不通过"
                 android:textColor="#2d3538"
                 android:textSize="18sp"

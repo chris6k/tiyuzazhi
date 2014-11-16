@@ -134,63 +134,66 @@ public class ChiefEditorActivity extends Activity {
             helper.opName2.setText(article.getOpName());
             helper.score.setText(String.valueOf(article.getScore()));
             helper.conclusion.setText(article.getConclusion() == 1 ? "通过" : "拒绝");
-            helper.ok.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    article.setComment(helper.comment.getText().toString());
-                    if (opLock.compareAndSet(false, true)) {
-                        TPool.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    if (ArticleApi.passExamine(article)) {
-                                        ToastUtils.show("操作成功");
-                                        init();
-                                    } else {
-                                        ToastUtils.show("操作失败");
-                                    }
-                                } finally {
-                                    opLock.set(false);
-                                }
-                            }
-                        });
-                    } else {
-                        ToastUtils.show("前一个操作正在进行，请稍后再试");
-                    }
-                }
-            });
-            helper.reject.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    article.setComment(helper.comment.getText().toString());
-                    if (opLock.compareAndSet(false, true)) {
-                        TPool.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    if (ArticleApi.rejectExamine(article)) {
-                                        ToastUtils.show("操作成功");
-                                        init();
-                                    } else {
-                                        ToastUtils.show("操作失败");
-                                    }
-                                } finally {
-                                    opLock.set(false);
-                                }
-                            }
-                        });
-                    } else {
-                        ToastUtils.show("前一个操作正在进行，请稍后再试");
-                    }
-                }
-            });
-            helper.forward.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(ChiefEditorActivity.this, ExaminerActivity.class);
-                    startActivityForResult(intent, i);
-                }
-            });
+            helper.ok.setEnabled(false);
+            helper.reject.setEnabled(false);
+            helper.forward.setEnabled(false);
+//            helper.ok.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    article.setComment(helper.comment.getText().toString());
+//                    if (opLock.compareAndSet(false, true)) {
+//                        TPool.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                try {
+//                                    if (ArticleApi.passExamine(article)) {
+//                                        ToastUtils.show("操作成功");
+//                                        init();
+//                                    } else {
+//                                        ToastUtils.show("操作失败");
+//                                    }
+//                                } finally {
+//                                    opLock.set(false);
+//                                }
+//                            }
+//                        });
+//                    } else {
+//                        ToastUtils.show("前一个操作正在进行，请稍后再试");
+//                    }
+//                }
+//            });
+//            helper.reject.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    article.setComment(helper.comment.getText().toString());
+//                    if (opLock.compareAndSet(false, true)) {
+//                        TPool.post(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                try {
+//                                    if (ArticleApi.rejectExamine(article)) {
+//                                        ToastUtils.show("操作成功");
+//                                        init();
+//                                    } else {
+//                                        ToastUtils.show("操作失败");
+//                                    }
+//                                } finally {
+//                                    opLock.set(false);
+//                                }
+//                            }
+//                        });
+//                    } else {
+//                        ToastUtils.show("前一个操作正在进行，请稍后再试");
+//                    }
+//                }
+//            });
+//            helper.forward.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(ChiefEditorActivity.this, ExaminerActivity.class);
+//                    startActivityForResult(intent, i);
+//                }
+//            });
             return view;
         }
     }

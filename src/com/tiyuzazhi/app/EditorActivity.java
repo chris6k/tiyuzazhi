@@ -72,7 +72,7 @@ public class EditorActivity extends Activity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                init(articles.size(), step, !orderByDateDesc);
+                init(articles.size(), step, orderByDateDesc);
             }
         });
         articleListView = (ListView) findViewById(R.id.articleList);
@@ -87,7 +87,11 @@ public class EditorActivity extends Activity {
         dateDayOrder = (ImageView) findViewById(R.id.dateDayOrder);
         filter = findViewById(R.id.filter);
         spinner = (Spinner) findViewById(R.id.cateSpinner);
-
+        if (orderByDateDesc) {
+            dateDayOrder.setImageResource(R.drawable.close_xhdpi);
+        } else {
+            dateDayOrder.setImageResource(R.drawable.open_xhdpi);
+        }
         SpinnerAdapter adapter = new ArrayAdapter<String>(EditorActivity.this,
                 android.R.layout.simple_spinner_dropdown_item, stepNames);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -144,7 +148,7 @@ public class EditorActivity extends Activity {
                         reorderByDateDay(orderByDateDesc);
                         adaptor.notifyDataSetChanged();
                         orderByDateDesc = !orderByDateDesc;
-                        if (!orderByDateDesc) {
+                        if (orderByDateDesc) {
                             dateDayOrder.setImageResource(R.drawable.close_xhdpi);
                         } else {
                             dateDayOrder.setImageResource(R.drawable.open_xhdpi);
@@ -181,7 +185,7 @@ public class EditorActivity extends Activity {
             }
         };
         bindService(new Intent(EditorActivity.this, CheckNotifyService.class), sc, Context.BIND_AUTO_CREATE);
-        init(offset, step, !orderByDateDesc);
+        init(offset, step, orderByDateDesc);
     }
 
     private void init(final int offset, final int step, final boolean asc) {
@@ -232,7 +236,7 @@ public class EditorActivity extends Activity {
     private void filterByStatus(int step) {
         this.offset = 0;
         this.step = step;
-        init(offset, step, !orderByDateDesc);
+        init(offset, step, orderByDateDesc);
     }
 
     @Override
@@ -289,86 +293,89 @@ public class EditorActivity extends Activity {
             helper.draftNo.setText(article.getDraftNo());
             helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
             helper.opName.setText(article.getOpName());
-            helper.ok.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final PassDialog passDialog = new PassDialog(EditorActivity.this, R.style.my_dialog) {
-                        @Override
-                        public void onButtonClick(final String comment) {
-                            if (opLock.compareAndSet(false, true)) {
-                                TPool.post(new Runnable() {
-                                               @Override
-                                               public void run() {
-                                                   try {
-                                                       article.setComment(comment);
-                                                       if (ArticleApi.passExamine(article)) {
-                                                           ToastUtils.show("操作成功");
-                                                           dismiss();
-                                                           init(offset, step, !orderByDateDesc);
-                                                       } else {
-                                                           ToastUtils.show("操作失败");
-                                                       }
-                                                   } finally {
-                                                       opLock.set(false);
-                                                   }
-                                               }
-                                           }
-                                );
-                            } else {
-                                ToastUtils.show("前一个操作正在进行，请稍后再试");
-                            }
-                        }
-                    };
-                    passDialog.setText("审核通过");
-                    passDialog.setButtonText("通过");
-                    passDialog.show();
-                    WindowManager windowManager = getWindowManager();
-                    Display display = windowManager.getDefaultDisplay();
-                    WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
-                    lp.width = (int) (display.getWidth()); //设置宽度
-                    passDialog.getWindow().setAttributes(lp);
-                }
-            });
-            helper.reject.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final PassDialog passDialog = new PassDialog(EditorActivity.this, R.style.my_dialog) {
-                        @Override
-                        public void onButtonClick(final String comment) {
-                            if (opLock.compareAndSet(false, true)) {
-                                TPool.post(new Runnable() {
-                                               @Override
-                                               public void run() {
-                                                   try {
-                                                       article.setComment(comment);
-                                                       if (ArticleApi.rejectExamine(article)) {
-                                                           ToastUtils.show("操作成功");
-                                                           dismiss();
-                                                           init(offset, step, !orderByDateDesc);
-                                                       } else {
-                                                           ToastUtils.show("操作失败");
-                                                       }
-                                                   } finally {
-                                                       opLock.set(false);
-                                                   }
-                                               }
-                                           }
-                                );
-                            } else {
-                                ToastUtils.show("前一个操作正在进行，请稍后再试");
-                            }
-                        }
-                    };
-                    passDialog.setText("审核不通过");
-                    passDialog.setButtonText("不通过");
-                    passDialog.show();
-                    WindowManager windowManager = getWindowManager();
-                    Display display = windowManager.getDefaultDisplay();
-                    WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
-                    lp.width = (int) (display.getWidth()); //设置宽度
-                    passDialog.getWindow().setAttributes(lp);
-                }
-            });
+            helper.ok.setEnabled(false);
+            helper.reject.setEnabled(false);
+            //TODO
+//            helper.ok.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    final PassDialog passDialog = new PassDialog(EditorActivity.this, R.style.my_dialog) {
+//                        @Override
+//                        public void onButtonClick(final String comment) {
+//                            if (opLock.compareAndSet(false, true)) {
+//                                TPool.post(new Runnable() {
+//                                               @Override
+//                                               public void run() {
+//                                                   try {
+//                                                       article.setComment(comment);
+//                                                       if (ArticleApi.passExamine(article)) {
+//                                                           ToastUtils.show("操作成功");
+//                                                           dismiss();
+//                                                           init(offset, step, orderByDateDesc);
+//                                                       } else {
+//                                                           ToastUtils.show("操作失败");
+//                                                       }
+//                                                   } finally {
+//                                                       opLock.set(false);
+//                                                   }
+//                                               }
+//                                           }
+//                                );
+//                            } else {
+//                                ToastUtils.show("前一个操作正在进行，请稍后再试");
+//                            }
+//                        }
+//                    };
+//                    passDialog.setText("审核通过");
+//                    passDialog.setButtonText("通过");
+//                    passDialog.show();
+//                    WindowManager windowManager = getWindowManager();
+//                    Display display = windowManager.getDefaultDisplay();
+//                    WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
+//                    lp.width = (int) (display.getWidth()); //设置宽度
+//                    passDialog.getWindow().setAttributes(lp);
+//                }
+//            });
+//            helper.reject.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    final PassDialog passDialog = new PassDialog(EditorActivity.this, R.style.my_dialog) {
+//                        @Override
+//                        public void onButtonClick(final String comment) {
+//                            if (opLock.compareAndSet(false, true)) {
+//                                TPool.post(new Runnable() {
+//                                               @Override
+//                                               public void run() {
+//                                                   try {
+//                                                       article.setComment(comment);
+//                                                       if (ArticleApi.rejectExamine(article)) {
+//                                                           ToastUtils.show("操作成功");
+//                                                           dismiss();
+//                                                           init(offset, step, orderByDateDesc);
+//                                                       } else {
+//                                                           ToastUtils.show("操作失败");
+//                                                       }
+//                                                   } finally {
+//                                                       opLock.set(false);
+//                                                   }
+//                                               }
+//                                           }
+//                                );
+//                            } else {
+//                                ToastUtils.show("前一个操作正在进行，请稍后再试");
+//                            }
+//                        }
+//                    };
+//                    passDialog.setText("审核不通过");
+//                    passDialog.setButtonText("不通过");
+//                    passDialog.show();
+//                    WindowManager windowManager = getWindowManager();
+//                    Display display = windowManager.getDefaultDisplay();
+//                    WindowManager.LayoutParams lp = passDialog.getWindow().getAttributes();
+//                    lp.width = (int) (display.getWidth()); //设置宽度
+//                    passDialog.getWindow().setAttributes(lp);
+//                }
+//            });
             return view;
         }
     }
