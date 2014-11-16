@@ -28,6 +28,7 @@ public class UserCenterActivity extends Activity {
     private View unloginPanel;
 
     private RoundedImageView header;
+    private RoundedImageView icon;
     private TextView name;
     private TextView company;
     private TextView address;
@@ -64,6 +65,7 @@ public class UserCenterActivity extends Activity {
         userInfoPanel.setClickable(true);
         unloginPanel = findViewById(R.id.unlogin_panel);
         header = (RoundedImageView) findViewById(R.id.header);
+        icon = (RoundedImageView) findViewById(R.id.icon);
         name = (TextView) findViewById(R.id.name);
         company = (TextView) findViewById(R.id.company);
         address = (TextView) findViewById(R.id.address);
@@ -137,6 +139,7 @@ public class UserCenterActivity extends Activity {
 
     private void init() {
         if (UserApi.loginRole() == 0) {
+            icon.setImageDrawable(getResources().getDrawable(R.drawable.unlogin));
             unloginPanel.setVisibility(View.VISIBLE);
             userInfoPanel.setVisibility(View.GONE);
             myFav.setVisibility(View.GONE);
@@ -146,6 +149,7 @@ public class UserCenterActivity extends Activity {
                 public void onClick(View v) {
                     Intent i = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivityForResult(i, 1);
+                    finish();
                 }
             });
             regButton.setOnClickListener(new View.OnClickListener() {

@@ -1,5 +1,6 @@
 package com.tiyuzazhi.beans;
 
+import com.tiyuzazhi.utils.TiHttp;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,6 +17,8 @@ public class ArticleMenu implements Serializable {
     private String author;
     private String summary;
     private String bsummary;
+    private String keyword;
+    private String attachment;
 
     public ArticleMenu() {
     }
@@ -30,7 +33,13 @@ public class ArticleMenu implements Serializable {
             summary = "";
         }
         if (jsonObject.has("bsummary")) {
-            Object temp  = jsonObject.get("bsummary");
+            Object temp = jsonObject.get("bsummary");
+        }
+        if (jsonObject.has("keyword")) {
+            keyword = jsonObject.getString("keyword");
+        }
+        if (jsonObject.has("attachment")) {
+            attachment = TiHttp.HOST + "/" + jsonObject.getString("attachment");
         }
     }
 
@@ -66,6 +75,23 @@ public class ArticleMenu implements Serializable {
         this.summary = summary;
     }
 
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public String getAttachment() {
+        return attachment;
+    }
+
+    public void setAttachment(String attachment) {
+        this.attachment = attachment;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
     @Override
     public String toString() {
         return "ArticleMenu{" +
@@ -75,4 +101,5 @@ public class ArticleMenu implements Serializable {
                 ", summary='" + summary + '\'' +
                 '}';
     }
+
 }

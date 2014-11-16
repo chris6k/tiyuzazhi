@@ -13,6 +13,7 @@ import android.widget.EditText;
 import com.tiyuzazhi.api.UserApi;
 import com.tiyuzazhi.beans.User;
 import com.tiyuzazhi.component.RoundedImageView;
+import com.tiyuzazhi.utils.LocalUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
@@ -51,6 +52,7 @@ public class LoginActivity extends Activity {
         });
         handler = new Handler(Looper.getMainLooper());
         username = (EditText) findViewById(R.id.username);
+        username.setText(LocalUtils.get("cacheLoginName", ""));
         password = (EditText) findViewById(R.id.password);
         password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -79,6 +81,8 @@ public class LoginActivity extends Activity {
                     ToastUtils.show("用户名或密码不能为空");
                     return;
                 }
+                LocalUtils.put("cacheLoginName", username.getText().toString());
+                ToastUtils.show("正在登录，请稍候……");
                 TPool.post(new Runnable() {
                     @Override
                     public void run() {
@@ -88,12 +92,10 @@ public class LoginActivity extends Activity {
                             public void run() {
 
                                 if (user != null) {
-                                    Intent i = new Intent();
-                                    i.putExtra("userId", user.getId());
-                                    setResult(Activity.RESULT_OK, i);
+//                                    Intent i = new Intent();
+//                                    i.putExtra("userId", user.getId());
+//                                    setResult(Activity.RESULT_OK, i);
                                     finish();
-                                } else {
-                                    ToastUtils.show("用户名或密码错误");
                                 }
                             }
                         });

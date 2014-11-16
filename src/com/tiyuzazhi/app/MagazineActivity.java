@@ -294,6 +294,7 @@ public class MagazineActivity extends Activity {
                 helper = new AdaptorHelper();
                 helper.title = (TextView) view.findViewById(R.id.title);
                 helper.author = (TextView) view.findViewById(R.id.author);
+                helper.keyword = (TextView) view.findViewById(R.id.keyword);
                 view.setTag(helper);
             } else {
                 helper = (AdaptorHelper) view.getTag();
@@ -301,6 +302,7 @@ public class MagazineActivity extends Activity {
             final ArticleMenu articleMenu = (ArticleMenu) getItem(i);
             helper.title.setText(articleMenu.getTitle());
             helper.author.setText("作者:" + articleMenu.getAuthor());
+            helper.keyword.setText("关键字:" + articleMenu.getKeyword());
             return view;
         }
     }
@@ -308,5 +310,6 @@ public class MagazineActivity extends Activity {
     private class AdaptorHelper {
         private TextView title;
         private TextView author;
+        private TextView keyword;
     }
 }

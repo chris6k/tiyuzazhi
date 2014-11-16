@@ -1,5 +1,6 @@
 package com.tiyuzazhi.app;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -62,7 +63,10 @@ public class EditorActivity extends Activity {
         });
         articleListView = (ListView) findViewById(R.id.articleList);
         TextView textView = new TextView(EditorActivity.this);
-        textView.setText("载入更多");
+        textView.setLayoutParams(new AbsListView.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        textView.setPadding(10,10,10,10);
+        textView.setText("点击载入更多");
+        textView.setTextSize(30);
         textView.setGravity(Gravity.CENTER);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +82,28 @@ public class EditorActivity extends Activity {
         filter = findViewById(R.id.filter);
         spinner = (Spinner) findViewById(R.id.cateSpinner);
 
+        SpinnerAdapter adapter = new ArrayAdapter<String>(EditorActivity.this,
+                android.R.layout.simple_spinner_dropdown_item, stepNames);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (opLock.compareAndSet(false, true)) {
+                    try {
+                        filterByStatus(stepCodes[position]);
+                        ((TextView) filter).setText(stepNames[position]);
+                    } finally {
+                        opLock.set(false);
+                    }
+                } else {
+                    ToastUtils.show("前一个操作正在进行，请稍后");
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        spinner.setAdapter(adapter);
         filterOrder = (ImageView) findViewById(R.id.filterOrder);
         opLock = new AtomicBoolean(false);
         handler = new Handler(Looper.getMainLooper(), new Handler.Callback() {
@@ -162,41 +187,18 @@ public class EditorActivity extends Activity {
                     List<ExaminingArticle> articleList = ArticleApi.loadExamineArticle(offset, 10, step, asc);
                     if (articleList.isEmpty()) {
                         ToastUtils.show("没有更多文章");
-                        return;
+                    }
+
+                    if (offset > 0 && articles != null) {
+                        articles.addAll(articleList);
                     } else {
-                        if (offset > 0 && articles != null) {
-                            articles.addAll(articleList);
-                        } else {
-                            articles = articleList;
-                        }
+                        articles = articleList;
                     }
 
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
                             articleListView.setAdapter(new ArticleAdaptor(articles));
-                            SpinnerAdapter adapter = new ArrayAdapter<String>(EditorActivity.this,
-                                    android.R.layout.simple_spinner_item, stepNames);
-                            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                @Override
-                                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                                    if (opLock.compareAndSet(false, true)) {
-                                        try {
-//                                            filterByStatus(stepCodes[position]);
-                                            ((TextView) filter).setText(stepNames[position]);
-                                        } finally {
-                                            opLock.set(false);
-                                        }
-                                    } else {
-                                        ToastUtils.show("前一个操作正在进行，请稍后");
-                                    }
-                                }
-
-                                @Override
-                                public void onNothingSelected(AdapterView<?> parent) {
-                                }
-                            });
-                            spinner.setAdapter(adapter);
                         }
                     });
                 } catch (Exception e) {
@@ -212,8 +214,7 @@ public class EditorActivity extends Activity {
      * @param asc
      */
     private void reorderByDateDay(final boolean asc) {
-        orderByDateDesc = !asc;
-        init(offset, step, orderByDateDesc);
+        init(offset, step, !asc);
     }
 
     /**

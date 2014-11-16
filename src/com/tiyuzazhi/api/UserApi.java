@@ -207,7 +207,7 @@ public class UserApi {
                     LocalUtils.put(KEY_USER_ROLE, user.getRole());
                     ToastUtils.show("登录成功");
                 } else {
-                    ToastUtils.show("登录失败");
+                    ToastUtils.show("登录失败, 用户名或密码错误");
                 }
             }
         } catch (TimeoutException e) {
