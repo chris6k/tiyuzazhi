@@ -18,6 +18,7 @@ import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -37,7 +38,7 @@ public class EditorActivity extends Activity {
     private ImageView filterOrder;
     private Spinner spinner;
     private volatile boolean orderByDateDesc = true;
-    private volatile List<ExaminingArticle> articles;
+    private volatile List<ExaminingArticle> articles = new ArrayList<ExaminingArticle>();
     private int step;
     private String stepName;
     private String[] stepNames = {"全部流程", Step.NEW.getText(), Step.REDO.getText(), Step.EXTERNAL_MANU.getText(), Step.FINAL.getText()};
@@ -46,6 +47,7 @@ public class EditorActivity extends Activity {
     private RelativeLayout articleListPanel;
     private boolean hasShowNotify = false;
     private volatile int offset;
+    private ArticleAdaptor adaptor;
 //    private volatile boolean isAsc;
 
     @Override
@@ -61,10 +63,9 @@ public class EditorActivity extends Activity {
                 finish();
             }
         });
-        articleListView = (ListView) findViewById(R.id.articleList);
         TextView textView = new TextView(EditorActivity.this);
         textView.setLayoutParams(new AbsListView.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        textView.setPadding(10,10,10,10);
+        textView.setPadding(10, 10, 10, 10);
         textView.setText("点击载入更多");
         textView.setTextSize(30);
         textView.setGravity(Gravity.CENTER);
@@ -74,7 +75,12 @@ public class EditorActivity extends Activity {
                 init(articles.size(), step, !orderByDateDesc);
             }
         });
+        articleListView = (ListView) findViewById(R.id.articleList);
         articleListView.addFooterView(textView);
+        adaptor = new ArticleAdaptor();
+        articleListView.setAdapter(adaptor);
+
+
         flowButton = findViewById(R.id.flowButton);
         reorderButton = findViewById(R.id.reorderButton);
         reorderByDateDay = findViewById(R.id.reorderByDateDay);
@@ -136,7 +142,7 @@ public class EditorActivity extends Activity {
                 if (opLock.compareAndSet(false, true)) {
                     try {
                         reorderByDateDay(orderByDateDesc);
-                        articleListView.setAdapter(new ArticleAdaptor(articles));
+                        adaptor.notifyDataSetChanged();
                         orderByDateDesc = !orderByDateDesc;
                         if (!orderByDateDesc) {
                             dateDayOrder.setImageResource(R.drawable.close_xhdpi);
@@ -184,21 +190,21 @@ public class EditorActivity extends Activity {
             public void run() {
                 try {
 
-                    List<ExaminingArticle> articleList = ArticleApi.loadExamineArticle(offset, 10, step, asc);
+                    final List<ExaminingArticle> articleList = ArticleApi.loadExamineArticle(offset, 10, step, asc);
                     if (articleList.isEmpty()) {
                         ToastUtils.show("没有更多文章");
                     }
 
-                    if (offset > 0 && articles != null) {
-                        articles.addAll(articleList);
-                    } else {
-                        articles = articleList;
-                    }
 
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-                            articleListView.setAdapter(new ArticleAdaptor(articles));
+                            if (offset > 0 && articles != null) {
+                                articles.addAll(articleList);
+                            } else {
+                                articles = articleList;
+                            }
+                            adaptor.notifyDataSetChanged();
                         }
                     });
                 } catch (Exception e) {
@@ -235,25 +241,23 @@ public class EditorActivity extends Activity {
     }
 
     private class ArticleAdaptor extends BaseAdapter {
-        private List<ExaminingArticle> articleList;
 
-        public ArticleAdaptor(List<ExaminingArticle> articleList) {
-            this.articleList = articleList;
+        public ArticleAdaptor() {
         }
 
         @Override
         public int getCount() {
-            return articleList.size();
+            return articles.size();
         }
 
         @Override
         public Object getItem(int i) {
-            return articleList.get(i);
+            return articles.get(i);
         }
 
         @Override
         public long getItemId(int i) {
-            return articleList.get(i).getId();
+            return articles.get(i).getId();
         }
 
         @Override
