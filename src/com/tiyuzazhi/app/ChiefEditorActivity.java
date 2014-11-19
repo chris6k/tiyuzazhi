@@ -114,7 +114,8 @@ public class ChiefEditorActivity extends Activity {
                 helper.dateDay = (TextView) view.findViewById(R.id.dateDay);
                 helper.leftDay = (TextView) view.findViewById(R.id.leftDay);
                 helper.opName = (TextView) view.findViewById(R.id.opName);
-                helper.opName2 = (TextView) view.findViewById(R.id.opName2);
+                helper.flow = (TextView) view.findViewById(R.id.opName2);
+                helper.plan = (TextView) view.findViewById(R.id.plan);
                 helper.conclusion = (TextView) view.findViewById(R.id.conclusion);
                 helper.score = (TextView) view.findViewById(R.id.score);
                 helper.comment = (EditText) view.findViewById(R.id.commentEditText);
@@ -130,8 +131,13 @@ public class ChiefEditorActivity extends Activity {
             helper.draftNo.setText("编号:" + article.getDraftNo());
             helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
             helper.leftDay.setText(DatetimeUtils.getDuringDay(article.getExamineStart(), new Date()) + "天");
-            helper.opName.setText(article.getOpName());
-            helper.opName2.setText(article.getOpName());
+            helper.plan.setText("计划 " + article.getExamineEnd());
+            helper.opName.setText("处理人:" + article.getOpName());
+            helper.flow.setText(
+                    article.getPrevOpName() + "(" +
+                            DatetimeUtils.format(article.getPrevExamineFinish()) +
+                            ") " + article.getOpName() +
+                            (article.getExamineFinish() == null ? "" : ("(" + article.getExamineFinish() + ")")));
             helper.score.setText(String.valueOf(article.getScore()));
             helper.conclusion.setText(article.getConclusion() == 1 ? "通过" : "拒绝");
             helper.ok.setEnabled(false);
@@ -229,8 +235,9 @@ public class ChiefEditorActivity extends Activity {
         private TextView draftNo;
         private TextView dateDay;
         private TextView leftDay;
+        private TextView plan;
         private TextView opName;
-        private TextView opName2;
+        private TextView flow;
         private TextView score;
         private TextView conclusion;
         private EditText comment;

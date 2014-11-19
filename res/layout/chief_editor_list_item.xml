@@ -127,6 +127,7 @@
                 android:layout_height="fill_parent"/>
 
         <TextView
+                android:id="@+id/plan"
                 android:text="计划"
                 android:textSize="16sp"
                 android:textColor="#4a5153"

@@ -35,7 +35,7 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.user_login);
         super.onCreate(savedInstanceState);
         header = (RoundedImageView) findViewById(R.id.header);
-        header.setImageResource(R.drawable.header);
+        header.setImageResource(R.drawable.avantar);
         back = findViewById(R.id.backButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

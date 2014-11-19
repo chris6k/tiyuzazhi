@@ -31,6 +31,8 @@ public class ExaminingArticle extends ArticleMenu {
     private int step;
     private String attachment;
     private String attachmentText;
+    private String prevOpName;
+    private Date prevExamineFinish;
 
 
     public ExaminingArticle() {
@@ -40,42 +42,42 @@ public class ExaminingArticle extends ArticleMenu {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         id = jsonObject.getInt("id");
         if (jsonObject.has("summary"))
-        summary = jsonObject.getString("summary");
+            summary = jsonObject.getString("summary");
         if (jsonObject.has("draftNo"))
-        draftNo = jsonObject.getString("draftNo");
+            draftNo = jsonObject.getString("draftNo");
         String tempDate = null;
         if (jsonObject.has("examineStart"))
-        tempDate = jsonObject.getString("examineStart");
+            tempDate = jsonObject.getString("examineStart");
         examineStart = (TextUtils.isEmpty(tempDate) || TextUtils.equals("null", tempDate)) ? null : format.parse(tempDate);
 
         if (jsonObject.has("examineEnd"))
-        tempDate = jsonObject.getString("examineEnd");
+            tempDate = jsonObject.getString("examineEnd");
         examineEnd = (TextUtils.isEmpty(tempDate) || TextUtils.equals("null", tempDate)) ? null : format.parse(tempDate);
 
         if (jsonObject.has("examineFinish"))
-        tempDate = jsonObject.getString("examineFinish");
+            tempDate = jsonObject.getString("examineFinish");
         examineFinish = (TextUtils.isEmpty(tempDate) || TextUtils.equals("null", tempDate)) ? null : format.parse(tempDate);
 
         if (jsonObject.has("submitDate"))
-        tempDate = jsonObject.getString("submitDate");
+            tempDate = jsonObject.getString("submitDate");
         submitDate = (TextUtils.isEmpty(tempDate) || TextUtils.equals("null", tempDate)) ? null : format.parse(tempDate);
         state = examineFinish == null ? 0 : 1;
         conclusion = state;
         if (jsonObject.has("opId"))
-        opId = jsonObject.getInt("opId");
+            opId = jsonObject.getInt("opId");
         if (jsonObject.has("opName"))
-        opName = jsonObject.getString("opName");
+            opName = jsonObject.getString("opName");
         if (jsonObject.has("comment"))
-        comment = jsonObject.getString("comment");
+            comment = jsonObject.getString("comment");
         if (TextUtils.isEmpty(comment) || TextUtils.equals("null", comment.toLowerCase())) {
             comment = "";
         }
         if (jsonObject.has("score"))
-        score = jsonObject.getString("score");
+            score = jsonObject.getString("score");
         if (jsonObject.has("comment"))
-        if (jsonObject.has("category") && !TextUtils.equals("null", jsonObject.getString("category").toLowerCase())) {
-            category = jsonObject.getInt("category");
-        }
+            if (jsonObject.has("category") && !TextUtils.equals("null", jsonObject.getString("category").toLowerCase())) {
+                category = jsonObject.getInt("category");
+            }
         step = jsonObject.getInt("step");
         if (jsonObject.has("orgName")) {
             orgName = jsonObject.getString("orgName");
@@ -86,7 +88,13 @@ public class ExaminingArticle extends ArticleMenu {
         if (jsonObject.has("author")) {
             setAuthor(jsonObject.getString("author"));
         }
-
+        if (jsonObject.has("prevOpName")) {
+            setPrevOpName(jsonObject.getString("prevOpName"));
+        }
+        if (jsonObject.has("prevExamineFinish")) {
+            tempDate = jsonObject.getString("prevExamineFinish");
+            setPrevExamineFinish(format.parse(tempDate));
+        }
     }
 
     public String getAttachmentText() {
@@ -234,6 +242,22 @@ public class ExaminingArticle extends ArticleMenu {
         this.submitDate = submitDate;
     }
 
+    public String getPrevOpName() {
+        return prevOpName;
+    }
+
+    public void setPrevOpName(String prevOpName) {
+        this.prevOpName = prevOpName;
+    }
+
+    public Date getPrevExamineFinish() {
+        return prevExamineFinish;
+    }
+
+    public void setPrevExamineFinish(Date prevExamineFinish) {
+        this.prevExamineFinish = prevExamineFinish;
+    }
+
     @Override
     public String toString() {
         return "ExaminingArticle{" +
@@ -255,6 +279,8 @@ public class ExaminingArticle extends ArticleMenu {
                 ", step=" + step +
                 ", attachment='" + attachment + '\'' +
                 ", attachmentText='" + attachmentText + '\'' +
+                ", prevOpName='" + prevOpName + '\'' +
+                ", prevExamineFinish='" + prevExamineFinish + '\'' +
                 '}';
     }
 }
