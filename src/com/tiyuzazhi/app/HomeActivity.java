@@ -189,31 +189,30 @@ public class HomeActivity extends Activity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (statsDashboard.getUserCenterTaskNo() > 0) {
+                        if (statsDashboard.getUserCenterTaskNo() > 0 && (LocalUtils.get(UserApi.KEY_USER_ROLE, 0) & Role.AUTHOR.getCode()) > 0) {
+                            authorCenterNo.setText(String.valueOf(statsDashboard.getUserCenterTaskNo()));
                             authorCenterNo.setTextColor(noZeroColor);
                         } else {
                             authorCenterNo.setTextColor(zeroColor);
                         }
-                        if (statsDashboard.getMasterCenterTaskNo() > 0) {
+                        if (statsDashboard.getMasterCenterTaskNo() > 0 && (LocalUtils.get(UserApi.KEY_USER_ROLE, 0) & Role.MASTER.getCode()) > 0) {
+                            refereeingNo.setText(String.valueOf(statsDashboard.getMasterCenterTaskNo()));
                             refereeingNo.setTextColor(noZeroColor);
                         } else {
                             refereeingNo.setTextColor(zeroColor);
                         }
-                        if (statsDashboard.getEditorTaskNo() > 0) {
+                        if (statsDashboard.getEditorTaskNo() > 0 && (LocalUtils.get(UserApi.KEY_USER_ROLE, 0) & Role.EDITOR.getCode()) > 0) {
+                            editorCenterNo.setText(String.valueOf(statsDashboard.getEditorTaskNo()));
                             editorCenterNo.setTextColor(noZeroColor);
                         } else {
                             editorCenterNo.setTextColor(zeroColor);
                         }
-                        if (statsDashboard.getChiefEditorTaskNo() > 0) {
+                        if (statsDashboard.getChiefEditorTaskNo() > 0 && (LocalUtils.get(UserApi.KEY_USER_ROLE, 0) & Role.CHIEF_EDITOR.getCode()) > 0) {
+                            chiefEditorNo.setText(String.valueOf(statsDashboard.getChiefEditorTaskNo()));
                             chiefEditorNo.setTextColor(noZeroColor);
                         } else {
                             chiefEditorNo.setTextColor(zeroColor);
                         }
-                        //初始化代办事项总数
-                        authorCenterNo.setText(String.valueOf(statsDashboard.getUserCenterTaskNo()));
-                        refereeingNo.setText(String.valueOf(statsDashboard.getMasterCenterTaskNo()));
-                        editorCenterNo.setText(String.valueOf(statsDashboard.getEditorTaskNo()));
-                        chiefEditorNo.setText(String.valueOf(statsDashboard.getChiefEditorTaskNo()));
 
 
                         magazineList.setAdapter(new BaseAdapter() {
