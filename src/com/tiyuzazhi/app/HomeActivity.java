@@ -194,24 +194,28 @@ public class HomeActivity extends Activity {
                             authorCenterNo.setTextColor(noZeroColor);
                         } else {
                             authorCenterNo.setTextColor(zeroColor);
+                            authorCenterNo.setText("0");
                         }
                         if (statsDashboard.getMasterCenterTaskNo() > 0 && (LocalUtils.get(UserApi.KEY_USER_ROLE, 0) & Role.MASTER.getCode()) > 0) {
                             refereeingNo.setText(String.valueOf(statsDashboard.getMasterCenterTaskNo()));
                             refereeingNo.setTextColor(noZeroColor);
                         } else {
                             refereeingNo.setTextColor(zeroColor);
+                            refereeingNo.setText("0");
                         }
                         if (statsDashboard.getEditorTaskNo() > 0 && (LocalUtils.get(UserApi.KEY_USER_ROLE, 0) & Role.EDITOR.getCode()) > 0) {
                             editorCenterNo.setText(String.valueOf(statsDashboard.getEditorTaskNo()));
                             editorCenterNo.setTextColor(noZeroColor);
                         } else {
                             editorCenterNo.setTextColor(zeroColor);
+                            editorCenterNo.setText("0");
                         }
                         if (statsDashboard.getChiefEditorTaskNo() > 0 && (LocalUtils.get(UserApi.KEY_USER_ROLE, 0) & Role.CHIEF_EDITOR.getCode()) > 0) {
                             chiefEditorNo.setText(String.valueOf(statsDashboard.getChiefEditorTaskNo()));
                             chiefEditorNo.setTextColor(noZeroColor);
                         } else {
                             chiefEditorNo.setTextColor(zeroColor);
+                            chiefEditorNo.setText("0");
                         }
 
 

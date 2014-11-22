@@ -174,6 +174,7 @@ public class UserApi {
         LocalUtils.put(KEY_USER_ROLE, 0);
         LocalUtils.put(KEY_USER_ID, 0);
         LocalUtils.put(KEY_USER, "");
+        LocalUtils.put(KEY_LAST_MAIL_ID, 0);
         return true;
 //            } else {
 //                return false;
@@ -260,8 +261,8 @@ public class UserApi {
                 JSONObject jsonObject = new JSONObject(content);
                 if (jsonObject.getBoolean("result")) {
                     JSONObject obj = jsonObject.getJSONObject("data");
-                    if (obj.has("id") && obj.getInt("id") > LocalUtils.get(KEY_LAST_MAIL_ID, 0)) {
-                        LocalUtils.put(KEY_LAST_MAIL_ID, obj.getInt("id"));
+                    if (obj.has("mailId") && obj.getInt("mailId") > LocalUtils.get(KEY_LAST_MAIL_ID, 0)) {
+                        LocalUtils.put(KEY_LAST_MAIL_ID, obj.getInt("mailId"));
                         return true;
                     }
                 }
