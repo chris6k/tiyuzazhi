@@ -48,6 +48,10 @@ public class NoticeActivity extends Activity {
         magazinePubTime = (TextView) findViewById(R.id.mag_date);
         magazineNo.setVisibility(View.INVISIBLE);
         magazinePubTime.setVisibility(View.INVISIBLE);
+        View share = findViewById(R.id.share);
+        share.setVisibility(View.INVISIBLE);
+        View fav = findViewById(R.id.collect);
+        fav.setVisibility(View.INVISIBLE);
         title = (TextView) findViewById(R.id.title);
         title.setText("公告通知");
         View bottomBar = findViewById(R.id.bottom_bar);

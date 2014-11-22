@@ -68,6 +68,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+    <ImageButton
+            android:id="@+id/pdfdownload"
+            android:layout_marginTop="-15dp"
+            android:background="@android:color/transparent"
+            android:layout_below="@id/title"
+            android:layout_alignParentRight="true"
+            android:baselineAlignBottom="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/pdf_download"
+            android:scaleType="centerInside"
+            android:layout_width="48dp"
+            android:layout_height="48dp"/>
+
     <ImageView
             android:id="@+id/line"
             android:layout_below="@id/author"

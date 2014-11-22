@@ -1,15 +1,13 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 import com.tiyuzazhi.beans.ArticleMenu;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author chris.xue
@@ -24,6 +22,7 @@ public class MagSummaryActivity extends Activity {
     private View buttonReject;
     private ArticleMenu menu;
     private View footerWhite;
+    private View pdfdownload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +45,14 @@ public class MagSummaryActivity extends Activity {
         buttonReject.setVisibility(View.GONE);
         footerWhite = findViewById(R.id.footerBar);
         footerWhite.setVisibility(View.GONE);
+        pdfdownload = findViewById(R.id.pdfdownload);
+        pdfdownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(menu.getAttachment()));
+                startActivity(intent);
+            }
+        });
         init();
     }
 

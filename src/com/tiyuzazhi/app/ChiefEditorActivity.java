@@ -15,6 +15,7 @@ import com.tiyuzazhi.utils.DatetimeUtils;
 import com.tiyuzazhi.utils.TPool;
 import com.tiyuzazhi.utils.ToastUtils;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,6 +26,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  *         主编办公
  */
 public class ChiefEditorActivity extends Activity {
+    private DecimalFormat format = new DecimalFormat("0.0");
     private ListView titleBar;
     private AtomicBoolean opLock;
     private Handler handler;
@@ -128,18 +130,27 @@ public class ChiefEditorActivity extends Activity {
             }
             final ExaminingArticle article = (ExaminingArticle) getItem(i);
             helper.title.setText(article.getTitle());
+            helper.title.setClickable(true);
+            helper.title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ChiefEditorActivity.this, ExamSummaryActivity.class);
+                    intent.putExtra("article", article);
+                    startActivity(intent);
+                }
+            });
             helper.draftNo.setText("编号:" + article.getDraftNo());
             helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
             helper.leftDay.setText(DatetimeUtils.getDuringDay(article.getExamineStart(), new Date()) + "天");
-            helper.plan.setText("计划 " + article.getExamineEnd());
+            helper.plan.setText("计划 " + DatetimeUtils.format(article.getExamineEnd()));
             helper.opName.setText("处理人:" + article.getOpName());
             helper.flow.setText(
                     article.getPrevOpName() + "(" +
                             DatetimeUtils.format(article.getPrevExamineFinish()) +
                             ") " + article.getOpName() +
                             (article.getExamineFinish() == null ? "" : ("(" + article.getExamineFinish() + ")")));
-            helper.score.setText(String.valueOf(article.getScore()));
-            helper.conclusion.setText(article.getConclusion() == 1 ? "通过" : "拒绝");
+            helper.score.setText("审稿得分:" + format.format(Double.valueOf(article.getScore())));
+            helper.conclusion.setText("");
             helper.ok.setEnabled(false);
             helper.reject.setEnabled(false);
             helper.forward.setEnabled(false);

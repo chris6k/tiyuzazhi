@@ -39,7 +39,7 @@ public class ArticleMenu implements Serializable {
             keyword = jsonObject.getString("keyword");
         }
         if (jsonObject.has("attachment")) {
-            attachment = TiHttp.HOST + "/" + jsonObject.getString("attachment");
+            attachment = TiHttp.ATTACHMENT_URL + jsonObject.getString("attachment");
         }
     }
 

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.Html;
 import android.view.*;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -302,7 +303,7 @@ public class MagazineActivity extends Activity {
             final ArticleMenu articleMenu = (ArticleMenu) getItem(i);
             helper.title.setText(articleMenu.getTitle());
             helper.author.setText("作者:" + articleMenu.getAuthor());
-            helper.keyword.setText("关键字:" + articleMenu.getKeyword());
+            helper.keyword.setText(Html.fromHtml("关键字:" + articleMenu.getKeyword()));
             return view;
         }
     }

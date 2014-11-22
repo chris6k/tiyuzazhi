@@ -1,6 +1,8 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -32,6 +34,7 @@ public class ArticleSummaryActivity extends Activity {
     private View buttonOk;
     private View buttonReject;
     private ExaminingArticle examiningArticle;
+    private View pdfdownload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +56,11 @@ public class ArticleSummaryActivity extends Activity {
         summary = (WebView) findViewById(R.id.summary);
         buttonOk = findViewById(R.id.buttonOkText);
         buttonReject = findViewById(R.id.buttonRejectText);
-
+        pdfdownload = findViewById(R.id.pdfdownload);
+        pdfdownload.setVisibility(View.INVISIBLE);
+        //TODO
+        buttonOk.setEnabled(false);
+        buttonReject.setEnabled(false);
         init();
     }
 
