@@ -65,7 +65,7 @@ public class EditorActivity extends Activity {
                 finish();
             }
         });
-        TextView textView = new TextView(EditorActivity.this);
+        final TextView textView = new TextView(EditorActivity.this);
         textView.setLayoutParams(new AbsListView.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         textView.setPadding(10, 10, 10, 10);
         textView.setText("点击载入更多");
@@ -74,6 +74,7 @@ public class EditorActivity extends Activity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ToastUtils.show("数据载入中，请稍候...");
                 init(articles.size(), step, orderByDateAsc);
             }
         });

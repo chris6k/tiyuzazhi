@@ -28,8 +28,8 @@ import java.util.concurrent.Future;
  *         http client
  */
 public class TiHttp {
-    public static final String HOST = "http://www.cisszgty.cn:8000/tiyuzazhi/api";
-//    public static final String HOST = "http://192.168.10.103:8000/tiyuzazhi/api";
+//    public static final String HOST = "http://www.cisszgty.cn:8000/tiyuzazhi/api";
+    public static final String HOST = "http://192.168.10.103:8000/tiyuzazhi/api";
     public static final String ATTACHMENT_URL = "http://www.cisszgty.cn:85/v2/article.do?op=download&id=";
 
     private static ExecutorService service = Executors.newSingleThreadExecutor();

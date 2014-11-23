@@ -11,6 +11,7 @@ public class DatetimeUtils {
     private static long MILLS_OF_DAY = 3600 * 1000 * 24;
     private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
     private static final SimpleDateFormat formatter2 = new SimpleDateFormat("yyyy/MM/dd");
+    private static final SimpleDateFormat formatter3 = new SimpleDateFormat("yyyy");
 
     public static synchronized String format(Date date) {
         if (date == null) return "";
@@ -20,6 +21,11 @@ public class DatetimeUtils {
     public static synchronized String format2(Date date) {
         if (date == null) return "";
         return formatter2.format(date);
+    }
+
+    public static synchronized String format3(Date date) {
+        if (date == null) return "";
+        return formatter3.format(date);
     }
 
     public static synchronized int getDuringDay(Date start, Date end) {
