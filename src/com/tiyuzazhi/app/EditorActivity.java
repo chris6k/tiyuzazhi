@@ -39,7 +39,7 @@ public class EditorActivity extends Activity {
     private View filter;
     private ImageView filterOrder;
     private Spinner spinner;
-    private volatile boolean orderByDateDesc = true;
+    private volatile boolean orderByDateAsc = false;
     private volatile List<ExaminingArticle> articles = new ArrayList<ExaminingArticle>();
     private int step;
     private String stepName;
@@ -74,7 +74,7 @@ public class EditorActivity extends Activity {
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                init(articles.size(), step, orderByDateDesc);
+                init(articles.size(), step, orderByDateAsc);
             }
         });
         articleListView = (ListView) findViewById(R.id.articleList);
@@ -89,7 +89,7 @@ public class EditorActivity extends Activity {
         dateDayOrder = (ImageView) findViewById(R.id.dateDayOrder);
         filter = findViewById(R.id.filter);
         spinner = (Spinner) findViewById(R.id.cateSpinner);
-        if (orderByDateDesc) {
+        if (orderByDateAsc) {
             dateDayOrder.setImageResource(R.drawable.close_xhdpi);
         } else {
             dateDayOrder.setImageResource(R.drawable.open_xhdpi);
@@ -147,10 +147,10 @@ public class EditorActivity extends Activity {
             public void onClick(View v) {
                 if (opLock.compareAndSet(false, true)) {
                     try {
-                        reorderByDateDay(orderByDateDesc);
+                        reorderByDateDay(orderByDateAsc);
                         adaptor.notifyDataSetChanged();
-                        orderByDateDesc = !orderByDateDesc;
-                        if (orderByDateDesc) {
+                        orderByDateAsc = !orderByDateAsc;
+                        if (orderByDateAsc) {
                             dateDayOrder.setImageResource(R.drawable.close_xhdpi);
                         } else {
                             dateDayOrder.setImageResource(R.drawable.open_xhdpi);
@@ -187,7 +187,7 @@ public class EditorActivity extends Activity {
             }
         };
         bindService(new Intent(EditorActivity.this, CheckNotifyService.class), sc, Context.BIND_AUTO_CREATE);
-        init(offset, step, orderByDateDesc);
+        init(offset, step, orderByDateAsc);
     }
 
     private void init(final int offset, final int step, final boolean asc) {
@@ -238,7 +238,7 @@ public class EditorActivity extends Activity {
     private void filterByStatus(int step) {
         this.offset = 0;
         this.step = step;
-        init(offset, step, orderByDateDesc);
+        init(offset, step, orderByDateAsc);
     }
 
     @Override
@@ -313,7 +313,7 @@ public class EditorActivity extends Activity {
 //                                                       if (ArticleApi.passExamine(article)) {
 //                                                           ToastUtils.show("操作成功");
 //                                                           dismiss();
-//                                                           init(offset, step, orderByDateDesc);
+//                                                           init(offset, step, orderByDateAsc);
 //                                                       } else {
 //                                                           ToastUtils.show("操作失败");
 //                                                       }
@@ -353,7 +353,7 @@ public class EditorActivity extends Activity {
 //                                                       if (ArticleApi.rejectExamine(article)) {
 //                                                           ToastUtils.show("操作成功");
 //                                                           dismiss();
-//                                                           init(offset, step, orderByDateDesc);
+//                                                           init(offset, step, orderByDateAsc);
 //                                                       } else {
 //                                                           ToastUtils.show("操作失败");
 //                                                       }
