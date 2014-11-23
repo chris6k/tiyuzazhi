@@ -108,9 +108,9 @@ public class NoticeActivity extends Activity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             AdaptorHelper helper;
+            int color = getResources().getColor(R.color.white);
             if (view == null || view.getTag() == null) {
                 view = new MagazineItem(NoticeActivity.this);
-                int color = getResources().getColor(R.color.white);
                 if ((i + 1) % 2 == 0) {
                     color = Color.parseColor("#f5f5f5");
                 }
@@ -118,13 +118,19 @@ public class NoticeActivity extends Activity {
                 helper = new AdaptorHelper();
                 helper.title = (TextView) view.findViewById(R.id.title);
                 helper.author = (TextView) view.findViewById(R.id.author);
+                helper.keyword = view.findViewById(R.id.keyword);
                 view.setTag(helper);
             } else {
                 helper = (AdaptorHelper) view.getTag();
+                if ((i + 1) % 2 == 0) {
+                    color = Color.parseColor("#f5f5f5");
+                }
+                ((MagazineItem) view).setBaseColor(color);
             }
             final Notice notice = (Notice) getItem(i);
             helper.title.setText(notice.getTitle());
             helper.author.setVisibility(View.GONE);
+            helper.keyword.setVisibility(View.GONE);
             return view;
         }
     }
@@ -132,5 +138,6 @@ public class NoticeActivity extends Activity {
     private class AdaptorHelper {
         private TextView title;
         private TextView author;
+        private View keyword;
     }
 }

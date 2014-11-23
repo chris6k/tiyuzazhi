@@ -61,7 +61,7 @@ public class CheckNotifyService extends Service {
                     //构建一个通知对象(需要传递的参数有三个,分别是图标,标题和 时间)
                     Notification notification = new Notification();
 //                    R.drawable.ic_launcher,"通知",System.currentTimeMillis()
-                    notification.icon = R.drawable.ic_launcher;
+                    notification.icon = R.drawable.avantar;
                     notification.tickerText = "你有新的通知";
                     Intent intent = new Intent(CheckNotifyService.this, HomeActivity.class);
                     PendingIntent pendingIntent = PendingIntent.getActivity(CheckNotifyService.this, 0, intent, 0);
@@ -85,12 +85,12 @@ public class CheckNotifyService extends Service {
                 for (Magazine magazine : currMags) {
                     magId = LocalUtils.get(magazine.getTitle(), 0);
                     if (magId < magazine.getId()) {
-                        LocalUtils.put(magazine.getTitle(), magId);
+                        LocalUtils.put(magazine.getTitle(), magazine.getId());
                         //获得通知管理器
                         //构建一个通知对象(需要传递的参数有三个,分别是图标,标题和 时间)
                         Notification notification = new Notification();
 //                    R.drawable.ic_launcher,"通知",System.currentTimeMillis()
-                        notification.icon = R.drawable.ic_launcher;
+                        notification.icon = R.drawable.avantar;
                         notification.tickerText = "《" + magazine.getTitle() + "》" +
                                 DatetimeUtils.format3(magazine.getPublishTime()) + "年" + magazine.getPublishNo();
                         Intent intent = new Intent(CheckNotifyService.this, HomeActivity.class);
