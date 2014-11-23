@@ -1,6 +1,7 @@
 package com.tiyuzazhi.app;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -131,6 +132,14 @@ public class NoticeActivity extends Activity {
             helper.title.setText(notice.getTitle());
             helper.author.setVisibility(View.GONE);
             helper.keyword.setVisibility(View.GONE);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(NoticeActivity.this, NoticeSummaryActivity.class);
+                    intent.putExtra("notice", notice);
+                    startActivity(intent);
+                }
+            });
             return view;
         }
     }
