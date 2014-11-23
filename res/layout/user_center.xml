@@ -73,7 +73,7 @@
                     android:id="@+id/name"
                     android:textSize="18sp"
                     android:textColor="#2d3538"
-                    android:text="鲁良兵"
+                    android:text=""
                     android:layout_marginBottom="10dp"
                     android:textStyle="bold"
                     android:layout_width="fill_parent"
@@ -83,7 +83,7 @@
                     android:id="@+id/company"
                     android:textSize="12sp"
                     android:textColor="#464646"
-                    android:text="南京师范大学"
+                    android:text=""
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"/>
 
@@ -91,7 +91,7 @@
                     android:id="@+id/address"
                     android:textSize="12sp"
                     android:textColor="#464646"
-                    android:text="上海市普陀区光复西路110号"
+                    android:text=""
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"/>
         </LinearLayout>

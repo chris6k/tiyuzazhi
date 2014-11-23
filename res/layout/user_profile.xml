@@ -95,7 +95,7 @@
 
             <TextView
                     android:id="@+id/email"
-                    android:text="aaa@aaa.com"
+                    android:text=""
                     android:layout_marginRight="10dp"
                     android:gravity="center_vertical"
                     android:textSize="18sp"
@@ -133,7 +133,7 @@
 
             <TextView
                     android:id="@+id/company"
-                    android:text="浙江大学"
+                    android:text=""
                     android:layout_marginRight="10dp"
                     android:gravity="center_vertical"
                     android:textSize="18sp"
@@ -171,7 +171,7 @@
 
             <TextView
                     android:id="@+id/mobile"
-                    android:text="未设置"
+                    android:text=""
                     android:layout_marginRight="10dp"
                     android:gravity="center_vertical"
                     android:textSize="18sp"
