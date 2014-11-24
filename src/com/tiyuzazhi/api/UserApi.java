@@ -13,6 +13,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -246,24 +247,25 @@ public class UserApi {
 
     }
 
-    public static boolean checkNotify() {
+    public static JSONArray checkNotify() {
         int userId = LocalUtils.get(KEY_USER_ID, 0);
-        if (userId == 0) return false;
-        HttpPost post = new HttpPost(USER_MAIL_COUNT_ENDPOINT);
-        List<BasicNameValuePair> nameValuePairs = new ArrayList<BasicNameValuePair>(2);
-        nameValuePairs.add(new BasicNameValuePair("uid", String.valueOf(userId)));
+        if (userId == 0) return null;
         try {
-            UrlEncodedFormEntity encodedFormEntity = new UrlEncodedFormEntity(nameValuePairs, "utf-8");
-            post.setEntity(encodedFormEntity);
-            HttpResponse res = TiHttp.getInstance().send(post).get(1, TimeUnit.MINUTES);
+            int lastId = LocalUtils.get(KEY_LAST_MAIL_ID, 0);
+            HttpGet httpGet = new HttpGet(USER_MAIL_COUNT_ENDPOINT + "?uid=" + String.valueOf(userId) + "&lastId=" + lastId);
+            HttpResponse res = TiHttp.getInstance().send(httpGet).get(1, TimeUnit.MINUTES);
             if (res.getStatusLine().getStatusCode() == 200) {
                 String content = EntityUtils.toString(res.getEntity());
                 JSONObject jsonObject = new JSONObject(content);
                 if (jsonObject.getBoolean("result")) {
-                    JSONObject obj = jsonObject.getJSONObject("data");
-                    if (obj.has("mailId") && obj.getInt("mailId") > LocalUtils.get(KEY_LAST_MAIL_ID, 0)) {
-                        LocalUtils.put(KEY_LAST_MAIL_ID, obj.getInt("mailId"));
-                        return true;
+                    JSONArray array = jsonObject.getJSONArray("data");
+                    if (array.length() > 0) {
+                        JSONObject obj = array.getJSONObject(0);
+                        if (obj.has("mailId") && obj.getInt("mailId") > LocalUtils.get(KEY_LAST_MAIL_ID, 0)) {
+                            LocalUtils.put(KEY_LAST_MAIL_ID, obj.getInt("mailId"));
+                            return array;
+                        }
+                        return null;
                     }
                 }
             }
@@ -273,6 +275,6 @@ public class UserApi {
             Log.e("UserApi", "Exception", e);
             ToastUtils.show("发生异常，请稍候再试");
         }
-        return false;
+        return null;
     }
 }
