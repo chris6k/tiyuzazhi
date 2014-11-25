@@ -294,7 +294,7 @@ public class EditorActivity extends Activity {
                 }
             });
             helper.draftNo.setText(article.getDraftNo());
-            helper.dateDay.setText(DatetimeUtils.format(article.getExamineStart()));
+            helper.dateDay.setText(DatetimeUtils.format(article.getSubmitDate()));
             helper.opName.setText(article.getOpName());
             helper.ok.setEnabled(false);
             helper.reject.setEnabled(false);
