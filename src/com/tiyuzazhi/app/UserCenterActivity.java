@@ -139,7 +139,7 @@ public class UserCenterActivity extends Activity {
 
     private void init() {
         if (UserApi.loginRole() == 0) {
-            icon.setImageDrawable(getResources().getDrawable(R.drawable.unlogin));
+            icon.setImageDrawable(getResources().getDrawable(R.drawable.header));
             unloginPanel.setVisibility(View.VISIBLE);
             userInfoPanel.setVisibility(View.GONE);
             myFav.setVisibility(View.GONE);
@@ -173,7 +173,7 @@ public class UserCenterActivity extends Activity {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
-
+                            if (user == null) return;
                             name.setText(user.getName());
                             userInfoPanel.setOnClickListener(new View.OnClickListener() {
                                 @Override
